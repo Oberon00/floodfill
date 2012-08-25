@@ -1,0 +1,10 @@
+# Binaries
+*.dll
+*.exe
+
+# Vim
+*.swp
+
+# Misc
+_vld_memleaks.log
+
