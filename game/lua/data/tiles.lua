@@ -20,7 +20,7 @@ local function negate(sides)
 			result[#result + 1] = dir
 		end
 	end
-	ng 'n' ng 'e' ng 's' 'w'
+	ng 'n' ng 'e' ng 's' ng 'w'
 end
 
 local function l(sides) -- lever

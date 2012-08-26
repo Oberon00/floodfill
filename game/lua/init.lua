@@ -1,19 +1,20 @@
--- Create/require names which every module can assume to be loaded
+-- Create names which every module can assume to be loaded
 -- (except configuration.lua)
 
+-- jd.svc.foo() -> jd.foo
 local function e(n) jd[n] = jd.svc[n]() end
 e 'mainloop'
 e 'stateManager'
 e 'drawService'
 e 'eventDispatcher'
-e 'entityRoot'
-e 'collisionManager'
 e 'timer'
 e = nil
 
 -- make pseudo keywords available
 require 'oo' -- lclass
 require 'compsys' -- component
+
+--------
 
 local evt = require 'evt'
 
@@ -22,7 +23,7 @@ jd.drawService.backgroundColor =
 
 evt.connectForever(jd.mainloop, 'quitting', function()
 	jd.log.i "Quitting."
-	jd.entityRoot:tidy()
+	-- avoid warnings
 	jd.Image.releaseAll()
 	jd.Texture.releaseAll()
 end)
@@ -38,5 +39,6 @@ evt.connectForever(jd.eventDispatcher, 'closed', function()
 end)
 
 jd.stateManager:push(jd.conf.misc.initialState)
-
 collectgarbage()
+
+-- jd will start the Mainloop automatically

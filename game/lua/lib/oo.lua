@@ -50,6 +50,9 @@ function M.cppclass(name, env, super)
 	if env ~= _G then
 		env[name], _G[name] = classobj, oldval
 	end
+	function classobj:__init()
+		super.__init(self)
+	end
 	return classobj
 end
 
