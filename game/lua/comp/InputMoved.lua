@@ -1,4 +1,4 @@
-component 'InputMovedComponent'
+local C = component 'InputMovedComponent'
 
 local possibleDirections = {
     [jd.kb.LEFT]  = jd.Vec2(-1,  0),
@@ -7,7 +7,7 @@ local possibleDirections = {
     [jd.kb.DOWN]  = jd.Vec2( 0,  1)
 }
 
-function InputMovedComponent:initComponent()
+function C:initComponent()
 	self.pos = self.parent:require 'PositionComponent'
 	self.evts:connect(jd.mainloop, "update", function()
 		local direction = jd.Vec2()
@@ -20,4 +20,4 @@ function InputMovedComponent:initComponent()
 	end)
 end
 
-return InputMovedComponent
+return C
