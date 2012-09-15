@@ -2,6 +2,7 @@ local compsys = require 'compsys'
 require 'comp.InputMoved'
 require 'comp.Graphic'
 local oo = require 'oo'
+local loadMap = (require 'maploader').loadMap
 
 oo.cppclass('Game', jd.State)
 
@@ -14,7 +15,7 @@ local Player = compsys.entity {
 function Game:prepare()
 	local maplayer = jd.drawService:layer(2)
 	self.tilemap = jd.Tilemap(maplayer.group)
-	self.tilemap:loadFromFile "maps/level1.tmx"
+	self.world = loadMap(self.tilemap, "level1")
 	maplayer.view.rect = self.tilemap.bounds
 end
 
