@@ -1,22 +1,33 @@
 local T = require 'Tile'
-local Lock = require 'Lock'
-local Fount = require 'Fount'
-local LowBridge = require 'LowBridge'
 
 local tiles = {
     --               enter   leave
-	-- name      = T('nesw', 'nesw', replObj  )
-	lock_open    = T('',     '',     nil      )
-	fount        = T('nesw', 'nesw', Fount    )
-	bridge_h     = T('ew',   nil,    nil      )
-    bridge_low_h = T('ew',   nil,    LowBridge)
-	bridge_v     = T('ns',   nil,    nil      )
+	-- name      = T('nesw', 'nesw', replObj  ),
+	lock_open    = T('nesw', nil,    nil      ),
+	fount        = T('nesw', nil,    nil      ), --?
+	bridge_h     = T('ew',   nil,    nil      ),
+    bridge_low_h = T('ew',   nil,    LowBridge),
+	bridge_low_v = T('ns',   nil,    LowBridge),
+	bridge_v     = T('ns',   nil,    nil      ),
+	lever        = T('',     nil,    Lever    ),
+    water_ground_rough = T('', nil,  nil      ),
+	water        = T('',     nil,    nil      ),
+	goal         = T('nesw', nil,    Goal     ),
+	ground       = T('nesw', nil,    nil      ),
+	player       = T('',     nil,    Player   ),
+	water_ground = T('nesw', nil,    nil      ),
+	barrage      = T('',     nil,    nil      )
 }
+
+setmetatable(tiles, {__index = function(t, name)
+	local lname, hasLname = T.logicalName(name)
+	return hasLname and rawget(t, lname) or nil
+end})
 
 local function negate(sides)
 	result = { }
 	local function ng(dir)
-		if not sides:find(dir, 1 true) then
+		if not sides:find(dir, 1, true) then
 			result[#result + 1] = dir
 		end
 	end
