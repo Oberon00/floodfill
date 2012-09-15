@@ -42,7 +42,7 @@ function M.component(name, env)
 		util.callopt(self.cleanup, self)
 	end
 	
-	return classobj;
+	return classobj
 end
 
 

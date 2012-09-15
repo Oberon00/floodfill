@@ -26,21 +26,45 @@ function M.forward(fn, args)
 	return fn(args)
 end
 
---[[ -- dont't use: deprecated
-package.datapath = package.datapath or "res/lua/?.lua;res/lua/?.luac"
+function M.id(...)
+	return ...
+end
 
-local function daterr(op, result, err)
-	if result == nil then
-		error("Could not " .. op .. " datafile: " .. err)
+function M.rawtostring(o)
+	local mt = getmetatable(o)
+	if not mt then
+		return tostring(o)
 	end
-	assert(err == nil, "both result and err non-nil")
-	return result
+	if mt.__tostring and type(o) ~= 'table' then
+		error "cannot get raw string representation: "
+		      "cannot remove __tostring from metatable"
+	end
+	local tos = mt.__tostring
+	mt.__tostring = nil
+	s = tostring(o)
+	mt.__tostring = tos
+	return s
 end
 
-function M.loaddatafile(name)
-	local chunk = daterr("load", loadfile(
-		daterr("find", package.searchpath(name, package.datapath))))
-	return chunk()
+function M.fail()
+	error "invalid function"
 end
---]]
+
+function M.failMsg(msg)
+	return msg and function()
+		error(msg)
+	end or M.fail
+end
+
+function M.isCallable(f)
+	if type(f) == 'function' then
+		return true
+	end
+	local mt = getmetatable(f)
+	if mt then
+		return mt._call and M.isCallable(mt.__call) or false
+	end
+	return false
+end
+
 return M

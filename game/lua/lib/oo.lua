@@ -2,6 +2,8 @@
 	module oo (object orientation)
 --]]
 
+local util = require 'util'
+
 local M = { }
 
 local function construct(cls, ...)
@@ -15,23 +17,46 @@ local function construct(cls, ...)
 	return self, table.unpack(cret)
 end
 
+local id = debug.id or util.rawtostring
+
+function M.objectToString(obj)
+	local name = getmetatable(o).clsName
+	if not name then
+		return "Object: " .. id(obj)
+	end
+	return name .. ": " .. id(obj) 
+end
+
+function M.classToString(cls)
+	return "class: " .. cls.clsName or id(cls)
+end
+
 -- class([name, [env]], [super])
 -- class([super])
+-- use an empty table as [env] to create a named class without exporting it
 function M.class(name, env, super)
 	env = env or _ENV
 	if name and not super and type(name) ~= 'string' then
 		super, name = name, nil
 	end
-	local cls = {super = super, clsName = name}
+	local cls = {super = super, clsName = name, __tostring = objectToString}
 	cls.__index = cls
-	setmetatable(cls, {__index = super, __call = construct})
-	if name  and env then
+	setmetatable(cls, {
+		__index = super,
+		__call = construct,
+		__tostring = classToString
+	})
+	if name and env then
 		env[name] = cls
 	end
 	return cls
 end
 
+M.NIL_ENV = { }
+
 M.lclass = M.class -- alias for consistence with pseudo keyword
+
+M.mustOverride = util.failMsg "must override this method"
 
 -- cppclass(name, [env], super)
 function M.cppclass(name, env, super)

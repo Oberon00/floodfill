@@ -29,7 +29,7 @@ function mergeConflict.deepmerge(dst, t, k)
 	local depth = 1
 	local function deepmerge2(dst, t, k)
 		if (depth > M.DEEPMERGE_MAXDEPTH) then
-			error (("deepmerge: DEEPMERGE_MAXDEPTH %i exceeded").format(
+			error (("deepmerge: DEEPMERGE_MAXDEPTH (%i) exceeded").format(
 				M.DEEPMERGE_MAXDEPTH))
 		end
 		depth = depth + 1
@@ -50,7 +50,11 @@ function M.merge(dst, t, conflict)
 		mergeConflict[conflict] or conflict or mergeConflict.error
 	for k, v in pairs(t) do
 		oldv = dst[k]
-		dst[k] = oldv == nil and v or conflict(dst, t, k)
+		if oldv == nil then
+			dst[k] = v
+		else
+			dst[k] = conflict(dst, t, k)
+		end
 	end
 	return dst
 end
@@ -106,6 +110,43 @@ function M.fromJdContainer(cnt)
 		return fromJdTable(cnt)
 	end
 	return fromJdSequence(cnt)
+end
+
+function M.copy(t)
+	local result = { }
+	for k, v in pairs(t) do
+		result[k] = v
+	end
+	return result
+end
+
+function M.deepCopy(t, cpkeys, udatacp, _cp, _done)
+	udatacp = udatacp or util.id
+	_done = _done or { }
+	_cp = _cp or function(x)
+		local tx = type(x)
+		if tx == 'userdata' then
+			if not _done[x] then
+				x = udatacp(x)
+				_done[x] = true
+			end
+		elseif tx == 'table' then
+			if not _done[x] then
+				x = M.deepCopy(x, cpkeys, udatacp, _cp)
+				_done[x] = true
+			end
+		end
+		return x
+	end
+	local result = { }
+	setmetatable(result, getmetatable(t))
+	for k, v in pairs(t) do
+		if cpkeys then
+			k = _cp(k)
+		end
+		result[k] = _cp(v)
+	end
+	return result
 end
 
 return M
