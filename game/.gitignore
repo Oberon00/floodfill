@@ -5,6 +5,9 @@
 # Vim
 *.swp
 
+#Notepad++
+nppBackup/
+
 # Misc
 _vld_memleaks.log
 
