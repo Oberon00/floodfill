@@ -1,10 +1,17 @@
-component 'CollisionInfoComponent'
+local C = component 'CollisionInfoComponent'
 
-local Cic = CollisionInfoComponent
+local util = require 'util'
 
--- override this function to fit your needs
-function Cic:canEnter(entity)
-	return true
+function C:init(tile)
+	self.tile = tile
 end
 
-return Cic
+function C:canEnter(entity, dir, from, to)
+	return self.tile.enterable[dir]
+end
+
+function C:canLeave(entity, dir, from, to)
+	return self.tile.leaveable[dir]
+end
+
+return C
