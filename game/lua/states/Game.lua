@@ -1,16 +1,7 @@
-local compsys = require 'compsys'
-require 'comp.InputMoved'
-require 'comp.Graphic'
 local oo = require 'oo'
 local loadMap = (require 'maploader').loadMap
 
 oo.cppclass('Game', jd.State)
-
-local Player = compsys.entity {
-	jd.PositionComponent,
-	InputMovedComponent,
-	GraphicComponent
-}
 
 function Game:prepare()
 	local maplayer = jd.drawService:layer(2)
@@ -20,7 +11,8 @@ function Game:prepare()
 end
 
 function Game:stop()
-
+	self.tilemap = nil
+	self.world = nil
 end
 
 _G.states = _G.states or { }
