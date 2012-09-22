@@ -97,8 +97,8 @@ end
 					any additional arguments passed to M.entity
 --]]
 function M.entity(components, setupfn)
-	return function(parent, initargs, ...) -- component constructor
-		entity = jd.Entity(parent)
+	return function(initargs, ...) -- component constructor
+		local entity = jd.Entity()
 		
 		-- Create all "default" components for this entity:
 		for component, args in pairs(components) do
