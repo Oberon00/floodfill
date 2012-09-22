@@ -22,6 +22,9 @@
    eJxjYBgF9AJcA+2AUTAKRsEoGGDANtAOGAIAAEwoABE=
   </data>
  </layer>
+ <objectgroup name="objects" width="27" height="18">
+  <object type="Player" gid="31" x="544" y="36"/>
+ </objectgroup>
  <objectgroup name="connections" width="27" height="18">
   <object x="332" y="117">
    <polyline points="0,0 0,29"/>
