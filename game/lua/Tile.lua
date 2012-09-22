@@ -46,12 +46,13 @@ end
 function C:__call(group, name, id, map) -- create proxy entity
 	local entity = jd.Entity()
 	local tcinfo = jd.TileCollisionComponent(entity)
-	local cinfo = CollisionInfoComponent(entity)
+	local cinfo = CollisionInfoComponent(entity, self)
 	entity:finish()
 	return entity, tcinfo, cinfo
 end
 
 function C.logicalName(name)
+ -- split at '#', when only digits are after it
 	local result = name:match("([^#]+)#%d+")
 	return result, result ~= nil
 end
