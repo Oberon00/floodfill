@@ -33,6 +33,7 @@ function M.component(name, env)
 	
 	function classobj:__init(parent, ...)
 		jd.Component.__init(self, parent, name)
+		self:_bindLuaPart()
 		self.evts = evt.Table()
 		util.callopt(self.init, self, ...)
 	end
