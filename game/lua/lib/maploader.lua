@@ -73,8 +73,8 @@ local function createObject(objectInfo, layerInfo, mapdata)
 	return Entity.load(objectInfo, layerInfo, mapdata)
 end
 
-local function substituteObject(name, id, position, map)
-	return tiledata[name].substitute(name, id, map, position)
+local function substituteObject(name, id, position, map, collider)
+	return tiledata[name].substitute(name, id, map, position, collider)
 end
 
 local function findTileIdMapping(props)
@@ -99,7 +99,7 @@ local function setupProxies(tileMapping, collider)
 			jd.log.w(("No data for tile '%s' (#%i) available")
 				:format(tname, tid))
 		elseif not tile.isPlaceholder then
-			local entity, collisionProxy = createTile(
+			local entity, proxy = createTile(
 				tname, tid, collider.tilemap)
 			collider:setProxy(tid, proxy)
 			proxies[tname] = entity
@@ -149,7 +149,8 @@ local function substituteObjects(tileMapping, collider)
 				if tname then
 					local tile = tiledata[tname]
 					if tile and tile.isPlaceholder then
-						local obj = substituteObject(tid, tname, position, map)
+						local obj = substituteObject(
+							tid, tname, position, map, collider)
 						if obj then -- skip nil
 							objects[i] = obj
 							i = i + 1
@@ -169,12 +170,17 @@ function M.loadMap(map, name)
 		map = map,
 		name = name,
 		tileProxyCollider = tileProxyCollider,
-		tileMapping = findTileIdMapping(props.tileProperties)
+		tileMapping = findTileIdMapping(props.tileProperties),
+		postLoad = { }
 	}
 	result.tileProxies = setupProxies(result.tileMapping, tileProxyCollider)
 	result.substituteObjects = substituteObjects(
 		result.tileMapping, tileProxyCollider)
 	result.mapObjects = setupObjects(props, result)
+	for _, postLoadCallback in ipairs(result.postLoad) do
+		postLoadCallback(result)
+	end
+	result.postLoad = nil
 	return result
 end
 
