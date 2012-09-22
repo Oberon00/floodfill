@@ -149,4 +149,10 @@ function M.deepCopy(t, cpkeys, udatacp, _cp, _done)
 	return result
 end
 
+function M.clear(t, v)
+	for k, _ in pairs(t) do
+		t[k] = v
+	end
+end
+
 return M
