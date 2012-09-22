@@ -19,8 +19,15 @@ function M.load(info, layerInfo, data)
 	pos.rect = jd.Rect(info.position, PLAYER_SIZE)
 	CollisionInfoComponent(entity, tile)
 	GraphicComponent(entity, sprite)
-	InputMovedComponent(entity)
-	entity:finish()
+	table.insert(data.postLoad, function(data)
+		local cgg = jd.CollideableGroupGroup()
+		cgg:add(data.tileProxyCollider)
+		InputMovedComponent(entity, function(r)
+			print(r)
+			return cgg:colliding(r, jd.NIL_ENTITY)
+		end)
+		entity:finish()
+	end)
 	return entity
 end
 
