@@ -1,7 +1,7 @@
 local oo = require 'oo'
 local util = require 'util'
 local tabutil = require 'tabutil'
-local CollisionInfoComponent = require 'comp.CollisionInfo'
+require 'comp.CollisionInfo'
 
 local C = lclass('Tile', oo.NIL_ENV)
 
@@ -45,10 +45,10 @@ end
 
 function C:__call(group, name, id, map) -- create proxy entity
 	local entity = jd.Entity()
-	return
-		entity,
-		jd.TileCollisionComponent(entity),
-		CollisionInfoComponent(entity)
+	local tcinfo = jd.TileCollisionComponent(entity)
+	local cinfo = CollisionInfoComponent(entity)
+	entity:finish()
+	return entity, tcinfo, cinfo
 end
 
 function C.logicalName(name)
