@@ -124,6 +124,15 @@ function M.entity(components, setupfn)
 	end -- return function ...
 end -- function M.entity(...)
 
+function M.singletonEntity(Component)
+	return function(...)
+		local entity = jd.Entity()
+		local component = Component(entity, ...)
+		entity:finish()
+		return entity, component
+	end
+end
+
 if not COMPSYS_NO_KEYWORDS then
 	tabutil.copyEntry(_G, 'component', M)
 end
