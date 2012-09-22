@@ -34,16 +34,16 @@
 	    If this is neccessary, it's the responsibility of the ctor.
 	 5. A table of the following form is returned:
 	    {
-			map: jd.Tilemap = the map passed as arg#1, loaded
-			name: string = arg#2
-			collisionManager: jd.CollisionManager =
-				the CollisionManager passed as [arg#3] or a new one
-			tileProxies: table = {name = proxy: jd.Entity}
-			substituteObjects: table = {sequence: jd.Entity}
-			tileProxyCollider: jd.TileCollideableGroup
-			mapObjects: table = {groupname = {sequence: jd.Entity}}
-			objectCollider: jd.RectCollideableGroup
-			tileMapping: table = {byName = {name = id}, byId = {id = name}}
+			map = the jd.Tilemap passed as arg#1, loaded
+			name = arg#2: string
+			collisionManager =
+				the jd.CollisionManager passed as [arg#3] or a new one
+			tileProxies = {name = proxy: jd.Entity}
+			substituteObjects = {sequence: jd.Entity}
+			tileProxyCollider =  jd.TileCollideableGroup
+			mapObjects = {groupname = {sequence: jd.Entity}}
+			objectColliders = {groupname or # = jd.RectCollideableGroup}
+			tileMapping = {byName = {name = id}, byId = {id = name}}
 	    }
 --]]
 
@@ -66,15 +66,15 @@ local function createTile(name, id, map)
 end
 
 local function createObject(objectInfo, layerInfo, mapdata)
-	if objectInfo.type == "" then
+	if objectInfo.type == '' then
 		return nil
 	end
-	local Entity = require 'entity.' .. objectInfo.type
+	local Entity = require('entity.' .. objectInfo.type)
 	return Entity.load(objectInfo, layerInfo, mapdata)
 end
 
 local function substituteObject(name, id, position, map)
-	return tiledata[name].substitute(id, position, map)
+	return tiledata[name].substitute(name, id, map, position)
 end
 
 local function findTileIdMapping(props)
@@ -109,15 +109,27 @@ local function setupProxies(tileMapping, collider)
 end
 
 local function setupObjects(props, mapdata)
+	mapdata.objectColliders = { }
 	local objects = { }
 	local groups = props.objectGroups
 	for kv in groups:iter() do
 		local groupInfo = kv.value
 		local group = { }
-		objects[groupInfo.name or #objects + 1] = group
+		local hasName = groupInfo.name ~= ''
+		local groupId = hasName and groupInfo.name or #objects + 1
+		objects[groupId] = group
+		local collider = jd.RectCollideableGroup()
+		mapdata.objectColliders[groupId] = collider
 		for i = 1, groupInfo.objects.count do
 			local objectInfo = groupInfo.objects:get(i)
-			group[i] = createObject(objectInfo, groupInfo, mapdata)
+			local obj = createObject(objectInfo, groupInfo, mapdata)
+			if obj then
+				group[i] = obj
+				local objPos = obj:component 'PositionComponent'
+				if objPos then
+					collider:add(objPos)
+				end -- if objPos
+			end -- if obj
 		end -- for each object in layer
 	end -- for each layer
 	return objects
@@ -150,19 +162,13 @@ local function substituteObjects(tileMapping, collider)
 	return objects
 end
 	
-function M.loadMap(map, name, collisionMangager)
-	collisionManager = collisionManager or jd.CollisionManager()
-	local tileProxyCollider = jd.TileCollideableGroup(
-		collisionManager, 'tileProxies', map)
-	local objectCollider = jd.RectCollideableGroup(
-		collisionManager, 'mapObjects')
+function M.loadMap(map, name)
+	local tileProxyCollider = jd.TileCollideableGroup(map)
 	local props = map:loadFromFile(mapFile(name))
 	local result = {
 		map = map,
 		name = name,
-		collisionManager = collisionManager,
 		tileProxyCollider = tileProxyCollider,
-		objectCollider = objectCollider,
 		tileMapping = findTileIdMapping(props.tileProperties)
 	}
 	result.tileProxies = setupProxies(result.tileMapping, tileProxyCollider)
