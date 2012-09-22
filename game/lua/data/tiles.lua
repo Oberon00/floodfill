@@ -14,7 +14,7 @@ local tiles = {
 	water        = T('',     nil,    nil      ),
 	goal         = T('nesw', nil,    Goal     ),
 	ground       = T('nesw', nil,    nil      ),
-	player       = T('',     nil,    Player   ),
+	player       = T('',     nil,    nil      ),
 	water_ground = T('nesw', nil,    nil      ),
 	barrage      = T('',     nil,    nil      )
 }
@@ -42,4 +42,5 @@ l 'n' l 'e' l 's' l 'w' --4x1
 l 'ne' l 'ns' l 'nw' l 'es' l 'ew' l 'se' l 'sw' l 'ew' -- 8x2
 l 'nes' l 'new' l 'nsw' l 'esw' -- 4x3
 l 'nesw' -- 1x4
+
 return tiles
