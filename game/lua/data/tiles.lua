@@ -43,4 +43,8 @@ l 'ne' l 'ns' l 'nw' l 'es' l 'ew' l 'se' l 'sw' l 'ew' -- 8x2
 l 'nes' l 'new' l 'nsw' l 'esw' -- 4x3
 l 'nesw' -- 1x4
 
+for k, v in pairs(tiles) do
+	v.name = k
+end
+
 return tiles
