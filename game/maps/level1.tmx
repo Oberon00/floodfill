@@ -4,12 +4,12 @@
  <tileset firstgid="1" source="set.tsx"/>
  <layer name="water-ground" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxTZGBgUBzFo3gUj+JRPIpH8aDAAHEePqc=
+   eJxTYmBgUCICKxKpjlKsSGe78LmBmm7BZg66+dS0CxumtR8HW/wOlH2kxA0t/IXNfELpgdzwI8YcXOmRVDcNpngcynaRE/a49NPSv9QoG8lJe+SGDTXTAgCD/EA0
   </data>
  </layer>
  <layer name="water" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJzVkTEOACAIAxl8iPH/j3TRhSBWUFSSbtArUIioAEpgn1e5KYqlZdiZRfLh/jtZkk7v+Np/b/FWfnNiL8mfc1H2rBfxkdgjeW4b+cefWZbbd/GyZEDnyDAzy6uVNhP1n86qSfA8vw==
+   eJxjYCAOsBCpjlKgAMX0sgufGxTwqKGGXejmU9MubBifGnqBkWAfIXlkTIk9uPRjMx/dXmLtJqSWGHOw2Y0LEzKHXmA424ULj4LBAwDIRwgF
   </data>
  </layer>
  <layer name="player" width="27" height="18">
