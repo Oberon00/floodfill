@@ -20,7 +20,7 @@ end
 local id = debug.id or util.rawtostring
 
 function M.objectToString(obj)
-	local name = getmetatable(o).clsName
+	local name = getmetatable(obj).clsName
 	if not name then
 		return "Object: " .. id(obj)
 	end
@@ -39,12 +39,12 @@ function M.class(name, env, super)
 	if name and not super and type(name) ~= 'string' then
 		super, name = name, nil
 	end
-	local cls = {super = super, clsName = name, __tostring = objectToString}
+	local cls = {super = super, clsName = name, __tostring = M.objectToString}
 	cls.__index = cls
 	setmetatable(cls, {
 		__index = super,
 		__call = construct,
-		__tostring = classToString
+		__tostring = M.classToString
 	})
 	if name and env then
 		env[name] = cls
