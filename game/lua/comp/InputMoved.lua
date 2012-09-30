@@ -1,10 +1,11 @@
 local C = component 'InputMovedComponent'
 
+local ctrls = jd.conf.ctrls or { }
 local possibleDirections = {
-    [jd.kb.LEFT]  = jd.Vec2(-1,  0),
-    [jd.kb.RIGHT] = jd.Vec2( 1,  0),
-    [jd.kb.UP]    = jd.Vec2( 0, -1),
-    [jd.kb.DOWN]  = jd.Vec2( 0,  1)
+    [ctrls.moveLeft  or jd.kb.A] = jd.Vec2(-1,  0),
+    [ctrls.moveRight or jd.kb.D] = jd.Vec2( 1,  0),
+    [ctrls.moveUp    or jd.kb.W] = jd.Vec2( 0, -1),
+    [ctrls.moveDown  or jd.kb.S] = jd.Vec2( 0,  1)
 }
 
 local SPEED = 2
