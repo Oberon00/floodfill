@@ -40,7 +40,7 @@
 				the jd.CollisionManager passed as [arg#3] or a new one
 			tileProxies = {name = proxy: jd.Entity}
 			substituteObjects = {sequence: jd.Entity}
-			tileProxyCollider =  jd.TileCollideableGroup
+			tileCollisionInfo = jd.TileCollideableInfo
 			mapObjects = {groupname = {sequence: jd.Entity}}
 			objectColliders = {groupname or # = jd.RectCollideableGroup}
 			tileMapping = {byName = {name = id}, byId = {id = name}}
@@ -79,11 +79,10 @@ end
 
 local function findTileIdMapping(props)
 	local result = {byName = { }, byId = { }}
-	for i = 1, props.count do
-		local tprops = props:get(i)
+	for id = 1, props.count do
+		local tprops = props:get(id)
 		local name = tprops:get 'name'
 		if name then
-			local id = i - 1
 			result.byName[name] = id
 			result.byId[id] = name
 		end -- if name
@@ -91,7 +90,7 @@ local function findTileIdMapping(props)
 	return result
 end
 
-local function setupProxies(tileMapping, collider)
+local function setupProxies(tileMapping, collisionInfo, map)
 	local proxies = { }
 	for tname, tid in pairs(tileMapping.byName) do
 		local tile = tiledata[tname]
@@ -99,10 +98,9 @@ local function setupProxies(tileMapping, collider)
 			jd.log.w(("No data for tile '%s' (#%i) available")
 				:format(tname, tid))
 		elseif not tile.isPlaceholder then
-			local entity, proxy = createTile(
-				tname, tid, collider.tilemap)
-			collider:setProxy(tid, proxy)
+			local entity, proxy = createTile(tname, tid, map)
 			proxies[tname] = entity
+			collisionInfo:setProxy(tid, proxy)
 		end -- if is no placeholder
 	end -- for each mapdata.data.tiles
 	return proxies
@@ -135,9 +133,8 @@ local function setupObjects(props, mapdata)
 	return objects
 end
 
-local function substituteObjects(tileMapping, collider)
+local function substituteObjects(tileMapping, collisionInfo, map)
 	local objects = { }
-	local map = collider.tilemap
 	local mapsz = map.size
 	local i = 1
 	for z = 0, mapsz.z - 1 do
@@ -150,7 +147,7 @@ local function substituteObjects(tileMapping, collider)
 					local tile = tiledata[tname]
 					if tile and tile.isPlaceholder then
 						local obj = substituteObject(
-							tid, tname, position, map, collider)
+							tid, tname, position, map, collisionInfo)
 						if obj then -- skip nil
 							objects[i] = obj
 							i = i + 1
@@ -164,18 +161,19 @@ local function substituteObjects(tileMapping, collider)
 end
 	
 function M.loadMap(map, name)
-	local tileProxyCollider = jd.TileCollideableGroup(map)
 	local props = map:loadFromFile(mapFile(name))
+	local tileCollisionInfo = jd.TileCollideableInfo(map)
 	local result = {
 		map = map,
 		name = name,
-		tileProxyCollider = tileProxyCollider,
 		tileMapping = findTileIdMapping(props.tileProperties),
+		tileCollisionInfo = tileCollisionInfo,
 		postLoad = { }
 	}
-	result.tileProxies = setupProxies(result.tileMapping, tileProxyCollider)
+	result.tileProxies = setupProxies(
+		result.tileMapping, tileCollisionInfo, map)
 	result.substituteObjects = substituteObjects(
-		result.tileMapping, tileProxyCollider)
+		result.tileMapping, tileCollisionInfo, map)
 	result.mapObjects = setupObjects(props, result)
 	for _, postLoadCallback in ipairs(result.postLoad) do
 		postLoadCallback(result)
