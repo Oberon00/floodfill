@@ -23,7 +23,8 @@ local function parseDirections(dirs)
 	return result
 end
 
-function C:__init(enter, leave, replObj)
+function C:__init(enter, leave, replObj, name)
+	self.name = name
 	self.enterable = parseDirections(enter)
 	if leave then
 		self.leaveable = parseDirections(leave)
@@ -51,8 +52,15 @@ function C:__call(group, name, id, map) -- create proxy entity
 	return entity, tcinfo, cinfo
 end
 
+function C:__tostring()
+	if self.name then
+		return "Tile: " .. self.name
+	end
+	return oo.objectToString(self)
+end
+
 function C.logicalName(name)
- -- split at '#', when only digits are after it
+    -- split at '#', when only digits are after it
 	local result = name:match("([^#]+)#%d+")
 	return result, result ~= nil
 end
