@@ -8,7 +8,7 @@ local possibleDirections = {
     [ctrls.moveDown  or jd.kb.S] = jd.Vec2( 0,  1)
 }
 
-local SPEED = 2
+local SPEED = 128 -- 4 tiles/s
 
 function C:init(colliding)
 	self.colliding = colliding
@@ -33,7 +33,8 @@ function C:initComponent()
 		end
 		
 		direction = direction / #direction
-		local newPos = self.pos.position + direction * SPEED
+		local movement = direction * SPEED * jd.timer.frameDuration:asSeconds()
+		local newPos = self.pos.position + movement
 		local canEnter = true
 		if self.colliding then
 			local newRect = jd.Rect(newPos, self.pos.size)
