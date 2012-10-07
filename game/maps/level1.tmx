@@ -12,6 +12,11 @@
    eJxjYCAOsBCpjlKgAMX0sgufGxTwqKGGXejmU9MubBifGnqBkWAfIXlkTIk9uPRjMx/dXmLtJqSWGHOw2Y0LEzKHXmA424ULj4LBAwDIRwgF
   </data>
  </layer>
+ <layer name="player-ground" width="27" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=
+  </data>
+ </layer>
  <layer name="player" width="27" height="18">
   <data encoding="base64" compression="zlib">
    eJytU8sKwCAM63HQ407z/z90DFaQaNtUDYSxqE0fqiKiHQ060VEztsJ+1Gf/pjWHXh5ZnlibweIiniRexT/y0U6veHm+Hy7Hp/earZ0mzivz82bOMps5+uz2mllrMuaz0neRMQ7qOFvPl/WO9rJ3toLoXrA5n7izu/1htZUe7tbloVJvdiZ6oxWvqHfsHFhEZ7I5nuL9f19JQhLC
