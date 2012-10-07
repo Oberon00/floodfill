@@ -36,8 +36,6 @@
 	    {
 			map = the jd.Tilemap passed as arg#1, loaded
 			name = arg#2: string
-			collisionManager =
-				the jd.CollisionManager passed as [arg#3] or a new one
 			tileProxies = {name = proxy: jd.Entity}
 			substituteObjects = {sequence: jd.Entity}
 			tileCollisionInfo = jd.TileCollideableInfo
