@@ -32,6 +32,7 @@ local function negate(sides)
 		end
 	end
 	ng 'n' ng 'e' ng 's' ng 'w'
+	return table.concat(result)
 end
 
 local function l(sides) -- lever
