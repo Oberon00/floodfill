@@ -10,8 +10,22 @@ local possibleDirections = {
 
 local SPEED = 128 -- 4 tiles/s
 
-function C:init(colliding)
-	self.colliding = colliding
+
+--[[
+	Constructor. If specified, [moveLimitCallback] must be a function, which is
+	then called with the following arguments:
+		targetRect:  The jd.Rect to which the component wants to move.
+		currentRect: The jd.Rect from which the movement starts.
+		direction:   A jd.Vec2 specifying the direction of the movement,
+		             normalized (i.e. #direction == 1)
+		movement:    A jd.Vec2, so that
+		             targetRect.position - currentRect.position == movement
+		self:        The calling InputMovedComponent.
+	It *must* return a jd.Vec2 which becomes the new position of the Entity. If
+	it returns e.g. nil an error() will occur.
+--]]
+function C:init(moveLimitCallback)
+	self.moveLimit = moveLimitCallback
 end
 
 function C:initComponent()
@@ -19,6 +33,7 @@ function C:initComponent()
 	local keyPressed = jd.kb.isKeyPressed
 	local pairs = pairs
 	local Vec2 = jd.Vec2
+	local isZero = jd.Vec2.isZero
 	
 	self.evts:connect(jd.mainloop, "update", function()
 		local direction = Vec2()
@@ -28,29 +43,22 @@ function C:initComponent()
 			end
 		end
 		
-		if direction:isZero() then
+		if isZero(direction) then
 			return
 		end
 		
 		direction = direction / #direction
 		local movement = direction * SPEED * jd.timer.frameDuration:asSeconds()
-		local newPos = self.pos.position + movement
+		local targetPos = self.pos.position + movement
 		local canEnter = true
-		if self.colliding then
-			local newRect = jd.Rect(newPos, self.pos.size)
-			local colliding = self.colliding(newRect, self.parent)
-			for c in colliding:iter() do
-				local cinfo = c.entity:component 'CollisionInfoComponent'
-				if cinfo and not cinfo:canEnter(
-				   self.parent, direction, self.pos.position, newPos) then
-					canEnter = false
-					break					
-				end -- if cinfo
-			end -- for each colliding
-		end -- if self.colliding
-		if canEnter then
-			self.pos.position = newPos
-		end
+		if self.moveLimit then
+			local targetRect = jd.Rect(targetPos, self.pos.size)
+			targetPos = self.moveLimit(
+				targetRect, self.pos.rect,
+				direction, movement,
+				self)
+		end -- if self.moveLimit
+		self.pos.position = targetPos
 	end)
 end
 
