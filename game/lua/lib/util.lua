@@ -67,4 +67,21 @@ function M.isCallable(f)
 	return false
 end
 
+function M.inplaceMap(seq, f)
+	if type(seq) == 'userdata' and seq.count then
+		local i = 1
+		while i <= seq.count do
+			local v = f(seq:get(i))
+			seq:set(i, v)
+			if v ~= nil then
+				i = i + 1
+			end -- if v ~= nil
+		end -- while i < seq.count
+	else -- if seq is a C++-Container
+		for i, v in ipairs(seq) do
+			seq[i] = f(seq[i])
+		end -- for i, v in ipairs(seq)
+	end -- if seq is a C++-Container/else
+end -- function M.inplaceMap
+
 return M
