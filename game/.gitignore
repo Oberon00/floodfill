@@ -9,5 +9,6 @@
 nppBackup/
 
 # Misc
+*.manifest
 _vld_memleaks.log
 
