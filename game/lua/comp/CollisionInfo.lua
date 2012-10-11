@@ -8,14 +8,14 @@ local function checkVec(v, ok)
 	end
 	local result = true
 	if v.x < 0 then
-		result = result and ok.w
-	elseif v.x > 0 then
 		result = result and ok.e
+	elseif v.x > 0 then
+		result = result and ok.w
 	end
 	if v.y < 0 then
-		result = result and ok.n
-	elseif v.y > 0 then
 		result = result and ok.s
+	elseif v.y > 0 then
+		result = result and ok.n
 	end
 	return result
 end
@@ -29,7 +29,7 @@ function C:canEnter(entity, dir, from, to)
 end
 
 function C:canLeave(entity, dir, from, to)
-	return checkVec(dir, self.tile.leaveable)
+	return checkVec(dir * -1, self.tile.leaveable)
 end
 
 return C
