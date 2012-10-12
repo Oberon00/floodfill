@@ -10,7 +10,6 @@ local M = { }
 local PLAYER_SIZE = jd.Vec2(22, 22)
 
 local function allEnterable(collisions, entity, dir, from, to)
-	print(collisions.count)
 	for c in collisions:iter() do
 		local cinfo = c.entity:component 'CollisionInfoComponent'
 		if cinfo and not cinfo:canEnter(entity, dir, from, to) then

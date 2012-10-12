@@ -3,9 +3,6 @@ local C = component 'CollisionInfoComponent'
 local util = require 'util'
 
 local function checkVec(v, ok)
-	if type(v) == 'string' then
-		return ok[v]
-	end
 	local result = true
 	if v.x < 0 then
 		result = result and ok.e
