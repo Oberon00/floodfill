@@ -14,7 +14,6 @@ local function allEnterable(collisions, entity, dir, from, to)
 	for c in collisions:iter() do
 		local cinfo = c.entity:component 'CollisionInfoComponent'
 		if cinfo and not cinfo:canEnter(entity, dir, from, to) then
-			print "***stop"
 			return false
 		end -- if cinfo and cinfo:canEnter
 	end -- for c in collisions
@@ -59,10 +58,6 @@ function M.load(info, layerInfo, data)
 	
 	cgg:add(tilestackcg)
 	InputMovedComponent(entity, function (r, oldr, d0, d)
-		local function tp(p)
-			return data.map:tilePosFromGlobal(p)
-		end
-		print(("moveLimit(%s,%s)"):format(tp(r.xy), tp(oldr.xy)))
 		local collisions = tilestackcg:colliding(oldr.center, r.center)
 		local way = {oldr}
 		local collisionsInWay = 0
@@ -77,7 +72,6 @@ function M.load(info, layerInfo, data)
 					if i < collisionsInWay and
 					   not cinfo:canLeave(entity, d0, oldr.xy, r.xy) then
 						r.xy = c.rect:outermostPoint(d0, r)
-						print("***cant leave, stay at", tp(r.xy))
 						break
 					else -- if p ~= lastCheckedPos/elseif not (canLeave or last)
 						if i > collisionsInWay then
@@ -91,11 +85,9 @@ function M.load(info, layerInfo, data)
 								end -- if new rect
 							end -- for j = i + 1, collisionsInWay
 						end -- if i > collisionsInWay
-						print("ok, next is", tp(c.rect.xy))
 					end -- if p ~= lastCheckedPos/else
 				else -- if canEnter
 					r.xy = way[#way]:outermostPoint(d0, r)
-					print("***cant enter next, stay at", tp(r.xy))
 					break
 				end -- if canEnter/else
 			end -- if cinfo
@@ -104,17 +96,10 @@ function M.load(info, layerInfo, data)
 		local rcolliding = tilestackcg:colliding(r)
 		util.inplaceMap(rcolliding, function(c)
 			if c.rect:intersection(oldr) then
-				print("erased", c.rect)
 				return nil
-			else
-				print("no intersection", c.rect, oldr)
 			end
 			return c
 		end)
-		
-		for c in rcolliding:iter() do
-			print(tp(c.rect.xy))
-		end
 		
 		while not allEnterable(rcolliding, entity, d0, oldr.xy, r.xy) do
 		    if not way[#way] then
@@ -124,7 +109,6 @@ function M.load(info, layerInfo, data)
 			r.xy = way[#way]:outermostPoint(d0, oldr)
 			way[#way] = nil
 		end -- while not allEnterable which touch r
-		print("@@@", r.xy)
 		return r.xy
 	end)
 	entity:finish()
