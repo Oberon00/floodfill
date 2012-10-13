@@ -155,4 +155,18 @@ function M.clear(t, v)
 	end
 end
 
+M.ERASE_ALL = 0
+function M.erase(t, ev, n)
+	n = n or 1
+	for k, v in pairs(t) do
+		if v == ev then
+			t[k] = nil
+			n = n - 1
+			if n == 0 then
+				break
+			end -- if n == 0
+		end -- if v == ev
+	end -- for k, v in pairs(t)
+end -- function M.erase
+
 return M
