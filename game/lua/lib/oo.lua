@@ -9,12 +9,7 @@ local M = { }
 local function construct(cls, ...)
 	local self = { }
 	setmetatable(self, cls)
-	local constructor = self.__init
-	local cret = { }
-	if constructor then
-		cret = table.pack(constructor(self, ...))		
-	end
-	return self, table.unpack(cret)
+	return self, util.callopt(self.__init, self, ...)
 end
 
 local id = debug.id or util.rawtostring
