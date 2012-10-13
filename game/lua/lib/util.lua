@@ -78,7 +78,7 @@ function M.inplaceMap(seq, f)
 			end -- if v ~= nil
 		end -- while i < seq.count
 	else -- if seq is a C++-Container
-		for i, v in ipairs(seq) do
+		for i = 1, #seq do
 			seq[i] = f(seq[i])
 		end -- for i, v in ipairs(seq)
 	end -- if seq is a C++-Container/else
