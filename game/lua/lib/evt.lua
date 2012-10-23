@@ -98,12 +98,14 @@ lclass('Table', M)
 		end
 		
 		for _, v in pairs(self.evts) do
-			local connected = v.isConnected
-			if type(connected) == "function" then
-				connected = connected()
-			end
-			if connected then
-				v:disconnect()
+			if getmetatable(v) then
+				local connected = v.isConnected
+				if type(connected) == "function" then
+					connected = connected()
+				end
+				if connected then
+					v:disconnect()
+				end
 			end
 		end
 		self.evts = { }
