@@ -12,6 +12,11 @@
    eJxjYCAOsBCpjlKgAMX0sgufGxTwqKGGXejmU9MubBifGnqBkWAfIXlkTIk9uPRjMx/dXmLtJqSWGHOw2Y0LEzKHXmA424ULj4LBAwDIRwgF
   </data>
  </layer>
+ <layer name="locks" width="27" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFwxFIDLQDRsEoGAWjAAtgG2gHDAEAAJhwAB8=
+  </data>
+ </layer>
  <layer name="player-ground" width="27" height="18">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=
@@ -19,12 +24,12 @@
  </layer>
  <layer name="player" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJytU8sKwCAM63HQ407z/z90DFaQaNtUDYSxqE0fqiKiHQ060VEztsJ+1Gf/pjWHXh5ZnlibweIiniRexT/y0U6veHm+Hy7Hp/earZ0mzivz82bOMps5+uz2mllrMuaz0neRMQ7qOFvPl/WO9rJ3toLoXrA5n7izu/1htZUe7tbloVJvdiZ6oxWvqHfsHFhEZ7I5nuL9f19JQhLC
+   eJytU0EOwCAI4+5xp/n/h+4yElMtFLUJWVaVIsVmZm0IR1vwyHn0wn7kV//OdRKsjqxOvJvD8yLeJF9FP9JpA1/RYroMo19s7XagX5ke81yNzHPUOe21stZtrmen72ZzHuTR22gmVE22V53ZCqK5UGu+MbOn/VG5nR6e3ouhct/sTPRGK1pR71QfVERnMh9vxfN/PxtCEro=
   </data>
  </layer>
  <layer name="objects" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF9AJcA+2AUTAKRsEoGGDANtAOGAIAAEwoABE=
+   eJxjYBgF9AJcA+2AUTAKRsEoGAWDHgAARVAACw==
   </data>
  </layer>
  <objectgroup name="objects" width="27" height="18">

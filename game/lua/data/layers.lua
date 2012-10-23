@@ -1,7 +1,8 @@
 return {
 	WATER_GROUND  = 0,
 	WATER         = 1,
-	PLAYER_GROUND = 2,
-	PLAYER        = 3,
-	OBJECTS       = 4
+	LOCKS         = 2,
+	PLAYER_GROUND = 3,
+	PLAYER        = 4,
+	OBJECTS       = 5
 }
