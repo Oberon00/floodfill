@@ -30,8 +30,9 @@ function M.load(info, layerInfo, data)
 	local tile = tiles[data.tileMapping.byId[info.tileId]]
 	local entity = jd.Entity()
 	local pos = jd.PositionComponent(entity)
-	local tileset = data.map.tileset
-	local sprite = jd.Sprite(data.map.group)
+	local map = data.map
+	local tileset = map.tileset
+	local sprite = jd.Sprite(map.group)
 	sprite.texture = tileset.texture
 	sprite.textureRect = jd.Rect(
 		tileset:texturePosition(info.tileId - 1), tileset.size)
@@ -69,49 +70,61 @@ function M.load(info, layerInfo, data)
 		local collisionsInWay = 0
 		
 		for i = 1, collisions.count do
+		
 			local c = collisions:get(i)
-			
 			local cinfo = c.entity:component 'CollisionInfoComponent'
+			
+			if i > collisionsInWay then
+				way[#way] = c.rect
+				collisionsInWay = collisions.count
+				for j = i + 1, collisionsInWay do
+					if collisions:get(j).rect ~= c.rect then
+						assert(j > 1)
+						collisionsInWay = j - 1
+						break
+					end -- if rect is new
+				end -- for j = i + 1, collisionsInWay
+			end -- if i > collisionsInWay
+						
 			if cinfo and (c.rect:intersection(oldr) or
 			   cinfo:canEnter(entity, d0, oldr.xy, r.xy)) then
-				if i < collisionsInWay and
-				   not cinfo:canLeave(entity, d0, oldr.xy, r.xy) then
-					r.xy = c.rect:outermostPoint(d0, r)
+				if not cinfo:canLeave(entity, d0, oldr.xy, r.xy) then
+					r.xy = c.rect:outermostPoint(d0, oldr)
 					break
 				else -- if i < collisionsInWay
-					if i > collisionsInWay then
-						way[#way] = c.rect
-						collisionsInWay = collisions.count
-						for j = i + 1, collisionsInWay do
-							if collisions:get(j).rect ~= c.rect then
-								assert(j > 1)
-								collisionsInWay = j - 1
-								break
-							end -- if rect is new
-						end -- for j = i + 1, collisionsInWay
-					end -- if i > collisionsInWay
 				end  -- if i < collisionsInWay/else
 			else -- if canEnter and ...
-				r.xy = way[#way]:outermostPoint(d0, r)
+				print ("couldn't enter", cinfo.tile)
+				r.xy = way[#way]:outermostPoint(d0, oldr)
 				break
 			end -- if canEnter and .../else
 		end -- for c in collisions
 		
-		local rcolliding = cgg:colliding(r)
-		util.inplaceMap(rcolliding, function(c)
-			if c.rect:intersection(oldr) then
-				return nil
-			end
-			return c
-		end)
+		local rcolliding
+		local function updateRcolliding()
+			rcolliding = cgg:colliding(r)
+			util.inplaceMap(rcolliding, function(c)
+				if c.rect:intersection(oldr) then
+					return nil
+				end
+				return c
+			end)
+		end
 		
+		updateRcolliding()
 		while not allEnterable(rcolliding, entity, d0, oldr.xy, r.xy) do
 		    if not way[#way] then
-				r.xy = oldr.xy
+				r.xy = map:tileRect(oldr.center):outermostPoint(d0, oldr)
+				if not allEnterable(rcolliding, entity, d0, oldr.xy, r.xy) then
+					r.xy = oldr.xy
+					print "got back"
+				end
 				break
 			end
+			print ("back...", #way)
 			r.xy = way[#way]:outermostPoint(d0, oldr)
 			way[#way] = nil
+			updateRcolliding()
 		end -- while not allEnterable which touch r
 		
 		if comp.firstMove or r ~= oldr then
