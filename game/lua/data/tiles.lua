@@ -1,4 +1,5 @@
 local T = require 'Tile'
+local Fount = require 'entity.Fount'
 
 local tiles = {
     --               enter   leave
