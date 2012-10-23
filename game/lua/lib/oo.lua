@@ -30,7 +30,6 @@ end
 -- class([super])
 -- use an empty table as [env] to create a named class without exporting it
 function M.class(name, env, super)
-	env = env or _ENV
 	if name and not super and type(name) ~= 'string' then
 		super, name = name, nil
 	end
@@ -47,7 +46,6 @@ function M.class(name, env, super)
 	return cls
 end
 
-M.NIL_ENV = { }
 
 M.lclass = M.class -- alias for consistence with pseudo keyword
 
