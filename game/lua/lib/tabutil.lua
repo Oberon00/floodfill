@@ -169,4 +169,8 @@ function M.erase(t, ev, n)
 	end -- for k, v in pairs(t)
 end -- function M.erase
 
+-- Table which silently discards write access.
+M.EVER_EMPTY_TABLE = { }
+setmetatable(M.EVER_EMPTY_TABLE, {__newindex = function() end})
+
 return M
