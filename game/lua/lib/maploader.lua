@@ -161,16 +161,17 @@ local function substituteObjects(props, mapdata)
 	return objects
 end
 	
-function M.loadMap(map, name)
+function M.loadMap(map, name, result)
+	result = result or { }
 	local props = map:loadFromFile(mapFile(name))
 	local tileCollisionInfo = jd.TileCollideableInfo(map)
 	local result = {
-		map = map,
-		name = name,
-		tileMapping = findTileIdMapping(props.tileProperties),
-		tileCollisionInfo = tileCollisionInfo,
-		postLoad = { }
-	}
+	
+	result.map = map
+	result.name = name
+	result.tileMapping = findTileIdMapping(props.tileProperties)
+	result.tileCollisionInfo = tileCollisionInfo
+	result.postLoad = { }
 	result.tileProxies = setupProxies(
 		result.tileMapping, tileCollisionInfo, map)
 	result.substituteObjects = substituteObjects(props, result)
