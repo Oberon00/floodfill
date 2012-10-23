@@ -29,6 +29,7 @@ function C:init(moveLimitCallback)
 end
 
 function C:initComponent()
+	self.firstMove = true
 	self.pos = self.parent:require 'PositionComponent'
 	local keyPressed = jd.kb.isKeyPressed
 	local pairs = pairs
@@ -44,6 +45,7 @@ function C:initComponent()
 		end
 		
 		if isZero(direction) then
+			self.firstMove = true
 			return
 		end
 		
@@ -59,6 +61,7 @@ function C:initComponent()
 				self)
 		end -- if self.moveLimit
 		self.pos.position = targetPos
+		self.firstMove = false
 	end)
 end
 
