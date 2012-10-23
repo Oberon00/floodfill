@@ -14,11 +14,15 @@ function GameState:prepare()
 	local maplayer = jd.drawService:layer(2)
 	local tilemap = jd.Tilemap(maplayer.group)
 	
-	self.world = loadMap(tilemap, "level1", {
-		onStart = self.onStart,
-		onStop = self.onStop,
-		procs = { }
-	})
+	local function load()
+		self.world = loadMap(tilemap, "level1", {
+			onStart = self.onStart,
+			onStop = self.onStop,
+			procs = { }
+		})
+	end
+	evt.connectToKeyPress(jd.kb.F5, function() self:stop(); load() end)
+	load()
 	maplayer.view.rect = tilemap.bounds
 	self.onStart()
 end
