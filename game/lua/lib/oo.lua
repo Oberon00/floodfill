@@ -46,6 +46,16 @@ function M.class(name, env, super)
 	return cls
 end
 
+function M.isInstance(obj, cls, orDerived)
+	local mt = getmetatable(cls)
+	if not mt then
+		return false
+	end
+	if mt == cls or mt.clsName == cls then
+		return true
+	end
+	return orDerived and M.isInstance(obj, cls.super)
+end
 
 M.lclass = M.class -- alias for consistence with pseudo keyword
 
