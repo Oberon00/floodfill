@@ -23,7 +23,7 @@ local function parseDirections(dirs)
 	return result
 end
 
-function C:__init(enter, leave, replObj, name)
+function C:__init(enter, leave, replObj, doSetProxy, name)
 	self.name = name
 	self.enterable = parseDirections(enter)
 	if leave ~= nil then
@@ -33,7 +33,7 @@ function C:__init(enter, leave, replObj, name)
 	end
 	
 	if replObj then
-		self.isPlaceholder = true
+		self.doSubstitute = true
 		if type(replObj) == 'function' then
 			self.substitute = replObj
 		else
@@ -41,6 +41,11 @@ function C:__init(enter, leave, replObj, name)
 		end
 		assert(util.isCallable(self.substitute),
 			"replObj is not a valid substitute")
+	end
+	if doSetProxy == nil then
+		self.doSetProxy = not self.doSubstitute
+	else
+		self.doSetProxy = doSetProxy
 	end
 end
 

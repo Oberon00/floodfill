@@ -2,21 +2,21 @@ local T = require 'Tile'
 
 local tiles = {
     --               enter   leave
-	-- name      = T('nesw', 'nesw', replObj  ),
-	lock_open    = T('nesw', nil,    nil      ),
-	fount        = T('nesw', nil,    nil      ), --?
-	bridge_h     = T('ew',   nil,    nil      ),
-    bridge_low_h = T('ew',   nil,    LowBridge),
-	bridge_low_v = T('ns',   nil,    LowBridge),
-	bridge_v     = T('ns',   nil,    nil      ),
-	lever        = T('',     nil,    Lever    ),
-    water_ground_rough = T('', nil,  nil      ),
-	water        = T('',     nil,    nil      ),
-	goal         = T('nesw', nil,    Goal     ),
-	ground       = T('nesw', nil,    nil      ),
-	player       = T('',     nil,    nil      ),
-	water_ground = T('nesw', nil,    nil      ),
-	barrage      = T('',     nil,    nil      )
+	-- name      = T('nesw', 'nesw', replObj,   doSetProxy),
+	lock_open    = T('nesw', nil,    nil,       true ),
+	fount        = T('nesw', nil,    Fount,     true ), --?
+	bridge_h     = T('ew',   nil,    nil,       true ),
+    bridge_low_h = T('ew',   nil,    LowBridge, false),
+	bridge_low_v = T('ns',   nil,    LowBridge, false),
+	bridge_v     = T('ns',   nil,    nil,       true ),
+	lever        = T('',     nil,    Lever,     false),
+    water_ground_rough = T('', nil,  nil,       true ),
+	water        = T('',     nil,    nil,       true ),
+	goal         = T('nesw', nil,    Goal,      true ),
+	ground       = T('nesw', nil,    nil,       true ),
+	player       = T('',     nil,    nil,       true ),
+	water_ground = T('nesw', nil,    nil,       true ),
+	barrage      = T('',     nil,    nil,       true )
 }
 
 setmetatable(tiles, {__index = function(t, name)

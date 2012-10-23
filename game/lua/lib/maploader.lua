@@ -95,7 +95,7 @@ local function setupProxies(tileMapping, collisionInfo, map)
 		if not tile then
 			jd.log.w(("No data for tile '%s' (#%i) available")
 				:format(tname, tid))
-		elseif not tile.isPlaceholder then
+		elseif tile.doSetProxy then
 			local entity, proxy = createTile(tname, tid, map)
 			proxies[tname] = entity
 			collisionInfo:setProxy(tid, proxy)
@@ -146,7 +146,7 @@ local function substituteObjects(props, mapdata)
 				local tname = tileMapping.byId[tid]
 				if tname then
 					local tile = tiledata[tname]
-					if tile and tile.isPlaceholder then
+					if tile and tile.doSubstitute then
 						local obj = substituteObject(
 							tname, tid, position, mapdata, props)
 						if obj then -- skip nil
@@ -165,7 +165,6 @@ function M.loadMap(map, name, result)
 	result = result or { }
 	local props = map:loadFromFile(mapFile(name))
 	local tileCollisionInfo = jd.TileCollideableInfo(map)
-	local result = {
 	
 	result.map = map
 	result.name = name
