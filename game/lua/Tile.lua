@@ -3,7 +3,7 @@ local util = require 'util'
 local tabutil = require 'tabutil'
 require 'comp.CollisionInfo'
 
-local C = lclass('Tile', oo.NIL_ENV)
+local C = lclass 'Tile'
 
 local function parseDirections(dirs)
 	if dirs == true then
@@ -26,7 +26,7 @@ end
 function C:__init(enter, leave, replObj, name)
 	self.name = name
 	self.enterable = parseDirections(enter)
-	if leave then
+	if leave ~= nil then
 		self.leaveable = parseDirections(leave)
 	else
 		 self.leaveable = tabutil.copy(self.enterable)
