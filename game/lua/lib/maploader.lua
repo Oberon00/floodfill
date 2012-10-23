@@ -63,7 +63,7 @@ local function createTile(name, id, map)
 	return tiledata[name](name, id, map)
 end
 
-local function createObject(objectInfo, layerInfo, mapdata)
+local function createObject(objectInfo, layerInfo, mapdata, props)
 	if objectInfo.type == '' then
 		return nil
 	end
@@ -71,8 +71,8 @@ local function createObject(objectInfo, layerInfo, mapdata)
 	return Entity.load(objectInfo, layerInfo, mapdata)
 end
 
-local function substituteObject(name, id, position, map, collider)
-	return tiledata[name].substitute(name, id, map, position, collider)
+local function substituteObject(name, id, position, mapdata, props)
+	return tiledata[name].substitute(name, id, position, mapdata, props)
 end
 
 local function findTileIdMapping(props)
@@ -111,6 +111,7 @@ local function setupObjects(props, mapdata)
 	for kv in groups:iter() do
 		local groupInfo = kv.value
 		local group = { }
+		assert(groupInfo.name == kv.key)
 		local hasName = groupInfo.name ~= ''
 		local groupId = hasName and groupInfo.name or #objects + 1
 		objects[groupId] = group
@@ -118,7 +119,7 @@ local function setupObjects(props, mapdata)
 		mapdata.objectColliders[groupId] = collider
 		for i = 1, groupInfo.objects.count do
 			local objectInfo = groupInfo.objects:get(i)
-			local obj = createObject(objectInfo, groupInfo, mapdata)
+			local obj = createObject(objectInfo, groupInfo, mapdata, props)
 			if obj then
 				group[i] = obj
 				local objPos = obj:component 'PositionComponent'
@@ -131,8 +132,10 @@ local function setupObjects(props, mapdata)
 	return objects
 end
 
-local function substituteObjects(tileMapping, collisionInfo, map)
+local function substituteObjects(props, mapdata)
 	local objects = { }
+	local map = mapdata.map
+	local tileMapping = mapdata.tileMapping
 	local mapsz = map.size
 	local i = 1
 	for z = 0, mapsz.z - 1 do
@@ -145,7 +148,7 @@ local function substituteObjects(tileMapping, collisionInfo, map)
 					local tile = tiledata[tname]
 					if tile and tile.isPlaceholder then
 						local obj = substituteObject(
-							tid, tname, position, map, collisionInfo)
+							tname, tid, position, mapdata, props)
 						if obj then -- skip nil
 							objects[i] = obj
 							i = i + 1
@@ -170,11 +173,11 @@ function M.loadMap(map, name)
 	}
 	result.tileProxies = setupProxies(
 		result.tileMapping, tileCollisionInfo, map)
-	result.substituteObjects = substituteObjects(
-		result.tileMapping, tileCollisionInfo, map)
+	result.substituteObjects = substituteObjects(props, result)
 	result.mapObjects = setupObjects(props, result)
+	
 	for _, postLoadCallback in ipairs(result.postLoad) do
-		postLoadCallback(result)
+		postLoadCallback(result, props)
 	end
 	result.postLoad = nil
 	return result
