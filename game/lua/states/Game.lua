@@ -1,16 +1,30 @@
 local oo = require 'oo'
+local evt = require 'evt'
 local loadMap = (require 'maploader').loadMap
 
 oo.cppclass('GameState', jd.State)
 
-function Game:prepare()
-	local maplayer = jd.drawService:layer(2)
-	local tilemap = jd.Tilemap(maplayer.group)
-	self.world = loadMap(tilemap, "level1")
-	maplayer.view.rect = tilemap.bounds
+function GameState:__init()
+	jd.State.__init(self)
+	self.onStart = evt.Signal()
+	self.onStop  = evt.Signal()
 end
 
-function Game:stop()
+function GameState:prepare()
+	local maplayer = jd.drawService:layer(2)
+	local tilemap = jd.Tilemap(maplayer.group)
+	
+	self.world = loadMap(tilemap, "level1", {
+		onStart = self.onStart,
+		onStop = self.onStop,
+		procs = { }
+	})
+	maplayer.view.rect = tilemap.bounds
+	self.onStart()
+end
+
+function GameState:stop()
+	self.onStop()
 	for _, entity in pairs(self.world.tileProxies) do
 		entity:kill()
 	end
