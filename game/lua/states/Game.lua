@@ -1,7 +1,7 @@
 local oo = require 'oo'
 local loadMap = (require 'maploader').loadMap
 
-oo.cppclass('Game', jd.State)
+oo.cppclass('GameState', jd.State)
 
 function Game:prepare()
 	local maplayer = jd.drawService:layer(2)
@@ -26,6 +26,6 @@ function Game:stop()
 end
 
 _G.states = _G.states or { }
-_G.states.game = Game()
+_G.states.game = GameState()
 
 return states.game
