@@ -21,4 +21,9 @@ function C:init(onActivate, data)
 	self.data = data or { }
 end
 
+function C:cleanup()
+	self.activate = nil
+	self.data = nil
+end
+
 return C
