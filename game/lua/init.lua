@@ -22,7 +22,6 @@ jd.drawService.backgroundColor =
 	jd.conf.misc.backgroundColor or jd.colors.BLACK
 
 evt.connectForever(jd.mainloop, 'quitting', function()
-	jd.log.i "Quitting."
 	-- avoid warnings
 	jd.Image.releaseAll()
 	jd.Texture.releaseAll()
