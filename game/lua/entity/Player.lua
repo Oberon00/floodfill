@@ -69,7 +69,7 @@ function M.load(info, layerInfo, data)
 		local collisions = cgg:colliding(oldr.center, r.center)
 		local way = {oldr}
 		local collisionsInWay = 0
-		
+		local aborted = false
 		for i = 1, collisions.count do
 		
 			local c = collisions:get(i)
@@ -90,16 +90,19 @@ function M.load(info, layerInfo, data)
 			if cinfo and (c.rect:intersection(oldr) or
 			   cinfo:canEnter(entity, d0, oldr.xy, r.xy)) then
 				if not cinfo:canLeave(entity, d0, oldr.xy, r.xy) then
-					r.xy = c.rect:outermostPoint(d0, oldr)
+					aborted = true
 					break
 				else -- if i < collisionsInWay
 				end  -- if i < collisionsInWay/else
 			else -- if canEnter and ...
-				print ("couldn't enter", cinfo.tile)
-				r.xy = way[#way]:outermostPoint(d0, oldr)
+				aborted = true
 				break
 			end -- if canEnter and .../else
 		end -- for c in collisions
+		
+		if not aborted then
+			way[#way] = nil -- remove last rect (target rect)
+		end
 		
 		local rcolliding
 		local function updateRcolliding()
@@ -115,14 +118,9 @@ function M.load(info, layerInfo, data)
 		updateRcolliding()
 		while not allEnterable(rcolliding, entity, d0, oldr.xy, r.xy) do
 		    if not way[#way] then
-				r.xy = map:tileRect(oldr.center):outermostPoint(d0, oldr)
-				if not allEnterable(rcolliding, entity, d0, oldr.xy, r.xy) then
-					r.xy = oldr.xy
-					print "got back"
-				end
+				r.xy = oldr.xy
 				break
 			end
-			print ("back...", #way)
 			r.xy = way[#way]:outermostPoint(d0, oldr)
 			way[#way] = nil
 			updateRcolliding()
