@@ -1,18 +1,16 @@
 --[[
 	module maploader: loads tilemaps, tilesets and populates them with Entities
 	
-	The public interface consists only of the function loadmap.
-
 	# Where does data come from? #
 	
 		* the tilemap file itself (tmx) and the associated tilemap file (tsx;
 		  this is handled transparently by jd, as if the tsx was directly
 		  embedded in the tmx)
 		* the tile database (data.tiles, ie. lua/data/tiles.lua)
-		* the entity modules (lua/entity/<objecttype>.lua
+		* the entity modules (lua/entity/<objecttype>.lua)
 	
 	The tsx contains just the names of the tiles, so that a mapping
-	tile-ID <--> tile-name --> tile-data can be etablished. Other properties
+	tile-ID <--> tile-name <--> tile-data can be etablished. Other properties
 	are ignored.
 	
 	Since the tile-ID <--> tile-name mapping can change on a per-tileset basis,
@@ -20,22 +18,24 @@
 	
 	# What is done? #
 	
-	 1. The tilemap is loaded with loadFromFile (see mapFile() for details about
-	    the name --> filename mapping).
+	 1. loadMap() only: The tilemap is loaded with loadFromFile (see mapFile()
+	    for details about the name --> filename mapping).
 	 2. Using the returned information, especially the 'name' properties of the
 	    tiles in the tileset, the tile-ID <--> tile-name mapping is established
 	    (see above).
 	 3. A TileCollisionGroup and a table (name --> entity) containing
 	    proxy-entities for each tile-ID are set up, skipping those who have an
 	    objectReplacement property.
-	 4. Each tile which is on the map and has an objectReplacement, is replaced
-	    by the corresponding object by calling the property, threating it as a
-	    constructor. However, the tile-ID at the map position isn't changed.
-	    If this is neccessary, it's the responsibility of the ctor.
-	 5. A table of the following form is returned:
+	 4. Each tile which is on the map and has its doSubstitute property set to
+	    true, is replaced by the corresponding object by calling its substitute
+		property as a function. However, the tile-ID at the map position isn't
+		changed. If this is neccessary, it's the responsibility of the ctor.
+	  
+	 5. A table of the following form is returned (the changed result arg (#3 of
+	    loadMap()) or data arg (#1 of initializeMap())):
 	    {
-			map = the jd.Tilemap passed as arg#1, loaded
-			name = arg#2: string
+			map = the jd.Tilemap passed as/contained in arg#1
+			[loadmap only:] name = arg#2: string
 			tileProxies = {name = proxy: jd.Entity}
 			substituteObjects = {sequence: jd.Entity}
 			tileCollisionInfo = jd.TileCollideableInfo
@@ -52,10 +52,6 @@ local tabutil = require 'tabutil'
 local M = { }
 
 local tiledata = require 'data.tiles'
-
-local function mapFile(name)
-	return "maps/" .. name .. ".tmx"
-end
 
 local function createTile(name, id, map)
 	-- some tiles have multiple names (eg. Fount#1, #2, ...), so pass the name
@@ -160,27 +156,49 @@ local function substituteObjects(props, mapdata)
 	end -- for z
 	return objects
 end
+
+function M.mapFile(name)
+	return "maps/" .. name .. ".tmx"
+end
+
+--[[
+	data (arg#1) must be a table which contains the jd.Tilemap to be
+	initialized at the key 'map' and the value returned by its loadFromFile()
+	method.
+--]]
+function M.initializeMap(data)
 	
-function M.loadMap(map, name, result)
-	result = result or { }
-	local props = map:loadFromFile(mapFile(name))
+	local props = data.props
+	assert(props)
+	local map = data.map
+	assert(map)
+	
 	local tileCollisionInfo = jd.TileCollideableInfo(map)
 	
-	result.map = map
-	result.name = name
-	result.tileMapping = findTileIdMapping(props.tileProperties)
-	result.tileCollisionInfo = tileCollisionInfo
-	result.postLoad = { }
-	result.tileProxies = setupProxies(
-		result.tileMapping, tileCollisionInfo, map)
-	result.substituteObjects = substituteObjects(props, result)
-	result.mapObjects = setupObjects(props, result)
+	data.map = map
+	data.tileMapping = findTileIdMapping(props.tileProperties)
+	data.tileCollisionInfo = tileCollisionInfo
+	tabutil.default(data, 'postLoad')
+	data.tileProxies = setupProxies(
+		data.tileMapping, tileCollisionInfo, map)
+	data.substituteObjects = substituteObjects(props, data)
+	data.mapObjects = setupObjects(props, data)
 	
-	for _, postLoadCallback in ipairs(result.postLoad) do
-		postLoadCallback(result, props)
+	for _, postLoadCallback in ipairs(data.postLoad) do
+		postLoadCallback(data, props)
 	end
-	result.postLoad = nil
-	return result
+	data.postLoad = nil
+	
+	return data
+end
+
+function M.loadMap(map, name, data)
+	data = data or { }
+	data.props = map:loadFromFile(M.mapFile(name))
+	data.name = name
+	data.map = map
+	
+	return M.initializeMap(result)
 end
 
 return M
