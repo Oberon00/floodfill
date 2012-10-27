@@ -1,46 +1,30 @@
 local oo = require 'oo'
 local evt = require 'evt'
 local loadMap = (require 'maploader').loadMap
+local levelnamelist = require 'data.levels'
+local LevelList = require 'LevelList'
+local Level = require 'Level'
 
 oo.cppclass('GameState', jd.State)
 
 function GameState:__init()
 	jd.State.__init(self)
-	self.onStart = evt.Signal()
-	self.onStop  = evt.Signal()
+	self.levels = LevelList(levelnamelist)
 end
 
 function GameState:prepare()
 	local maplayer = jd.drawService:layer(2)
-	local tilemap = jd.Tilemap(maplayer.group)
 	
-	local function load()
-		self.world = loadMap(tilemap, "level1", {
-			onStart = self.onStart,
-			onStop = self.onStop,
-			procs = { }
-		})
-	end
-	evt.connectToKeyPress(jd.kb.F5, function() self:stop(); load() end)
-	load()
-	maplayer.view.rect = tilemap.bounds
-	self.onStart()
+	self.level = Level(self.levels:currentLevel().name, maplayer.group)
+	evt.connectToKeyPress(jd.kb.F5, function() self.level:restart() end)
+	self.level:start()
+	maplayer.view.rect = self.level.world.map.bounds
+
 end
 
 function GameState:stop()
-	self.onStop()
-	for _, entity in pairs(self.world.tileProxies) do
-		entity:kill()
-	end
-	for _, entity in ipairs(self.world.substituteObjects) do
-		entity:kill()
-	end
-	for _, group in pairs(self.world.mapObjects) do
-		for _, entity in ipairs(group) do
-			entity:kill()
-		end
-	end
-	self.world = nil
+	self.level:stop()
+	self.level = nil
 end
 
 _G.states = _G.states or { }
