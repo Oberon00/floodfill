@@ -8,7 +8,6 @@ local LAYER_LOCK = layers.LOCKS
 local OBJT_LINE = jd.mapInfo.Object.LINE
 
 local function activate(self, activator)
-	local lockp = self.data.lockp
 	self.data.opened = not self.data.opened
 	self.data:apply()
 end
