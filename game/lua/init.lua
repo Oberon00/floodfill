@@ -39,5 +39,4 @@ end)
 
 jd.stateManager:push(jd.conf.misc.initialState)
 collectgarbage()
-
 -- jd will start the Mainloop automatically
