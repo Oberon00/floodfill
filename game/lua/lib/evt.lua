@@ -97,7 +97,7 @@ lclass('Table', M)
 		if jd.CLOSING then
 			return
 		end
-		
+
 		for _, v in pairs(self.evts) do
 			if getmetatable(v) then
 				local connected = v.isConnected
@@ -175,12 +175,7 @@ lclass('Signal', M)
 		local slotCount = #self
 		for i = 1, slotCount do
 			if self[i] == f then
-				if i == slotCount then
-					self[i] = nil
-				else
-					self[i] = self[slotCount]
-					self[slotCount] = nil
-				end
+				erase(self, i)
 				return true
 			end
 		end
