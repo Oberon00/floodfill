@@ -8,8 +8,8 @@ function C:__init(name, drawgroup)
 	self.onStart = evt.Signal()
 	self.onStop  = evt.Signal()
 	
-	local map = jd.Tilemap(drawgroup)
-	map.visible = false
+	local map = jd.Tilemap()
+	self.drawgroup = drawgroup
 	self._levelData = {
 		name = name,
 		map = map,
@@ -26,6 +26,7 @@ function C:start()
 	world.level = self
 	
 	world.map = jd.Tilemap(world.map)
+	world.map.group = self.drawgroup
 
 	world.procs = { }
 	world.map.visible = true
@@ -48,6 +49,7 @@ function C:stop()
 			entity:kill()
 		end
 	end
+	self.world.map:release()
 	self.world = nil
 end
 
