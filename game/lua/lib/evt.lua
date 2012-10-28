@@ -42,15 +42,15 @@ do
 	local function connectToKeyEvent(event, key, f)
 		if not callbacks[event] then
 			if not f then
-				jd.log.w "Attempt to disconnect a key event"
-						 " when none was registered."
+				jd.log.w ("Attempt to disconnect a key event"
+						  .. " when none was registered.")
 				return
 			end
 			M.connectForever(jd.eventDispatcher, event, function(keyEvt)
 				util.callopt(callbacks[event][keyEvt.code], keyEvt, event)
 			end)
 			callbacks[event] = { }
-		elseif f and keyPressCallbacks[key] then
+		elseif f and callbacks[event][key] then
 			jd.log.w(("%s event: overriding key %s"):format(
 				event, jd.kb.keyName(key)))
 		end
