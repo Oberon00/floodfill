@@ -28,7 +28,6 @@ end
 
 -- class([name, [env]], [super])
 -- class([super])
--- use an empty table as [env] to create a named class without exporting it
 function M.class(name, env, super)
 	if name and not super and type(name) ~= 'string' then
 		super, name = name, nil
