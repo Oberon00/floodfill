@@ -29,7 +29,6 @@ function C:start()
 	world.map.group = self.drawgroup
 
 	world.procs = { }
-	world.map.visible = true
 
 	self.world = maploader.initializeMap(world)
 	
