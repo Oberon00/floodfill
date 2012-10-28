@@ -37,6 +37,14 @@ evt.connectForever(jd.eventDispatcher, 'closed', function()
 	jd.mainloop:quit()
 end)
 
+evt.connectToKeyPress(jd.kb.F11, function()
+	local before = collectgarbage 'count'
+	collectgarbage()
+	local after = collectgarbage 'count'
+	local freed = before - after
+	jd.log.d(("GC freed %f kB (%f --> %f)"):format(freed, before, after))
+end)
+
 jd.stateManager:push(jd.conf.misc.initialState)
 collectgarbage()
 -- jd will start the Mainloop automatically
