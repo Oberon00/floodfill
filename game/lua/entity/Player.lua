@@ -7,7 +7,7 @@ require 'comp.Activateable' -- Make sure component is registered.
 local tiles = require 'data.tiles'
 local layers = require 'data.layers'
 local util = require 'util'
-local allEnterable = (require 'collisionutil').allEnterable
+local colutil = require 'collisionutil'
 
 local M = { }
 
@@ -23,6 +23,24 @@ local function activateAll(collisions, entity)
 			act:activate(entity)
 		end
 	end -- for c in collisions
+end
+
+local function nearestPoint(to, p1, p2)
+	return to:manhattanDistance(p1) < to:manhattanDistance(p2) and p1 or p2
+end
+
+local function mostDistantPoint(to, p1, p2)
+	return to:manhattanDistance(p1) > to:manhattanDistance(p2) and p1 or p2
+end
+
+local function cutMovementFrom(from, to, at)
+	local p1, p2 = at:clipLine(from, to)
+	return p1 and mostDistantPoint(from, p1, p2) or to
+end
+
+local function cutMovementTo(from, to, at)
+	local p1, p2 = at:clipLine(from, to)
+	return p1 and nearestPoint(from, p1, p2) or to
 end
 
 function M.load(info, layerInfo, data)
@@ -43,9 +61,10 @@ function M.load(info, layerInfo, data)
 	data.objectColliders.objects:add(pos)
 	local cgg = jd.CollideableGroupGroup()
 	local tilestackcg = jd.TileStackCollideableGroup(data.tileCollisionInfo)
-	entity.tilestackcg = tilestackcg -- ensure tilestackcg stays alife
+	local tilew = math.min(map.tileset.size.x, map.tileset.size.y)
+	entity.tilestackcg = tilestackcg -- ensure that tilestackcg stays alife
 	
-	tilestackcg:setFilter(function (p, stack)
+	tilestackcg:setFilter(function(p, stack)
 		local tileFound = false
 		for i = 0, layers.PLAYER_GROUND - 1 do
 			stack:get(i + 1).discard = true
@@ -65,72 +84,71 @@ function M.load(info, layerInfo, data)
 	
 	cgg:add(tilestackcg)
 	
-	InputMovedComponent(entity, function (r, oldr, d0, d, comp)
-		local collisions = cgg:colliding(oldr.center, r.center)
-		local way = {oldr}
-		local collisionsInWay = 0
-		local aborted = false
-		for i = 1, collisions.count do
-		
-			local c = collisions:get(i)
-			local cinfo = c.entity:component 'CollisionInfoComponent'
-			
-			if i > collisionsInWay then
-				way[#way] = c.rect
-				collisionsInWay = collisions.count
-				for j = i + 1, collisionsInWay do
-					if collisions:get(j).rect ~= c.rect then
-						assert(j > 1)
-						collisionsInWay = j - 1
-						break
-					end -- if rect is new
-				end -- for j = i + 1, collisionsInWay
-			end -- if i > collisionsInWay
-						
-			if cinfo and (c.rect:intersection(oldr) or
-			   cinfo:canEnter(entity, d0, oldr.xy, r.xy)) then
-				if not cinfo:canLeave(entity, d0, oldr.xy, r.xy) then
-					aborted = true
-					break
-				else -- if i < collisionsInWay
-				end  -- if i < collisionsInWay/else
-			else -- if canEnter and ...
-				aborted = true
-				break
-			end -- if canEnter and .../else
-		end -- for c in collisions
-		
-		if not aborted then
-			way[#way] = nil -- remove last rect (target rect)
+	local function canMoveEnter(oldr, r, d, from, to)		
+		local oldc = cgg:colliding(oldr)
+		local newc = cgg:colliding(r)
+		local newOnly = newc:differenceTo(oldc)
+		return colutil.allEnterable(newOnly, entity, d, from, to)
+	end
+	
+	local function canMoveLeave(oldr, r, d, from, to)
+		local oldc = cgg:colliding(oldr)
+		local newc = cgg:colliding(r)
+		local newOnly = newc:differenceTo(oldc)
+		return colutil.allLeaveable(oldc, entity, d, from, to) or
+			   newOnly.count == 0
+	end
+	
+	InputMovedComponent(entity, function (destr, oldr, d0, d, comp)
+		local step = d0 * tilew
+		local steplen = #step
+		local dlen = #d -- oldr.xy -- destr.xy
+		if dlen < steplen then
+			step = d
+			steplen = dlen
 		end
 		
-		local rcolliding
-		local function updateRcolliding()
-			rcolliding = cgg:colliding(r)
-			util.inplaceMap(rcolliding, function(c)
-				if c.rect:intersection(oldr) then
-					return nil
-				end
-				return c
-			end)
-		end
+		local mlen = 0 -- oldr.xy -- r.xy
+		local r = jd.Rect(oldr.xy, oldr.wh)
 		
-		updateRcolliding()
-		while not allEnterable(rcolliding, entity, d0, oldr.xy, r.xy) do
-		    if not way[#way] then
-				r.xy = oldr.xy
-				break
+		local function maybeActivate()
+			if comp.firstMove or r ~= oldr then
+				local activateRect = jd.Rect(
+					r.xy + d0 * ACTIVATE_DISTANCE, r.size)
+				activateAll(cgg:colliding(activateRect), entity)
 			end
-			r.xy = way[#way]:outermostPoint(d0, oldr)
-			way[#way] = nil
-			updateRcolliding()
-		end -- while not allEnterable which touch r
-		
-		if comp.firstMove or r ~= oldr then
-			local activateRect = jd.Rect(
-				r.xy + d0 * ACTIVATE_DISTANCE, r.size)
-			activateAll(cgg:colliding(activateRect), entity)
 		end
+
+		
+		while mlen ~= dlen do			
+			mlen = mlen + steplen
+
+			local newr
+			if mlen > dlen then
+				mlen = dlen
+				newr = destr
+			else
+				newr = jd.Rect(r.xy + step, r.wh)
+			end
+			local ok = canMoveEnter(r, newr, d, oldr.xy, destr.xy)
+			if not ok then
+				step = step / 2
+				steplen = #step
+				if steplen < 1 and steplen < dlen then
+					maybeActivate()
+					return r.xy
+				end
+				mlen = mlen - steplen
+			elseif canMoveLeave(r, newr, d, oldr.xy, destr.xy) then
+				r = newr
+			else
+				local outp = r:outermostPoint(d0, r)
+				return cutMovementFrom(
+					r.xy, outp, map:tileRect(map:tilePosFromGlobal(r.center))
+				) - outp + r.xy	
+			end
+		end
+		maybeActivate()
 		return r.xy
 	end) -- InputMovedComponent callback
 	
