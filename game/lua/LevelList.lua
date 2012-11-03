@@ -19,11 +19,11 @@ function C:currentLevel()
 end
 
 function C:advance()
-	if not validIndex(self.currentIndex) then
+	if not validIndex(self, self.currentIndex) then
 		return false
 	end
 	self.currentIndex = self.currentIndex + 1
-	return validIndex(self.currentIndex)
+	return validIndex(self, self.currentIndex)
 end
 	
 lclass('Entry', C)
