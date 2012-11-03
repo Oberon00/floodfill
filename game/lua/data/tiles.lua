@@ -2,6 +2,7 @@ local T = require 'Tile'
 local Lever = require 'entity.Lever'
 local Fount = require 'entity.Fount'
 local LowBridge = require 'entity.LowBridge'
+local Goal = require 'entity.Goal'
 
 local tiles = {
     --               enter   leave
