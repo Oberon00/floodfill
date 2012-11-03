@@ -2,12 +2,12 @@
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <map version="1.0" orientation="orthogonal" width="27" height="18" tilewidth="32" tileheight="32">
  <tileset firstgid="1" source="set.tsx"/>
- <layer name="water-ground" width="27" height="18">
+ <layer name="water-ground" width="27" height="18" visible="0">
   <data encoding="base64" compression="zlib">
    eJxTYmBgUCICKxKpjlKsSGe78LmBmm7BZg66+dS0CxumtR8HW/wOlH2kxA0t/IXNfELpgdzwI8YcXOmRVDcNpngcynaRE/a49NPSv9QoG8lJe+SGDTXTAgCD/EA0
   </data>
  </layer>
- <layer name="water" width="27" height="18">
+ <layer name="water" width="27" height="18" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYCAOsBCpjlKgAMX0sgufGxTwqKGGXejmU9MubBifGnqBkWAfIXlkTIk9uPRjMx/dXmLtJqSWGHOw2Y0LEzKHXmA424ULj4LBAwDIRwgF
   </data>
@@ -29,7 +29,7 @@
  </layer>
  <layer name="objects" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF9AJcA+2AUTAKRsEoGAWDHgAARVAACw==
+   eJxjYBgF9AJcA+2AUTAKRsEoGEAwWgYSBwBQ4AAV
   </data>
  </layer>
  <objectgroup name="objects" width="27" height="18">
@@ -41,5 +41,8 @@
   </object>
   <object x="-19436418" y="851930574"/>
   <object x="-19436294" y="851930555"/>
+  <object x="240" y="496">
+   <polyline points="0,0 31,-13"/>
+  </object>
  </objectgroup>
 </map>
