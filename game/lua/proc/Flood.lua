@@ -84,7 +84,7 @@ local function floodFillLayer(
 		local p = open[openLen]
 		openLen = openLen - 1
 		local surrounding = surroundingPositions4(p)
-		for i = 1, 4 do
+		for i = 1, 4 do -- for each surrounding position
 			local n = surrounding[i]
 			if not isPointMarked(done, n) then
 				markPoint(done, n)
@@ -93,19 +93,21 @@ local function floodFillLayer(
 						openLen = openLen + 1
 						open[openLen] = n
 						markPoint(isWater, n)
-					else
+					else -- if there is water at n
 						waterBorderPositions[#waterBorderPositions + 1] = n
-					end
-				end
-			end
-		end
-	end
+					end -- if there is water at n / else
+				end -- if canFlow(...)
+			end -- if not isPointMarked(done, n)
+		end -- for i = 1, 4 (for each surrounding position)
+	end -- while openLen > 0
 	return isWater, waterBorderPositions
 end
 
 function C:__init(world)
+	self.founts = { }
+	
 	local waterProxy
-	world.postLoad[#world.postLoad + 1] = function(world)
+	world.postLoad:connect(function(world)
 		waterProxy =  world.tileProxies.water
 		local cinfo = waterProxy:require 'CollisionInfoComponent'
 		local canEnter, canLeave = cinfo.canEnter, cinfo.canLeave
@@ -115,11 +117,11 @@ function C:__init(world)
 		function cinfo.canLeave(self, entity, ...)
 			return entity == waterProxy or canLeave(self, entity, ...)
 		end
-	end
+	end)
 	local map = world.map
-	self.founts = { }
+	self.map = map
 	local evts = evt.Table()
-	local waterTid = world.tileMapping.byName.water
+	self.TID_WATER = world.tileMapping.byName.water
 	local collider = jd.TileLayersCollideableGroup(
 		world.tileCollisionInfo, layers.WATER_GROUND, layers.LOCKS + 1)
 	evts:add(jd.timer:callEvery(UPDATE_TIMEOUT, function()
@@ -127,7 +129,7 @@ function C:__init(world)
 		local newWater = { }
 		for i = 1, #self.founts do
 			floodFillLayer(
-				map, collider, waterTid, waterProxy, self.founts[i],
+				map, collider, self.TID_WATER, waterProxy, self.founts[i],
 				isConnectedWater, newWater)
 		end
 		
@@ -135,7 +137,7 @@ function C:__init(world)
 			for y = 0, map.size.y - 1 do
 				local p = jd.Vec3(x, y, layers.WATER)
 				local tid = map:get(p)
-				if tid == waterTid and
+				if tid == self.TID_WATER and
 				   not isPointMarked(isConnectedWater, p)
 				   and math.random(2) == 1 then
 					map:set(p, 0)
@@ -144,10 +146,14 @@ function C:__init(world)
 		end -- for x
 		
 		for i = 1, #newWater do
-			map:set(newWater[i], waterTid)
-		end		
+			map:set(newWater[i], self.TID_WATER)
+		end
 	end))
 	evts:add(world.onStop:connect(function() evts:disconnect() end))
+end
+
+function C:isFlooded(pos)
+	return self.map:get(jd.Vec3(pos.x, pos.y, layers.WATER)) == self.TID_WATER
 end
 
 function C:registerFount(position)
