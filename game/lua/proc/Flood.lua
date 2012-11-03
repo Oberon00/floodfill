@@ -105,6 +105,8 @@ end
 
 function C:__init(world)
 	self.founts = { }
+	self.onFlow = evt.Signal()
+	self.onDryOut = evt.Signal()
 	
 	local waterProxy
 	world.postLoad:connect(function(world)
@@ -133,6 +135,7 @@ function C:__init(world)
 				isConnectedWater, newWater)
 		end
 		
+		local dryOut = false
 		for x = 0, map.size.x - 1 do
 			for y = 0, map.size.y - 1 do
 				local p = jd.Vec3(x, y, layers.WATER)
@@ -141,12 +144,21 @@ function C:__init(world)
 				   not isPointMarked(isConnectedWater, p)
 				   and math.random(2) == 1 then
 					map:set(p, 0)
+					dryOut = true
 				end -- if unconnected water found
 			end -- for y
 		end -- for x
 		
 		for i = 1, #newWater do
 			map:set(newWater[i], self.TID_WATER)
+		end
+		
+		if dryOut then
+			self.onDryOut()
+		end
+		
+		if #newWater > 0 then
+			self.onFlow(newWater)
 		end
 	end))
 	evts:add(world.onStop:connect(function() evts:disconnect() end))
