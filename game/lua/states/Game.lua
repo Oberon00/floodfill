@@ -21,11 +21,12 @@ local function startLevel(self)
 	end
 end
 
-local function nextLevel(self)
+--[[local]] function nextLevel(self)
 	evt.connectToKeyPress(jd.kb.F5, nil)
 	self.level:stop()
 	if not self.levels:advance() then
-		self.levels.currentIndex = 1
+		self.levels.currentIndex = 1 -- restart from first level
+		-- TODO: Show "winning-screen"
 	end
 	startLevel(self)
 end
