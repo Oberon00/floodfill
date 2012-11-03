@@ -48,6 +48,7 @@
 
 local util = require 'util'
 local tabutil = require 'tabutil'
+local Signal = (require 'evt').Signal
 
 local M = { }
 
@@ -178,15 +179,13 @@ function M.initializeMap(data)
 	data.map = map
 	data.tileMapping = findTileIdMapping(props.tileProperties)
 	data.tileCollisionInfo = tileCollisionInfo
-	tabutil.default(data, 'postLoad')
+	tabutil.default(data, 'postLoad', Signal())
 	data.tileProxies = setupProxies(
 		data.tileMapping, tileCollisionInfo, map)
 	data.substituteObjects = substituteObjects(props, data)
 	data.mapObjects = setupObjects(props, data)
 	
-	for _, postLoadCallback in ipairs(data.postLoad) do
-		postLoadCallback(data, props)
-	end
+	data.postLoad(data, props)
 	data.postLoad = nil
 	
 	return data
