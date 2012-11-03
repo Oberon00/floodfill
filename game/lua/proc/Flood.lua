@@ -103,6 +103,13 @@ local function floodFillLayer(
 	return isWater, waterBorderPositions
 end
 
+function C.ensureFlood(world)
+	if not world.procs.flood then
+		world.procs.flood = C(world)
+	end
+	return world.procs.flood
+end
+
 function C:__init(world)
 	self.founts = { }
 	self.onFlow = evt.Signal()
