@@ -158,6 +158,57 @@ local function substituteObjects(props, mapdata)
 	return objects
 end
 
+local OBJT_LINE = jd.mapInfo.Object.LINE
+local OBJT_RECT = jd.mapInfo.Object.RECT
+
+local function getRect(tposOrR)
+	return tposOrR.wh and
+		tposOrR or data.map:localTileRect(jd.Vec2(pos.x, pos.y))
+end
+
+--[[
+	Finds all lines in conobjects which end or start in the rect arg#1 or
+	the rect of the tile at the tile position arg#1.
+	Returns a sequence of the lines themselves and a sequence of all the other
+	line ends.
+--]]
+function M.findConnections(tposOrR, map, conobjects)
+	local r = getRect(tposOrR)
+	local points  = { }
+	local objects = { }
+	for c in conobjects:iter() do
+		if c.objectType == OBJT_LINE then
+			local cpoints = c.absolutePoints
+			local p1 = cpoints:get(1)
+			local p2 = cpoints:get(cpoints.count)
+			local otherp = r:contains(p1) and p2 or r:contains(p2) and p1
+			if otherp then
+				points [#points  + 1] = otherp
+				objects[#objects + 1] = jd.mapInfo.Object(c) -- copy c
+			end -- if otherp
+		end -- if c.objectType == OBJT_LINE
+	end -- for each c in conobjects
+	return objects, points
+end
+
+--[[
+	Returns a sequence of all rectangle-objects in tagobjects which intersect
+	arg#1 (see findConnections()).
+--]]
+function M.findTagObjects(tposOrR, map, tagobjects)
+	local r = getRect(tposOrR)
+	local objects = { }
+	for t in tagobjects:iter() do
+		if t.objectType == OBJT_RECT and t.type == '' then
+			local tr = jd.Rect(t.position, t.size)
+			if tr:intersection(r) then
+				objects[#objects + 1] = jd.mapInfo.Object(t) -- copy t
+			end -- if tr:intersection(r)
+		end -- if t.objectType == OBJT_RECT
+	end -- for each t in tagobjects
+	return objects
+end
+
 function M.mapFile(name)
 	return "maps/" .. name .. ".tmx"
 end
