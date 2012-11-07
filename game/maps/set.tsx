@@ -27,6 +27,21 @@
    <property name="name" value="bridge_v"/>
   </properties>
  </tile>
+ <tile id="18">
+  <properties>
+   <property name="name" value="button_off"/>
+  </properties>
+ </tile>
+ <tile id="25">
+  <properties>
+   <property name="name" value="button_on"/>
+  </properties>
+ </tile>
+ <tile id="26">
+  <properties>
+   <property name="name" value="button_toggle"/>
+  </properties>
+ </tile>
  <tile id="0">
   <properties>
    <property name="name" value="fount#1"/>
@@ -47,12 +62,12 @@
    <property name="name" value="fount#4"/>
   </properties>
  </tile>
- <tile id="18">
+ <tile id="19">
   <properties>
    <property name="name" value="goal"/>
   </properties>
  </tile>
- <tile id="25">
+ <tile id="27">
   <properties>
    <property name="name" value="ground"/>
   </properties>
@@ -67,107 +82,107 @@
    <property name="name" value="lever#2"/>
   </properties>
  </tile>
- <tile id="26">
+ <tile id="4">
   <properties>
    <property name="name" value="lock_e"/>
   </properties>
  </tile>
- <tile id="19">
+ <tile id="5">
   <properties>
    <property name="name" value="lock_es"/>
   </properties>
  </tile>
- <tile id="27">
+ <tile id="12">
   <properties>
    <property name="name" value="lock_esw"/>
   </properties>
  </tile>
- <tile id="4">
+ <tile id="20">
   <properties>
    <property name="name" value="lock_ew"/>
   </properties>
  </tile>
- <tile id="5">
+ <tile id="6">
   <properties>
    <property name="name" value="lock_n"/>
   </properties>
  </tile>
- <tile id="12">
+ <tile id="13">
   <properties>
    <property name="name" value="lock_ne"/>
   </properties>
  </tile>
- <tile id="20">
+ <tile id="14">
   <properties>
    <property name="name" value="lock_nes"/>
   </properties>
  </tile>
- <tile id="6">
+ <tile id="21">
   <properties>
    <property name="name" value="lock_nesw"/>
   </properties>
  </tile>
- <tile id="13">
+ <tile id="28">
   <properties>
    <property name="name" value="lock_new"/>
   </properties>
  </tile>
- <tile id="14">
+ <tile id="7">
   <properties>
    <property name="name" value="lock_ns"/>
   </properties>
  </tile>
- <tile id="21">
+ <tile id="15">
   <properties>
    <property name="name" value="lock_nsw"/>
   </properties>
  </tile>
- <tile id="28">
+ <tile id="29">
   <properties>
    <property name="name" value="lock_nw"/>
   </properties>
  </tile>
- <tile id="7">
+ <tile id="22">
   <properties>
    <property name="name" value="lock_open"/>
   </properties>
  </tile>
- <tile id="15">
+ <tile id="23">
   <properties>
    <property name="name" value="lock_s"/>
   </properties>
  </tile>
- <tile id="29">
+ <tile id="30">
   <properties>
    <property name="name" value="lock_se"/>
   </properties>
  </tile>
- <tile id="22">
+ <tile id="31">
   <properties>
    <property name="name" value="lock_sw"/>
   </properties>
  </tile>
- <tile id="23">
+ <tile id="32">
   <properties>
    <property name="name" value="lock_w"/>
   </properties>
  </tile>
- <tile id="30">
+ <tile id="33">
   <properties>
    <property name="name" value="player"/>
   </properties>
  </tile>
- <tile id="31">
+ <tile id="40">
   <properties>
    <property name="name" value="water"/>
   </properties>
  </tile>
- <tile id="32">
+ <tile id="41">
   <properties>
    <property name="name" value="water_ground"/>
   </properties>
  </tile>
- <tile id="33">
+ <tile id="48">
   <properties>
    <property name="name" value="water_ground_rough"/>
   </properties>
