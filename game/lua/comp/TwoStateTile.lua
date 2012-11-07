@@ -1,9 +1,13 @@
 local C = component 'TwoStateTileComponent'
 
+local evt = require 'evt'
+
 function C:init(map, tid1, tid2)
 	self.map = map
 	self.tid1 = tid1
 	self.tid2 = tid2
+	
+	self.onStateChanged = evt.Signal()
 end
 
 function C:initComponent()
@@ -20,6 +24,7 @@ end
 
 function C:setState(state)
 	self._state = state
+	self.onStateChanged(state)
 	self.map:set(self.tpos.tilePosition, self._state and self.tid1 or self.tid2)
 end
 
