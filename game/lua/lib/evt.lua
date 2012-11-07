@@ -94,7 +94,7 @@ lclass('Table', M)
 	end
 
 	function M.Table:disconnect()
-		if jd.CLOSING then
+		if not jd then
 			return
 		end
 
