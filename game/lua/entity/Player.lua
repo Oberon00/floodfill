@@ -66,17 +66,17 @@ function M.load(info, layerInfo, data)
 	
 	tilestackcg:setFilter(function(p, stack)
 		local tileFound = false
-		for i = 0, layers.PLAYER_GROUND - 1 do
+		for i = 0, layers.PLAYER - 1 do
 			stack:get(i + 1).discard = true
 		end
-		for i = layers.PLAYER_GROUND, layers.OBJECTS do
+		for i = layers.PLAYER, layers.OBJECTS do
 			if stack:get(i + 1).entity then
 				tileFound = true
 				break
 			end
 		end
 		if not tileFound then
-			for i = layers.PLAYER_GROUND - 1, 0, -1 do
+			for i = layers.PLAYER - 1, 0, -1 do
 				stack:get(i + 1).discard = false
 			end -- for each layer between PLAYER_GROUND - 1 downto 0
 		end -- if not tileFound
