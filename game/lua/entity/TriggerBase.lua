@@ -47,8 +47,8 @@ function M.createSubstitute(onActivate, dstLayer, name, id, pos, data, props)
 		end -- for each in points
 	end) -- data.postLoad callback
 	local actcomp = ActivateableComponent(entity, onActivate, actData)
-	entity:finish()
-	
+
+	-- dont finish entity
 	return entity, actcomp
 end -- function M.substitute
 

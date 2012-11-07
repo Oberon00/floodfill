@@ -30,6 +30,8 @@ function M.createSubstitute(name, id, pos, data, props)
 	actcomp.data.TID_ON = TID_ON
 	actcomp.data.TID_OFF = TID_OFF
 	
+	entity:finish()
+	
 	return entity
 end -- function M.substitute
 

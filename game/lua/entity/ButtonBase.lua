@@ -15,6 +15,7 @@ function M.createSubstitute(processConnection, name, id, pos, data, props)
 	local entity, actcomp = TriggerBase.createSubstitute(
 		activate, layers.LOCKS, name, id, pos, data, props)
 	actcomp.data.processConnection = processConnection
+	entity:finish()
 	return entity
 end -- function M.substitute
 
