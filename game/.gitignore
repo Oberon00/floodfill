@@ -12,3 +12,5 @@ nppBackup/
 *.manifest
 _vld_memleaks.log
 
+# Copys of Files
+* - Kopie*
