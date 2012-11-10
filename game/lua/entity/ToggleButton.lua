@@ -4,7 +4,7 @@ local ButtonBase = require 'entity.ButtonBase'
 local M = { }
 
 local function processConnection(data, con)
-	con.dst:toggle()
+	con.dst:toggleState()
 end
 
 function M.createSubstitute(...)
