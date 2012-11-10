@@ -11,7 +11,6 @@ local function activate(self, activator)
 end
 
 function M.createSubstitute(processConnection, name, id, pos, data, props)
-	print("ButtonBase", name)
 	local entity, actcomp = TriggerBase.createSubstitute(
 		activate, layers.LOCKS, name, id, pos, data, props)
 	actcomp.data.processConnection = processConnection
