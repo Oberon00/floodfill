@@ -5,10 +5,10 @@ local function validIndex(self, i)
 end
 
 -- Pass level names (strings) as arguments.
-function C:__init(...)
-	local levels = {...}
+function C:__init(levels)
 	self.levels = { }
 	for i = 1, #levels do
+		print(levels[i])
 		self.levels[i] = C.Entry(levels[i])
 	end
 	self.currentIndex = validIndex(self, 1) and 1 or -1
