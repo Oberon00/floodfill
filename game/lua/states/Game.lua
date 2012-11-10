@@ -11,14 +11,22 @@ local maplayer = jd.drawService:layer(2)
 
 local nextLevel
 
-local function startLevel(self)
-	self.level = Level(self.levels:currentLevel().name, maplayer.group)
-	evt.connectToKeyPress(jd.kb.F5, function() self.level:restart() end)
+local function startLoadedLevel(self)
 	self.level:start()
-	maplayer.view.rect = self.level.world.map.bounds
 	function self.level.world.winLevel()
 		nextLevel(self)
 	end
+end
+
+local function startLevel(self)
+	self.level = Level(self.levels:currentLevel().name, maplayer.group)
+	evt.connectToKeyPress(jd.kb.F5, function()
+		self.level:stop()
+		startLoadedLevel(self)
+	end)
+	startLoadedLevel(self)
+	maplayer.view.rect = self.level.world.map.bounds
+	
 end
 
 --[[local]] function nextLevel(self)
