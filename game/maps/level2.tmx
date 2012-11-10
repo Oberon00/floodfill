@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="27" height="19" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="set.tsx"/>
+ <layer name="water-ground" width="27" height="19">
+  <data encoding="base64" compression="zlib">
+   eJy9VDEOACEIY+cnbv7/czddYrjSlhsciFGIbS2YEZEXY5PIsv6NLHchDmh1uKsc4++es7o3t0C4/JVuhLXFfh3nU187rCQ6J3q7HOPr1qn9eYfDD+l1gvnl9p+j53z/FV+/nHly8ycW4+fwVv8FwlJz082R0lexXD1TnRVr6sNUf6dr4oP7DqgPnflgvqk+VPw3wFT1nV834sV6ACLtO+A=
+  </data>
+ </layer>
+ <layer name="water" width="27" height="19">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGAbUA40A7gAQAAAiwAAI=
+  </data>
+ </layer>
+ <layer name="locks" width="27" height="19">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQxUoDrQDRghgH2gHQIEiGj0KhjYYLOlqFIxsAAAo6gBy
+  </data>
+ </layer>
+ <layer name="player" width="27" height="19">
+  <data encoding="base64" compression="zlib">
+   eJy9U8sKwDAI8+4u662w///OnQQJPmIZG4QwLW3iQ0VEf8RTQIFPoXBXpCFiRnuXq/Sz8eqcf2Mf6u98R29VfbocTvqa6TMs8DuZNaYWnd6b9BP9T+YQ4wt4A2Pe92M6V6wfr3UFMWYeo3xUL/TVzeF0nzJfmZ+OWf/mS4Z+pj7ZHWD3qGPsV1Znpg9MHbCeWZ3ZvcvOdb4Q9rHn2X59DdP4AsP9JIo=
+  </data>
+ </layer>
+ <layer name="objects" width="27" height="19">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgF1ATSA+2AQQo4B9oBZILR+KQPGOnhPNL9PwroD0SgNAAVbgCK
+  </data>
+ </layer>
+ <objectgroup name="objects" width="27" height="19" visible="0">
+  <object type="Player" gid="34" x="417" y="287"/>
+ </objectgroup>
+ <objectgroup name="connections" width="27" height="19">
+  <object x="104" y="431">
+   <polyline points="0,0 -94,-10"/>
+  </object>
+  <object x="113" y="110">
+   <polyline points="0,0 -11,35"/>
+  </object>
+  <object x="397" y="224">
+   <polyline points="0,0 -26,15"/>
+  </object>
+  <object x="626" y="173">
+   <properties>
+    <property name="negate" value=""/>
+   </properties>
+   <polyline points="0,0 -15,94"/>
+  </object>
+  <object x="687" y="302">
+   <polyline points="-30,34 -12,-33"/>
+  </object>
+  <object x="655" y="333">
+   <polyline points="0,0 -47,-57"/>
+  </object>
+  <object x="405" y="222">
+   <polyline points="-39,22 267,40"/>
+  </object>
+  <object x="625" y="174">
+   <polyline points="0,0 -221,53"/>
+  </object>
+ </objectgroup>
+</map>

@@ -4,4 +4,4 @@
 	Contains the ordered list of all level names.
 --]]
 
-return {"level1"}
+return {"level1", "level2"}
