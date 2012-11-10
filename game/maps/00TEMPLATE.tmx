@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="27" height="18" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="set.tsx"/>
+ <layer name="water-ground" width="27" height="18">
+  <data encoding="base64" compression="zlib">
+   eJwzZGBgMBzFo3gUj+JRPIpH8aDAAAkqXQc=
+  </data>
+ </layer>
+ <layer name="water" width="27" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=
+  </data>
+ </layer>
+ <layer name="locks" width="27" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=
+  </data>
+ </layer>
+ <layer name="player" width="27" height="18">
+  <data encoding="base64" compression="zlib">
+   eJyTYWBgkBnFo3gUj+JRPIpH8aDAAFGeNSk=
+  </data>
+ </layer>
+ <layer name="objects" width="27" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=
+  </data>
+ </layer>
+ <objectgroup name="objects" width="27" height="18">
+  <object type="Player" gid="34" x="399" y="297"/>
+ </objectgroup>
+ <objectgroup name="connections" width="27" height="18">
+  <object x="-19436418" y="851930574"/>
+  <object x="-19436294" y="851930555"/>
+ </objectgroup>
+</map>
