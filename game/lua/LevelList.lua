@@ -8,7 +8,6 @@ end
 function C:__init(levels)
 	self.levels = { }
 	for i = 1, #levels do
-		print(levels[i])
 		self.levels[i] = C.Entry(levels[i])
 	end
 	self.currentIndex = validIndex(self, 1) and 1 or -1
