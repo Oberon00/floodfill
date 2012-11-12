@@ -55,7 +55,7 @@ function M.load(info, layerInfo, data)
 	sprite.textureRect = jd.Rect(
 		tileset:texturePosition(info.tileId - 1), tileset.size)
 	sprite.origin = jd.Vec2(5, 5)
-	pos.rect = jd.Rect(info.position, PLAYER_SIZE)
+	pos.rect = jd.Rect(info.position + sprite.origin, PLAYER_SIZE)
 	CollisionInfoComponent(entity, tile)
 	GraphicComponent(entity, sprite)
 	data.objectColliders.objects:add(pos)
