@@ -5,7 +5,7 @@ local levelnamelist = require 'data.levels'
 local LevelList = require 'LevelList'
 local Level = require 'Level'
 
-oo.cppclass('GameState', jd.State)
+local C = oo.cppclass('GameState', jd.State)
 
 local maplayer = jd.drawService:layer(2)
 
@@ -39,16 +39,16 @@ end
 	startLevel(self)
 end
 
-function GameState:__init()
+function C:__init()
 	jd.State.__init(self)
 	self.levels = LevelList(levelnamelist)
 end
 
-function GameState:prepare()
+function C:prepare()
 	startLevel(self)
 end
 
-function GameState:stop()
+function C:stop()
 	self.level:stop()
 	self.level = nil
 end
