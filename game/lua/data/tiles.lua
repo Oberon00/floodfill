@@ -8,29 +8,31 @@ local LowBridge = reqe 'LowBridge'
 local Goal = reqe 'Goal'
 local OnButton = reqe 'OnButton'
 local OffButton = reqe 'OffButton' 
-local ToggleButton = reqe 'ToggleButton' 
+local ToggleButton = reqe 'ToggleButton'
+local LavaPassage = reqe 'LavaPassage'
 
 
 local tiles = {
     --               enter   leave
-	-- name      = T('nesw', 'nesw', replObj,   doSetProxy),
-	lock_open    = T('nesw', nil,    Lock,      true ),
-	fount        = T('nesw', nil,    Fount,     true ), --?
-	bridge_h     = T('ew',   nil,    nil,       true ),
-    bridge_low_h = T('ew',   nil,    LowBridge, false),
-	bridge_low_v = T('ns',   nil,    LowBridge, false),
-	bridge_v     = T('ns',   nil,    nil,       true ),
-	lever        = T('',     nil,    Lever,     false),
+	-- name      = T('nesw', 'nesw', replObj,      doSetProxy),
+	lock_open    = T('nesw', nil,    Lock,         true ),
+	fount        = T('nesw', nil,    Fount,        true ),
+	bridge_h     = T('ew',   nil,    nil,          true ),
+    bridge_low_h = T('ew',   nil,    LowBridge,    false),
+	bridge_low_v = T('ns',   nil,    LowBridge,    false),
+	lava_passage = T('nesw', nil,    LavaPassage,  false),
+	bridge_v     = T('ns',   nil,    nil,          true ),
+	lever        = T('',     nil,    Lever,        false),
 	button_toggle= T('',     nil,    ToggleButton, false),
-	button_on    = T('',     nil,    OnButton,  false),
-	button_off   = T('',     nil,    OffButton, false),
-    water_ground_rough = T('', nil,  nil,       true ),
-	water        = T('',     nil,    nil,       true ),
-	goal         = T('nesw', nil,    Goal,      true ),
-	ground       = T('nesw', nil,    nil,       true ),
-	player       = T('',     nil,    nil,       true ),
-	water_ground = T('nesw', nil,    nil,       true ),
-	barrage      = T('',     nil,    nil,       true )
+	button_on    = T('',     nil,    OnButton,     false),
+	button_off   = T('',     nil,    OffButton,    false),
+    water_ground_rough = T('', nil,  nil,          true ),
+	water        = T('',     nil,    nil,          true ),
+	goal         = T('nesw', nil,    Goal,         true ),
+	ground       = T('nesw', nil,    nil,          true ),
+	player       = T('',     nil,    nil,          true ),
+	water_ground = T('nesw', nil,    nil,          true ),
+	barrage      = T('',     nil,    nil,          true )
 }
 
 setmetatable(tiles, {__index = function(t, name)
