@@ -1,21 +1,20 @@
 require 'comp.CollisionInfo'
-local layers = require 'data.layers'
+local Flood = require 'proc.Flood'
 
 local M = { }
 
 function M.createSubstitute(name, id, pos, data, props)
 	local tiles = require 'data.tiles' 
-	local waterTid = data.tileMapping.byName.water
-	local map = data.map
 	local entity = jd.Entity()
 	local cinfo = CollisionInfoComponent(entity, tiles[name])
 	local poscomp = jd.PositionComponent(entity)
-	poscomp.rect = map:tileRect(jd.Vec2(pos.x, pos.y))
-	jd.TilePositionComponent(entity, map, pos.z)
+	poscomp.rect = data.map:tileRect(jd.Vec2(pos))
+	local tposcomp = jd.TilePositionComponent(entity, data.map, pos.z)
 	jd.TileCollisionComponent(entity, data.tileCollisionInfo)
 	local canEnter = cinfo.canEnter
+	local flood = Flood.ensureFlood(data)
 	function cinfo.canEnter(self, entity, ...)
-		return map:get(jd.Vec3(pos.x, pos.y, layers.WATER)) ~= waterTid
+		return not flood:isFlooded(tposcomp.tilePosition)
 		       and canEnter(self, entity, ...)
 	end
 	entity:finish()
