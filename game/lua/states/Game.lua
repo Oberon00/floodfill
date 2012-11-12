@@ -42,6 +42,8 @@ end
 function C:__init()
 	jd.State.__init(self)
 	self.levels = LevelList(levelnamelist)
+	jd.Image.keepLoaded "tileset.png"
+	jd.Texture.keepLoaded "tileset.png"
 end
 
 function C:prepare()
