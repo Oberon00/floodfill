@@ -4,7 +4,7 @@
  <tileset firstgid="1" source="set.tsx"/>
  <layer name="water-ground" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJwzZGBgMBzFo3gUj+JRPIpH8aDAAAkqXQc=
+   eJzTY2Bg0BvFo3gUj+JRPIpH8aDAAFykV1U=
   </data>
  </layer>
  <layer name="water" width="27" height="18">
@@ -19,7 +19,7 @@
  </layer>
  <layer name="player" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJyTYWBgkBnFo3gUj+JRPIpH8aDAAFGeNSk=
+   eJwTY2BgEBvFo3gUj+JRPIpH8aDAAPiSKcU=
   </data>
  </layer>
  <layer name="objects" width="27" height="18">
@@ -28,7 +28,7 @@
   </data>
  </layer>
  <objectgroup name="objects" width="27" height="18">
-  <object type="Player" gid="34" x="399" y="297"/>
+  <object type="Player" gid="45" x="392" y="285"/>
  </objectgroup>
  <objectgroup name="connections" width="27" height="18">
   <object x="-19436418" y="851930574"/>

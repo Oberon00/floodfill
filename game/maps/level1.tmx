@@ -4,31 +4,31 @@
  <tileset firstgid="1" source="set.tsx"/>
  <layer name="water-ground" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJwzZGBgMCQCaxGpjlKsRWe78LmBmm7BZg66+dS0CxumtR8HW/wOlH2kxA0t/IXNfELpgdzwI8YcXOmRVDcNpngcynaRE/a49NPSv9QoG8lJe+SGDTXTAgD6s1qY
+   eJzTY2Bg0CMCqxGpjlKsRme78LmBmm7BZg66+dS0CxumtR8HW/wOlH2kxA0t/IXNfELpgdzwI8YcXOmRVDcNpngcynaRE/a49NPSv9QoG8lJe+SGDTXTAgAnnVSN
   </data>
  </layer>
  <layer name="water" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYCAOsBCpjlKgCcX0sgufG6jpFmzmoJtPTbuwYXxq6AVGgn2E5KkR7vj0YzOfUHogxx4GAnL47CYmjZJjF7XAcLaLnLAfBfQFAD4lCkU=
+   eJxjYCAOsBCpjlJgAsX0sgufG6jpFmzmoJtPTbuwYXxq6AVGgn2E5KkR7vj0YzOfUHogxx4GAnL47CYmjZJjF7XAcLaLnLAfBfQFAM4iDQU=
   </data>
  </layer>
  <layer name="locks" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFwxEoDrQDRsEoGAWjAAtgH2gHDAEAAM1UACk=
+   eJxjYBgFwxGoDrQDRsEoGAWjAAtQGGgHDAEAAADnAEY=
   </data>
  </layer>
  <layer name="player" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJytU0EOwCAI4+51lyX+/527jMRUC0VtQpZVpUixmVkbwtEWPHIevbAf+dW/c50EqyOrE+/m8LyIN8lX0Y902sBXtJguw+gXW7sd6FemxzxXI/McdU57rax1m+vZ6bvZnAd59DaaCVWT7VVntoJoLtSab8zsaX9UbqeHp/diqNw3OxO90YpW1DvVBxXRmczHW/H83w+70RMX
+   eJy1U1sKwDAI828HEPq1+59zPxOKbTT2EZCx9BE1VkVEuzDohPdcFGi/52f/xjUQK7qz2gx2r8d7uG6kox1f0UK6CLaOcrgR3q9MD3nORua519ntNbPWZMxnpe8i4z2e995GM8Fqor3szFYQzQWb84mZ3e0Py630cLcuhEq92ZnojVa0ot6xPrCIzmQ+norn/37eKBwO
   </data>
  </layer>
  <layer name="objects" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF9AJcA+2AUTAKRsEoGEAgNdAOGCIAAGNgACU=
+   eJxjYBgF9AJSA+2AUTAKRsEoGEDANtAOGCIAAK8AACE=
   </data>
  </layer>
  <objectgroup name="objects" width="27" height="18">
-  <object type="Player" gid="34" x="545" y="35"/>
+  <object type="Player" gid="45" x="543" y="64"/>
  </objectgroup>
  <objectgroup name="connections" width="27" height="18">
   <object x="332" y="117">
