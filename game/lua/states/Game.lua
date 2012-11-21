@@ -4,6 +4,7 @@ local loadMap = (require 'maploader').loadMap
 local levelnamelist = require 'data.levels'
 local LevelList = require 'LevelList'
 local Level = require 'Level'
+local text = require 'text'
 
 local C = oo.cppclass('GameState', jd.State)
 
@@ -27,6 +28,27 @@ local function startLevel(self)
 	startLoadedLevel(self)
 	maplayer.view.rect = self.level.world.map.bounds
 	
+	-- Show "Level %i" message and fade out
+	local tx = text.create(("Level %i"):format(self.levels.currentIndex))
+	tx.color = jd.Color.GREEN
+	tx.characterSize = 100
+	tx.bold = true
+	text.center(tx)
+	
+	jd.timer:callAfter(jd.seconds(2), function()
+		local tm = jd.Clock()
+		local con
+		con = jd.connect(jd.mainloop, 'update', function()
+			local a = 255 - tm.elapsedTime:asSeconds() * (255 / 2)
+			if a < 0 then
+				tx:release()
+				con:disconnect()
+			end
+			local cl = tx.color
+			cl.a = a
+			tx.color = cl
+		end)
+	end)
 end
 
 --[[local]] function nextLevel(self)
