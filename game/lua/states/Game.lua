@@ -31,7 +31,7 @@ local function startLevel(self)
 	-- Show "Level %i" message and fade out
 	local tx = text.create(("Level %i"):format(self.levels.currentIndex))
 	tx.color = jd.Color.GREEN
-	tx.characterSize = 100
+	tx.characterSize = 200
 	tx.bold = true
 	text.center(tx)
 	
