@@ -207,32 +207,52 @@
    <property name="name" value="lock_s"/>
   </properties>
  </tile>
- <tile id="43">
+ <tile id="56">
   <properties>
    <property name="name" value="lock_se"/>
   </properties>
  </tile>
- <tile id="50">
+ <tile id="43">
   <properties>
    <property name="name" value="lock_sw"/>
   </properties>
  </tile>
- <tile id="36">
+ <tile id="50">
   <properties>
    <property name="name" value="lock_w"/>
   </properties>
  </tile>
+ <tile id="57">
+  <properties>
+   <property name="name" value="oneway_e"/>
+  </properties>
+ </tile>
+ <tile id="36">
+  <properties>
+   <property name="name" value="oneway_n"/>
+  </properties>
+ </tile>
  <tile id="44">
   <properties>
-   <property name="name" value="player"/>
+   <property name="name" value="oneway_s"/>
   </properties>
  </tile>
  <tile id="51">
   <properties>
-   <property name="name" value="water"/>
+   <property name="name" value="oneway_w"/>
+  </properties>
+ </tile>
+ <tile id="58">
+  <properties>
+   <property name="name" value="player"/>
   </properties>
  </tile>
  <tile id="37">
+  <properties>
+   <property name="name" value="water"/>
+  </properties>
+ </tile>
+ <tile id="38">
   <properties>
    <property name="name" value="water_ground"/>
   </properties>
