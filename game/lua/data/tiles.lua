@@ -14,7 +14,7 @@ local LavaPassage = reqe 'LavaPassage'
 
 local tiles = {
     --               enter   leave
-	-- name      = T('nesw', 'nesw', replObj,      doSetProxy),
+	-- name      = T('nesw', 'nesw', replObj,      setPx, bridging),
 	lock_open    = T('nesw', nil,    Lock,         true ),
 	fount        = T('nesw', nil,    Fount,        true ),
 	bridge_h     = T('ew',   nil,    nil,          true ),
@@ -56,7 +56,7 @@ local function negate(sides)
 end
 
 local function l(sides) -- lever
-	tiles['lock_' .. sides] = T(negate(sides), nil, Lock, true)
+	tiles['lock_' .. sides] = T(negate(sides), nil, Lock, true, false)
 end
 
 l 'n' l 'e' l 's' l 'w' --4x1

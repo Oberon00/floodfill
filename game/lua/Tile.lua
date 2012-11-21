@@ -23,9 +23,10 @@ local function parseDirections(dirs)
 	return result
 end
 
-function C:__init(enter, leave, replObj, doSetProxy, name)
+function C:__init(enter, leave, replObj, doSetProxy, bridging, name)
 	self.name = name
 	self.enterable = parseDirections(enter)
+	self.bridging = bridging == nil or not not bridging
 	if leave ~= nil then
 		self.leaveable = parseDirections(leave)
 	else

@@ -70,9 +70,13 @@ function M.load(info, layerInfo, data)
 			stack:get(i + 1).discard = true
 		end
 		for i = layers.PLAYER, layers.OBJECTS do
-			if stack:get(i + 1).entity then
-				tileFound = true
-				break
+			local entity = stack:get(i + 1).entity
+			if entity then
+				local cinfo = entity:component 'CollisionInfoComponent'
+				if not cinfo or cinfo.tile.bridging then
+					tileFound = true
+					break
+				end
 			end
 		end
 		if not tileFound then
