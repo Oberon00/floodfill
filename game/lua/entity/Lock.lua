@@ -2,6 +2,7 @@ local M = { }
 
 require 'comp.TwoStateTile'
 require 'comp.CollisionInfo'
+local layers = require 'data.layers'
 
 function M.createSubstitute(name, id, pos, data, props)
 	local maploader = require 'maploader'
@@ -38,12 +39,15 @@ function M.createSubstitute(name, id, pos, data, props)
 		entity, map, tids.lock_open, lockedTid)
 	entity:finish()
 	
-	local tags = maploader.findTagObjects(poscomp.rect,
-		map, props.objectGroups:get('connections').objects)
-	if #tags > 0 then
-		statecomp:setState(true) -- open if a tagobject is on the lock
-	end
-	
+	if pos.z == layers.LOCKS then	
+		local cons = props.objectGroups:get('connections')
+		assert(cons, "objectgroup 'connections' not found")
+		local tags = maploader.findTagObjects(poscomp.rect,
+			map, props.objectGroups:get('connections').objects)
+		if #tags > 0 then
+			statecomp:setState(true) -- open if a tagobject is on the lock
+		end
+	end -- if on lock-layer
 	return entity
 end -- function M.createSubstitutes
 
