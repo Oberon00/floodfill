@@ -21,8 +21,9 @@ end
 function M.center(t, layer)
 	layer = layer or defLayer
 	local r = t.bounds
+	local d = r.position - t.position
 	r.center = layer.view.center
-	t.position = r.position
+	t.position = r.position - d
 end
 
 return M
