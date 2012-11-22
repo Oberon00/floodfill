@@ -18,12 +18,25 @@ function M.create(s, p, layer, font)
 	return text
 end
 
-function M.center(t, layer)
+local function calculateCenterP(t, layer)
 	layer = layer or M.defaultLayer
 	local r = t.bounds
 	local d = r.position - t.position
 	r.center = layer.view.center
-	t.position = r.position - d
+	return r.position - d
 end
+
+function M.center(t, layer)
+	t.position = calculateCenterP(t, layer)
+end
+
+function M.centerX(t, layer)
+	t.position = jd.Vec2(calculateCenterP(t, layer).x, t.position.y)
+end
+
+function M.centerY(t, layer)
+	t.position = jd.Vec2(t.position.x, calculateCenterP(t, layer).y)
+end
+
 
 return M
