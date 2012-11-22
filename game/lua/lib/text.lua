@@ -1,15 +1,15 @@
 local M = { }
 
-local defFont = jd.Font.request(jd.conf.misc.defaultFont)
-local defLayer = jd.drawService:layer(3)
+M.defaultFont = jd.Font.request(jd.conf.misc.defaultFont)
+M.defaultLayer = jd.drawService:layer(3)
 
 function M.create(s, p, layer, font)
 	if type(font) == 'string' then
 		font = jd.Font.request(font)
 	else
-		font = font or defFont
+		font = font or M.defaultFont
 	end
-	layer = layer or defLayer.group
+	layer = layer or M.defaultLayer.group
 	p = p or jd.Vec2()
 	local text = jd.Text(layer)
 	text.font = font
@@ -19,7 +19,7 @@ function M.create(s, p, layer, font)
 end
 
 function M.center(t, layer)
-	layer = layer or defLayer
+	layer = layer or M.defaultLayer
 	local r = t.bounds
 	local d = r.position - t.position
 	r.center = layer.view.center
