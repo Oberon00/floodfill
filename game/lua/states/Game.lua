@@ -68,11 +68,13 @@ function C:__init()
 end
 
 function C:prepare()
+	evt.connectToKeyPress(jd.kb.ESCAPE, function() jd.stateManager:pop() end)
 	startLevel(self)
 end
 
 function C:pause()
 	evt.connectToKeyPress(jd.kb.F5, nil)
+	evt.connectToKeyPress(jd.kb.ESCAPE, nil)
 end
 
 function C:stop()

@@ -9,7 +9,7 @@ local CONT_TEXT_PADDING = 20
 local maplayer = jd.drawService:layer(2)
 
 local function skipIntro()
-	jd.stateManager:switchTo('Game')
+	return jd.stateManager:switchTo('Menu')
 end
 
 function C:prepare()
