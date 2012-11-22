@@ -19,7 +19,7 @@
  </layer>
  <layer name="player" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJwTY2BgEMOBhfHIUUN+oOyitVto6S9DHFgGiS2HJidHpBy6WaS4lVw5aps3GO0SppNdxKQFGQbcaYgUtdRI07jU0SJ/jXS7YPHGiiPO0cXR4x89LWArN3CljeGUl+llFwCACjA6
+   eJwTZmBgEKYTFsODqSlPjH30sova/jLEgWWQ2HJocnJEyqGbhe42cv1JjB+Hs13ocUgru4hJCzIMuNMQKWqpkeZxqSM2vIa6XfQMQ1i8seKIc3Rx9PhHTwvYyg1caWO45WV6YABVZS9l
   </data>
  </layer>
  <layer name="objects" width="27" height="18">
@@ -28,7 +28,7 @@
   </data>
  </layer>
  <objectgroup name="objects" width="27" height="18">
-  <object type="Player" gid="59" x="22" y="564"/>
+  <object type="Player" gid="59" x="60" y="532"/>
  </objectgroup>
  <objectgroup name="connections" width="27" height="18">
   <object x="-19436418" y="851930574"/>
