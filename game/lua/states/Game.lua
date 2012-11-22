@@ -4,12 +4,20 @@ local levelnamelist = require 'data.levels'
 local LevelList = require 'LevelList'
 local Level = require 'Level'
 local text = require 'text'
+local strings = require 'data.strings'
 
 local C = oo.cppclass('GameState', jd.State)
 
 local maplayer = jd.drawService:layer(2)
 
 local nextLevel
+
+local function clearMessage(self)
+	if self.message then
+		self.message:release()
+		self.message = nil
+	end
+end
 
 local function startLoadedLevel(self)
 	self.level:start()
@@ -28,7 +36,9 @@ local function startLevel(self)
 	maplayer.view.rect = self.level.world.map.bounds
 	
 	-- Show "Level %i" message and fade out
-	local tx = text.create(("Level %i"):format(self.levels.currentIndex))
+	local tx = text.create(strings.level_i:format(self.levels.currentIndex))
+	clearMessage(self)
+	self.message = tx
 	tx.color = jd.Color.GREEN
 	tx.characterSize = 200
 	tx.bold = true
@@ -39,9 +49,9 @@ local function startLevel(self)
 		local con
 		con = jd.connect(jd.mainloop, 'update', function()
 			local a = 255 - tm.elapsedTime:asSeconds() * (255 / 2)
-			if a < 0 then
-				tx:release()
+			if a < 0 or not self.message then
 				con:disconnect()
+				clearMessage(self)
 			end
 			local cl = tx.color
 			cl.a = a
@@ -75,6 +85,7 @@ end
 function C:pause()
 	evt.connectToKeyPress(jd.kb.F5, nil)
 	evt.connectToKeyPress(jd.kb.ESCAPE, nil)
+	clearMessage(self)
 end
 
 function C:stop()

@@ -1,6 +1,7 @@
 local oo = require 'oo'
 local Level = require 'Level'
 local text = require 'text'
+local strings = require 'data.strings'
 
 local C = oo.cppclass('SplashState', jd.State)
 
@@ -13,9 +14,9 @@ local function skipIntro()
 end
 
 function C:prepare()
-	local tx = text.create "Press any key to continue . . ."
+	local tx = text.create(strings.press_any_key)
 	self.continueText = tx
-	text.center(tx)
+	text.centerX(tx)
 	local vr = text.defaultLayer.view.rect
 	local posY = vr.bottom - tx.bounds.h - CONT_TEXT_PADDING
 	tx.position = jd.Vec2(tx.position.x, posY)
