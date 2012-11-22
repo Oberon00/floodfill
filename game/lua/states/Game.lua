@@ -1,6 +1,5 @@
 local oo = require 'oo'
 local evt = require 'evt'
-local loadMap = (require 'maploader').loadMap
 local levelnamelist = require 'data.levels'
 local LevelList = require 'LevelList'
 local Level = require 'Level'
@@ -72,12 +71,13 @@ function C:prepare()
 	startLevel(self)
 end
 
+function C:pause()
+	evt.connectToKeyPress(jd.kb.F5, nil)
+end
+
 function C:stop()
 	self.level:stop()
 	self.level = nil
 end
 
-_G.states = _G.states or { }
-_G.states.game = GameState()
-
-return states.game
+return GameState()
