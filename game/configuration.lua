@@ -12,7 +12,8 @@ return {
         debugKey     = jd.kb.LSHIFT,
 		layerCount   = 3, -- background, tilemap, ui
 		backgroundColor = jd.Color(255, 0, 255),
-		initialState = 'Game',
-		defaultFont  = "Ubuntu-R"
+		initialState = 'Splash',
+		defaultFont  = "Ubuntu-R",
+		splashLevel  = "FloodFillFlow"
     }
 }
