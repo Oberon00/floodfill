@@ -261,6 +261,7 @@ local O = C.MenuOption
 --[[local]] MAINMENU = {
 	O('new_game', enterStateF 'Game'),
 	O('continue_game', continueGame),
+	O('show_credits', enterStateF 'Credits'),
 	O('exit_program', function() return jd.mainloop:quit() end),
 }
 
