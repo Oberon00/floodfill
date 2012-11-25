@@ -30,5 +30,7 @@ lclass('Entry', C)
 		self.name = name
 		self.unlocked = unlocked
 	end
+
+C.default = C(require 'data.levels')
 	
 return C

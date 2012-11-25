@@ -27,7 +27,9 @@ local function startLoadedLevel(self)
 end
 
 local function startLevel(self)
-	self.level = Level(self.levels:currentLevel().name, maplayer.group)
+	local levelEntry = self.levels:currentLevel()
+	levelEntry.unlocked = true
+	self.level = Level(levelEntry.name, maplayer.group)
 	evt.connectToKeyPress(jd.kb.F5, function()
 		self.level:stop()
 		startLoadedLevel(self)
@@ -72,7 +74,7 @@ end
 
 function C:__init()
 	jd.State.__init(self)
-	self.levels = LevelList(levelnamelist)
+	self.levels = LevelList.default
 	jd.Image.keepLoaded "tileset.png"
 	jd.Texture.keepLoaded "tileset.png"
 end
@@ -89,8 +91,11 @@ function C:pause()
 end
 
 function C:stop()
+	self.levels.currentIndex = 1
 	self.level:stop()
 	self.level = nil
 end
+
+
 
 return GameState()

@@ -17,7 +17,11 @@ return {
 	show_credits = "Credits",
 	exit_program = "Beenden",
 	
--- State: Game
+	-- Level selection
+	level_i = "Level %i",
+	level_i_locked = "[Level %i]",
+	
+-- State: Game, Menu
 	level_i = "Level %i",
 	
 -- Debugging

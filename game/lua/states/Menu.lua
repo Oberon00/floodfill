@@ -2,6 +2,7 @@ local oo = require 'oo'
 local text = require 'text'
 local strings = require 'data.strings'
 local evt = require 'evt'
+local LevelList = require 'LevelList'
 
 local C = oo.cppclass('MenuState', jd.State)
 
@@ -45,14 +46,13 @@ local function paginate(self, menu)
 		pages[p] = page
 		for i = 1, itemsPerPage do
 			local idx = (p - 1) * itemsPerPage + i
-			print(idx)
 			page[i] = menu[idx]
 			if idx == itemCount then
 				return pages
 			end
 		end
 	end
-	assert(false, "did not process all menu items")
+	assert(false, "empty menu")
 end
 
 local function clearMenuPage(self)
@@ -141,7 +141,7 @@ local function setMenu(self, menu)
 end
 
 function C.MenuOption(s, f)
-	local r = {text = strings[s], action = f}
+	local r = {text = strings[s] or s, action = f}
 	assert(type(r.text) == 'string', "invalid text")
 	return r
 end
@@ -237,10 +237,31 @@ function C:pause()
 	clearMenu(self)
 end
 
+
+
+local function continueGame(menu)
+	local entries = { }
+	local levels = LevelList.default.levels
+	for i = 1, #levels do
+		entries[i] = C.MenuOption(
+			(levels[i].unlocked and strings.level_i or strings.level_i_locked)
+				:format(i),
+			function()
+				if levels[i].unlocked then
+					LevelList.default.currentIndex = i
+					jd.stateManager:push('Game')
+				end
+			end)
+	end
+	menu:enterSubmenu(entries)
+end
+
 local O = C.MenuOption
+
 --[[local]] MAINMENU = {
 	O('new_game', enterStateF 'Game'),
-	O('exit_program', function() return jd.mainloop:quit() end)
+	O('continue_game', continueGame),
+	O('exit_program', function() return jd.mainloop:quit() end),
 }
 
 
