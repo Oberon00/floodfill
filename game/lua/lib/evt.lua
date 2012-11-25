@@ -98,7 +98,7 @@ lclass('Table', M)
 			return
 		end
 
-		for _, v in pairs(self.evts) do
+		for k, v in pairs(self.evts) do
 			if getmetatable(v) then
 				local connected = v.isConnected
 				if type(connected) == "function" then
@@ -108,6 +108,7 @@ lclass('Table', M)
 					v:disconnect()
 				end
 			end
+			self.evts[k] = nil
 		end
 		self.evts = { }
 	end
