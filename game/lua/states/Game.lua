@@ -5,6 +5,7 @@ local LevelList = require 'LevelList'
 local Level = require 'Level'
 local text = require 'text'
 local strings = require 'data.strings'
+local ContinueScreen = require 'ContinueScreen'
 
 local C = oo.cppclass('GameState', jd.State)
 
@@ -39,7 +40,6 @@ local function startLevel(self)
 	
 	-- Show "Level %i" message and fade out
 	local tx = text.create(strings.level_i:format(self.levels.currentIndex))
-	clearMessage(self)
 	self.message = tx
 	tx.color = jd.Color.GREEN
 	tx.characterSize = 200
@@ -63,13 +63,22 @@ local function startLevel(self)
 end
 
 --[[local]] function nextLevel(self)
+	clearMessage(self)
 	evt.connectToKeyPress(jd.kb.F5, nil)
 	self.level:stop()
 	if not self.levels:advance() then
-		self.levels.currentIndex = 1 -- restart from first level
-		-- TODO: Show "winning-screen"
+		self.winningScreen = ContinueScreen()
+		evt.connectToKeyPress(jd.kb.ESCAPE, nil)
+		self.winningScreen:show(
+			function()
+				jd.stateManager:pop() -- pop game
+				jd.stateManager:switchTo('Splash') -- replace menu with splash
+				jd.stateManager:push('Credits')
+			end,
+			jd.Texture.request "win")
+	else
+		startLevel(self)
 	end
-	startLevel(self)
 end
 
 function C:__init()
@@ -85,6 +94,11 @@ function C:prepare()
 end
 
 function C:pause()
+	if self.winningScreen then
+		self.winningScreen:reset()
+		self.winningScreen = nil
+	end
+	
 	evt.connectToKeyPress(jd.kb.F5, nil)
 	evt.connectToKeyPress(jd.kb.ESCAPE, nil)
 	clearMessage(self)
@@ -95,7 +109,5 @@ function C:stop()
 	self.level:stop()
 	self.level = nil
 end
-
-
 
 return GameState()
