@@ -36,6 +36,10 @@ function C:start()
 end
 
 function C:stop()
+	if not self.world then
+		return false
+	end
+	
 	self.onStop()
 	for _, entity in pairs(self.world.tileProxies) do
 		entity:kill()
@@ -50,6 +54,8 @@ function C:stop()
 	end
 	self.world.map:release()
 	self.world = nil
+	
+	return true
 end
 
 function C:restart()
