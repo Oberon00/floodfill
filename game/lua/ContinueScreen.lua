@@ -25,18 +25,13 @@ function C:show(onEnd, bgtexture)
 	end
 	
 	self.kevents = evt.Table()
-	jd.timer:callAfter(jd.seconds(0.1), function()
+	self.kevents:connect(jd.eventDispatcher, 'keyPressed', function(event)
+		local k = event.code
 		self.kevents:connect(
-			jd.eventDispatcher, 'keyPressed', function(event)
-				print "key pressed"
-				local k = event.code
-				self.kevents:connect(
-					jd.eventDispatcher, 'keyReleased', function(event)
-						print "key released"
-						if event.code == k then
-							onEnd(self)
-						end
-					end)
+			jd.eventDispatcher, 'keyReleased', function(event)
+				if event.code == k then
+					onEnd(self)
+				end
 			end)
 	end)
 end
@@ -44,6 +39,7 @@ end
 function C:reset()
 	self.onEnd = nil
 	self.kevents:disconnect()
+	self.kevents = nil
 	self.continueText:release()
 	self.continueText = nil
 	if self.background then
