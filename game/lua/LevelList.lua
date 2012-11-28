@@ -32,5 +32,6 @@ lclass('Entry', C)
 	end
 
 C.default = C(require 'data.levels')
+C.default.levels[1].unlocked = true -- unlock first level
 	
 return C
