@@ -18,12 +18,14 @@ return {
 	exit_program = "Beenden",
 	
 	-- Level selection
-	level_i = "Level %i",
 	level_i_locked = "[Level %i]",
 	
 -- State: Game, Menu
 	level_i = "Level %i",
-	
+    
+-- State: Game
+	lose_level = "Verloren!",
+    
 -- Debugging
 	_test1 = "@strings._test1",
 	_test2 = "@strings._test2",

@@ -20,11 +20,50 @@ local function clearMessage(self)
 	end
 end
 
+local function showMessage(self, msg, color, size, fadeoutDelay)
+    clearMessage(self)
+
+    -- Show "Level %i" message and fade out
+	local tx = text.create(msg)
+	self.message = tx
+	tx.color = color or tx.color
+	tx.characterSize = size or tx.characterSize
+	tx.bold = true
+	text.center(tx)
+	
+    local function fadeOut()
+		local tm = jd.Clock()
+		local con
+		con = jd.connect(jd.mainloop, 'update', function()
+			local a = 255 - tm.elapsedTime:asSeconds() * (255 / 2)
+			if a < 0 or not self.message then
+				con:disconnect()
+				clearMessage(self)
+			end
+			local cl = tx.color
+			cl.a = a
+			tx.color = cl
+		end)
+	end
+    
+    if fadeoutDelay then
+        jd.timer:callAfter(fadeoutDelay, fadeOut)
+    else
+        fadeOut()
+    end
+end
+
+
 local function startLoadedLevel(self)
 	self.level:start()
 	function self.level.world.winLevel()
 		nextLevel(self)
 	end
+    function self.level.world.loseLevel()
+        self.level:stop()
+        startLoadedLevel(self)
+        showMessage(self, strings.lose_level, jd.Color.RED, 170, jd.seconds(1))
+    end
 end
 
 local function startLevel(self)
@@ -39,27 +78,9 @@ local function startLevel(self)
 	maplayer.view.rect = self.level.world.map.bounds
 	
 	-- Show "Level %i" message and fade out
-	local tx = text.create(strings.level_i:format(self.levels.currentIndex))
-	self.message = tx
-	tx.color = jd.Color.GREEN
-	tx.characterSize = 200
-	tx.bold = true
-	text.center(tx)
-	
-	jd.timer:callAfter(jd.seconds(2), function()
-		local tm = jd.Clock()
-		local con
-		con = jd.connect(jd.mainloop, 'update', function()
-			local a = 255 - tm.elapsedTime:asSeconds() * (255 / 2)
-			if a < 0 or not self.message then
-				con:disconnect()
-				clearMessage(self)
-			end
-			local cl = tx.color
-			cl.a = a
-			tx.color = cl
-		end)
-	end)
+	showMessage(
+        self, strings.level_i:format(self.levels.currentIndex),
+        jd.Color.GREEN, 200, jd.seconds(2))
 end
 
 --[[local]] function nextLevel(self)
