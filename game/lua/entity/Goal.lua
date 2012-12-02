@@ -1,14 +1,11 @@
 local M = { }
 
-local ensureFlood = (require 'proc.Flood').ensureFlood
+local WaterActivated = require 'entity.WaterActivated'
 
-function M.createSubstitute(name, id, pos, data, props)
-	local flood = ensureFlood(data)
-	flood.onFlow:connect(function()
-		if flood:isFlooded(pos) then
-			data.winLevel()
-		end -- if flood:isFlooded(pos)
-	end) -- flood.onFlow callback
+function M.createSubstitute(...)
+	return WaterActivated.createSubstitute(function(data)
+        data.winLevel()
+    end, ...)
 end -- function M.createSubstitute
 
 return M
