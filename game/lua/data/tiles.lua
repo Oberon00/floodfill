@@ -6,6 +6,7 @@ local Lever = reqe 'Lever'
 local Fount = reqe 'Fount'
 local LowBridge = reqe 'LowBridge'
 local Goal = reqe 'Goal'
+local LoseGoal = reqe 'LoseGoal'
 local OnButton = reqe 'OnButton'
 local OffButton = reqe 'OffButton' 
 local ToggleButton = reqe 'ToggleButton'
@@ -29,6 +30,7 @@ local tiles = {
     water_ground_rough = T('', nil,  nil,          true ),
 	water        = T('',     nil,    nil,          true ),
 	goal         = T('nesw', nil,    Goal,         true ),
+    goal_lose    = T('nesw', nil,    LoseGoal,     true ),
 	ground       = T('nesw', nil,    nil,          true ),
 	player       = T('',     nil,    nil,          true ),
 	water_ground = T('nesw', nil,    nil,          true ),
@@ -36,7 +38,7 @@ local tiles = {
 	oneway_n     = T('esw',  'nesw', nil,          true ),
 	oneway_e     = T('nsw',  'nesw', nil,          true ),
 	oneway_s     = T('new',  'nesw', nil,          true ),
-	oneway_w     = T('nes',  'nesw', nil,          true )
+	oneway_w     = T('nes',  'nesw', nil,          true ),
 }
 
 setmetatable(tiles, {__index = function(t, name)
