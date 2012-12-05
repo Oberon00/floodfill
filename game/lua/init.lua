@@ -8,6 +8,7 @@ e 'stateManager'
 e 'drawService'
 e 'eventDispatcher'
 e 'timer'
+e 'soundManager'
 e = nil
 
 -- make pseudo keywords available
