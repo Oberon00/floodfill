@@ -4,6 +4,7 @@ local TriggerBase = require 'entity.TriggerBase'
 local M = { }
 
 local function activate(self, activator)
+    jd.soundManager:playSound "button"
 	local cons = self.data.connections
 	for i = 1, #cons  do
 		self.data:processConnection(cons[i])

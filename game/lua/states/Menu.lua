@@ -101,7 +101,7 @@ local function selectEntry(self, idx)
 	if not newTx then
 		return
 	end
-	
+    
 	if self.currentIndex then
 		local oldTx = self.texts[self.currentIndex]
 		oldTx.color = COLOR_DEF
@@ -172,23 +172,33 @@ function C:prepare()
 	self.background.color = jd.Color(127, 127, 127)
 	bglayer.view.rect = self.background.bounds
 	
+    
+    local function click()
+        jd.soundManager:playSound "menu_click"
+    end
+    
 	-- setup events --
 	local function selectNextEntry()
+        click()
 		selectEntry(self, self.currentIndex + 1)
 	end
 	local function selectPreviousEntry()
-		selectEntry(self, self.currentIndex - 1)
+		click()
+        selectEntry(self, self.currentIndex - 1)
 	end
 	
 	local function nextPage()
-		setPage(self, self.currentPageIndex + 1)
+		click()
+        setPage(self, self.currentPageIndex + 1)
 	end
 	
 	local function previousPage()
-		setPage(self, self.currentPageIndex - 1)
+		click()
+        setPage(self, self.currentPageIndex - 1)
 	end
 	
 	local function doCurrentEntry()
+        jd.soundManager:playSound "menu_do"
 		local act = self.menu[self.currentIndex].action
 		if type(act) == 'table' then
 			self:enterSubmenu(act)
@@ -198,6 +208,7 @@ function C:prepare()
 	end
 	
 	local function toParentMenu()
+        click()
 		local parent = self.parentMenus[#self.parentMenus]
 		if not parent then
 			return

@@ -60,6 +60,7 @@ local function startLoadedLevel(self)
 		nextLevel(self)
 	end
     function self.level.world.loseLevel()
+        jd.soundManager:playSound "splash"
         self.level:stop()
         startLoadedLevel(self)
         showMessage(self, strings.lose_level, jd.Color.RED, 170, jd.seconds(1))
@@ -88,6 +89,7 @@ end
 	evt.connectToKeyPress(jd.kb.F5, nil)
 	self.level:stop()
 	if not self.levels:advance() then
+        jd.soundManager:playSound "game_complete"
 		self.winningScreen = ContinueScreen()
 		evt.connectToKeyPress(jd.kb.ESCAPE, nil)
 		self.winningScreen:show(
@@ -98,6 +100,7 @@ end
 			end,
 			jd.Texture.request "win")
 	else
+        jd.soundManager:playSound "level_complete"
 		startLevel(self)
 	end
 end

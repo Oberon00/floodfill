@@ -4,6 +4,7 @@ local TriggerBase = require 'entity.TriggerBase'
 local M = { }
 
 local function activate(self, activator)
+    jd.soundManager:playSound "lever"
 	self.data.on = not self.data.on
 	self.data.map:set(self.data.pos.tilePosition,
 		self.data.on and self.data.TID_ON or self.data.TID_OFF)
