@@ -17,12 +17,15 @@ local ACTIVATE_SIZE = jd.Vec2(1, 1)
 
 
 local function activateAll(collisions, entity)
+    local activated = false
 	for c in collisions:iter() do
 		local act = c.entity:component 'ActivateableComponent'
 		if act then
 			act:activate(entity)
+            activated = true
 		end
 	end -- for c in collisions
+    return activated
 end
 
 local function nearestPoint(to, p1, p2)
@@ -100,9 +103,10 @@ function M.load(info, layerInfo, data)
 		local newc = cgg:colliding(r)
 		local newOnly = newc:differenceTo(oldc)
 		return colutil.allLeaveable(oldc, entity, d, from, to) or
-			   newOnly.count == 0
+			   newOnly.count == 0 and oldc.count == newc.count
 	end
 	
+    local actTimer = jd.Clock()
 	InputMovedComponent(entity, function (destr, oldr, d0, d, comp)
 		local step = d0 * tilew
 		local steplen = #step
@@ -116,12 +120,15 @@ function M.load(info, layerInfo, data)
 		local r = jd.Rect(oldr.xy, oldr.wh)
 		
 		local function maybeActivate()
-			if comp.firstMove or r ~= oldr then
+			if comp.firstMove or
+               r ~= oldr and actTimer.elapsedTime:asSeconds() > 0.1 then
 				local activateRect = jd.Rect(
 					r.xy + d0 * ACTIVATE_DISTANCE, r.size)
-				activateAll(cgg:colliding(activateRect), entity)
-			end
-		end
+				if activateAll(cgg:colliding(activateRect), entity) then
+                    actTimer:restart()
+                end -- if any activation happened
+			end -- if comp.firstMove
+		end -- local function maybeActivate()
 
 		
 		while mlen ~= dlen do			
