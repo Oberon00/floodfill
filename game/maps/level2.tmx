@@ -14,17 +14,17 @@
  </layer>
  <layer name="locks" width="27" height="19">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQxUYD7QDRghQGGgHQIExGj0KhjZQGGgHjIJRAAQA7wEA2g==
+   eJxjYBgFQxkYD7QDRgBQGGgHQIExGj0KhjZQGGgHjIJRAAQA7jUA2g==
   </data>
  </layer>
- <layer name="player" width="27" height="19" visible="0">
+ <layer name="player" width="27" height="19">
   <data encoding="base64" compression="zlib">
-   eJy9U1sKwDAI86cncOxnvf859yVI8BHL2CCEaWkTHyoi+iPuAgp8CoW7Ig0RM9q7XKWfjVfn/Bv7UH/nO3qr6tPjcNLXTJ9hgd/JrDG16PRepJ/ofzKHGF/AGxjzvh/TuWL9eK0riDHzGOWjeqGvbg6n+5T5yvx0zPo3XzL0M/XJ7gC7Rx1jv7I6M31g6oD1zOrM7l12rvOFsI89z/bra5jGFxXCJ+E=
+   eJy9VEEKwDAI89IXdOyysf8/c4dNKFJNtGyFIOioyaLtItJ/xB4A1dnvxl4eh1lkuKNaxC+bR7oueU6Wv+0Z6Zzxs/ljQMU/j5+ivfFM+sL65fHTuIF6VRfKNxNPE2199IPhV9Ezcm2THLNP7MxZXWgOs/vk6UI+ofcDzaPqkqQ/zB5FujL7UdFv/crCuzuq276dyDP/ZkWXntU5/BrK8QYjyifu
   </data>
  </layer>
  <layer name="objects" width="27" height="19">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF1ASiA+2AQQokB9oBZILR+KQPGOnhPNL9PwroD9ihNAAFZgB1
+   eJxjYBgF1ASiA+2AQQqkBtoBZAK2gXbACAEjPd+MdP+PAvoDdigNAMGXAGc=
   </data>
  </layer>
  <objectgroup name="objects" width="27" height="19">
@@ -35,15 +35,12 @@
    <polyline points="0,0 -94,-10"/>
   </object>
   <object x="113" y="110">
-   <polyline points="0,0 -11,35"/>
+   <polyline points="0,0 18,38"/>
   </object>
   <object x="397" y="224">
    <polyline points="0,0 -26,15"/>
   </object>
   <object x="626" y="173">
-   <properties>
-    <property name="negate" value=""/>
-   </properties>
    <polyline points="0,0 -15,94"/>
   </object>
   <object x="687" y="302">
@@ -53,10 +50,14 @@
    <polyline points="0,0 -47,-57"/>
   </object>
   <object x="405" y="222">
+   <properties>
+    <property name="negate" value=""/>
+   </properties>
    <polyline points="-39,22 267,40"/>
   </object>
   <object x="625" y="174">
    <polyline points="0,0 -221,53"/>
   </object>
+  <object x="598" y="264" width="28" height="10"/>
  </objectgroup>
 </map>
