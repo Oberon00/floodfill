@@ -18,6 +18,10 @@ local function clearMessage(self)
 		self.message:release()
 		self.message = nil
 	end
+    if self.msgcon then
+        self.msgcon:disconnect()
+        self.msgcon = nil
+    end
 end
 
 local function showMessage(self, msg, color, size, fadeoutDelay)
@@ -33,11 +37,9 @@ local function showMessage(self, msg, color, size, fadeoutDelay)
 	
     local function fadeOut()
 		local tm = jd.Clock()
-		local con
-		con = jd.connect(jd.mainloop, 'update', function()
+		self.msgcon = jd.connect(jd.mainloop, 'update', function()
 			local a = 255 - tm.elapsedTime:asSeconds() * (255 / 2)
 			if a < 0 or not self.message then
-				con:disconnect()
 				clearMessage(self)
 			end
 			local cl = tx.color
@@ -47,7 +49,7 @@ local function showMessage(self, msg, color, size, fadeoutDelay)
 	end
     
     if fadeoutDelay then
-        jd.timer:callAfter(fadeoutDelay, fadeOut)
+        self.msgcon = jd.timer:callAfter(fadeoutDelay, fadeOut)
     else
         fadeOut()
     end
@@ -71,10 +73,14 @@ local function startLevel(self)
 	local levelEntry = self.levels:currentLevel()
 	levelEntry.unlocked = true
 	self.level = Level(levelEntry.name, maplayer.group)
-	evt.connectToKeyPress(jd.kb.F5, function()
+	evt.connectToKeyPress(jd.kb.F5, function(event)
 		self.level:stop()
-		startLoadedLevel(self)
-	end)
+        if event.shift then
+            startLevel(self)
+        else
+            startLoadedLevel(self)
+        end
+    end)
 	startLoadedLevel(self)
 	maplayer.view.rect = self.level.world.map.bounds
 	
