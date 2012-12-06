@@ -28,7 +28,7 @@
   </data>
  </layer>
  <objectgroup name="objects" width="27" height="18">
-  <object type="Player" gid="45" x="392" y="285"/>
+  <object type="Player" gid="59" x="405" y="278"/>
  </objectgroup>
  <objectgroup name="connections" width="27" height="18">
   <object x="-19436418" y="851930574"/>
