@@ -35,10 +35,10 @@ local tiles = {
 	player       = T('',     nil,    nil,          true ),
 	water_ground = T('nesw', nil,    nil,          true ),
 	barrage      = T('',     nil,    nil,          true ),
-	oneway_n     = T('esw',  'nesw', nil,          true ),
-	oneway_e     = T('nsw',  'nesw', nil,          true ),
-	oneway_s     = T('new',  'nesw', nil,          true ),
-	oneway_w     = T('nes',  'nesw', nil,          true ),
+	oneway_n     = T('s',    'nesw', nil,          true ),
+	oneway_e     = T('w',    'nesw', nil,          true ),
+	oneway_s     = T('n',    'nesw', nil,          true ),
+	oneway_w     = T('e',    'nesw', nil,          true ),
 }
 
 setmetatable(tiles, {__index = function(t, name)
