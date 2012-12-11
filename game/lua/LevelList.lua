@@ -1,4 +1,5 @@
 local C = lclass 'LevelList'
+local zload = (require 'persistence').zload
 
 local function validIndex(self, i)
 	return i > 0 and i <= #self.levels
@@ -32,6 +33,12 @@ lclass('Entry', C)
 	end
 
 C.default = C(require 'data.levels')
-C.default.levels[1].unlocked = true -- unlock first level
+for i = 1, zload("unlocked") do
+    if not C.default.levels[i] then
+        jd.log.w "Too many unlocked levels!"
+        break
+    end
+    C.default.levels[i].unlocked = true
+end
 	
 return C

@@ -6,6 +6,7 @@ local Level = require 'Level'
 local text = require 'text'
 local strings = require 'data.strings'
 local ContinueScreen = require 'ContinueScreen'
+local pst = require 'persistence'
 
 local C = oo.cppclass('GameState', jd.State)
 
@@ -132,6 +133,9 @@ function C:pause()
 	evt.connectToKeyPress(jd.kb.F5, nil)
 	evt.connectToKeyPress(jd.kb.ESCAPE, nil)
 	clearMessage(self)
+    pst.zstore(
+        "unlocked",
+        math.max(pst.zload("unlocked"), self.levels.currentIndex))
 end
 
 function C:stop()
