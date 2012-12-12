@@ -3,6 +3,7 @@ local C = lclass 'Flood'
 local evt = require 'evt'
 local layers = require 'data.layers'
 local colutil = require 'collisionutil'
+local surroundingPositions4 = (require 'vecutil').surroundingPositions4
 
 local UPDATE_TIMEOUT = jd.DEBUG and jd.seconds(0.5) or jd.seconds(0.2)
 
@@ -26,33 +27,6 @@ local function canFlow(map, collider, proxy, from, to)
 			collider:colliding(gto, gto), proxy, d, gfrom, gto)
 end
 
-local function surroundingPositions8(p)
-	-- 123
-	-- 4p5
-	-- 678
-	return {
-		jd.Vec3(p.x - 1, p.y - 1, p.z), -- 1
-		jd.Vec3(p.x,     p.y - 1, p.z), -- 2
-		jd.Vec3(p.x + 1, p.y - 1, p.z), -- 3
-		jd.Vec3(p.x - 1, p.y,     p.z), -- 4
-		jd.Vec3(p.x + 1, p.y,     p.z), -- 5
-		jd.Vec3(p.x - 1, p.y + 1, p.z), -- 6
-		jd.Vec3(p.x,     p.y + 1, p.z), -- 7
-		jd.Vec3(p.x + 1, p.y + 1, p.z)  -- 8
-	}
-end
-
-local function surroundingPositions4(p)
-	--  1 
-	-- 2p3
-	--  4 
-	return {
-		jd.Vec3(p.x,     p.y - 1, p.z), -- 1
-		jd.Vec3(p.x - 1, p.y,     p.z), -- 2
-		jd.Vec3(p.x + 1, p.y,     p.z), -- 3
-		jd.Vec3(p.x,     p.y + 1, p.z), -- 4
-	}
-end
 
 local function markPoint(t, p)	
 	local column = t[p.x]
