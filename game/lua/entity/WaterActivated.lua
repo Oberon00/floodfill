@@ -8,7 +8,7 @@ function M.createSubstitute(onFlooded, name, id, pos, data, props)
 	local flood = ensureFlood(data)
 	flood.onFlow:connect(function()
 		if flood:isFlooded(pos) then
-			onFlooded(data)
+			onFlooded(data, pos, flood)
 		end -- if flood:isFlooded(pos)
 	end) -- flood.onFlow callback
 end -- function M.createSubstitute
