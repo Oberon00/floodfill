@@ -19,7 +19,7 @@ local tiles = {
     --               enter   leave
 	-- name      = T('nesw', 'nesw', replObj,      setPx, bridging),
 	lock_open    = T('nesw', nil,    Lock,         true ),
-	fount        = T('nesw', nil,    Fount,        true ),
+	fount        = T('',     'nesw', Fount,        true ),
 	bridge_h     = T('ew',   nil,    nil,          true ),
     bridge_low_h = T('ew',   nil,    LowBridge,    false),
 	bridge_low_v = T('ns',   nil,    LowBridge,    false),
