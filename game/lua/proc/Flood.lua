@@ -100,6 +100,7 @@ function C:__init(world)
 		function cinfo.canLeave(self, entity, ...)
 			return entity == waterProxy or canLeave(self, entity, ...)
 		end
+        self.waterProxy = waterProxy
 	end)
 	local map = world.map
 	self.map = map
@@ -107,6 +108,7 @@ function C:__init(world)
 	self.TID_WATER = world.tileMapping.byName.water
 	local collider = jd.TileLayersCollideableGroup(
 		world.tileCollisionInfo, layers.WATER_GROUND, layers.LOCKS + 1)
+    self.collider = collider
 	evts:add(jd.timer:callEvery(UPDATE_TIMEOUT, function()
 		local isConnectedWater = { }
 		local newWater = { }
@@ -155,6 +157,10 @@ end
 
 function C:unregisterFount(position)
 	tabutil.erase(self.founts, position)
+end
+
+function C:canFlow(from, to)
+    return canFlow(self.map, self.collider, self.waterProxy, from, to)
 end
 
 return C
