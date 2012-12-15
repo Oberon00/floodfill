@@ -13,6 +13,7 @@ local OnButton = reqe 'OnButton'
 local OffButton = reqe 'OffButton' 
 local ToggleButton = reqe 'ToggleButton'
 local LavaPassage = reqe 'LavaPassage'
+local AndFount = reqe 'AndFount'
 
 
 local tiles = {
@@ -35,7 +36,9 @@ local tiles = {
     goal_lose    = T('nesw', nil,    LoseGoal,     true ),
     goal_part    = T('nesw', nil,    PartGoal,     true ),
     goal_lose_part = T('nesw', nil,  PartLoseGoal, true ),
-	ground       = T('nesw', nil,    nil,          true ),
+    fount_and_open = T('nesw', nil,  AndFount,     true ),
+	fount_and_closed = T('nesw', '', AndFount,     true ),
+    ground       = T('nesw', nil,    nil,          true ),
 	player       = T('',     nil,    nil,          true ),
 	water_ground = T('nesw', nil,    nil,          true ),
 	barrage      = T('',     nil,    nil,          true ),

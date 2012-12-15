@@ -64,12 +64,12 @@
  </tile>
  <tile id="16">
   <properties>
-   <property name="name" value="fount_and#1"/>
+   <property name="name" value="fount_and_closed"/>
   </properties>
  </tile>
  <tile id="17">
   <properties>
-   <property name="name" value="fount_and#2"/>
+   <property name="name" value="fount_and_open"/>
   </properties>
  </tile>
  <tile id="8">
