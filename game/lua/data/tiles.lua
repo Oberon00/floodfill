@@ -46,6 +46,8 @@ local tiles = {
 	oneway_e     = T('w',    'nesw', nil,          true ),
 	oneway_s     = T('n',    'nesw', nil,          true ),
 	oneway_w     = T('e',    'nesw', nil,          true ),
+    hole         = T('nesw', '',     nil,          true ),
+    fount_not    = T('',     'nesw', NotFount,     true ),
 }
 
 setmetatable(tiles, {__index = function(t, name)
