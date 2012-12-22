@@ -9,7 +9,7 @@
  </layer>
  <layer name="water" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBg+gJFIsVEwCkbBKBgF1AfsA+2AYQIAHhQACg==
+   eJxjYBg+gIlIsVEwCkbBKBgF1AfsA+2AYQIAK5gADA==
   </data>
  </layer>
  <layer name="locks" width="27" height="18">
@@ -17,7 +17,7 @@
    eJxjYBgFo2AUjIJRMAooBwoD7QA8gH2gHUACAAA1TAAo
   </data>
  </layer>
- <layer name="player" width="27" height="18">
+ <layer name="player" width="27" height="18" visible="0">
   <data encoding="base64" compression="zlib">
    eJwTY2BgEKMjRgZiSDQ+eWx8Yu0ihk8sTam/qGkXPf1FTvyg8+mZxkbxyMPIAFkMGxsbn1S78IlR267h6i9CdiH7G51vRYHdQwEDAD0AIzU=
   </data>
