@@ -45,6 +45,8 @@
  <tile id="0">
   <properties>
    <property name="name" value="fount#1"/>
+   <property name="animationLength" value="4"/>
+   <property name="animationSpeed"  value="6"/>
   </properties>
  </tile>
  <tile id="1">
