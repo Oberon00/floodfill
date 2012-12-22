@@ -25,9 +25,14 @@ function C:start()
 	-- add self reference here and not in ctor, to speed up the GC
 	world.level = self
 	
-	world.map = jd.Tilemap(world.map)
-	world.map.group = self.drawgroup
+	local map = jd.Tilemap(world.map)
+	map.group = self.drawgroup
+    
+    world._animationCon = jd.connect(jd.mainloop, 'update', function()
+        map:animate(jd.timer.frameDuration)
+    end)
 
+    world.map = map
 	world.procs = { }
 
 	self.world = maploader.initializeMap(world)
@@ -53,6 +58,7 @@ function C:stop()
 		end
 	end
 	self.world.map:release()
+    self.world._animationCon:disconnect()
 	self.world = nil
 	
 	return true

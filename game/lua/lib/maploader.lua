@@ -51,6 +51,7 @@ local tabutil = require 'tabutil'
 local Signal = (require 'evt').Signal
 
 local M = { }
+local DEFAULT_ANIMATION_SPEED = 3
 
 local tiledata = require 'data.tiles'
 
@@ -83,6 +84,18 @@ local function findTileIdMapping(props)
 		end -- if name
 	end -- for each tprops in props
 	return result
+end
+
+local function setupAnimations(props, map)
+	for id = 1, props.count do
+		local tprops = props:get(id)
+		local animationLength = tprops:get 'animationLength'
+		if animationLength then
+            local animationSpeed =
+                tonumber(tprops:get 'animationSpeed') or DEFAULT_ANIMATION_SPEED
+			map:addAnimation(id, id + animationLength - 1, animationSpeed)
+		end -- if name
+	end -- for each tprops in props
 end
 
 local function setupProxies(tileMapping, collisionInfo, map)
@@ -228,14 +241,17 @@ function M.initializeMap(data)
 	local tileCollisionInfo = jd.TileCollideableInfo(map)
 	
 	data.map = map
-	data.tileMapping = findTileIdMapping(props.tileProperties)
+    local tprops = props.tileProperties
+	data.tileMapping = findTileIdMapping(tprops)
+    setupAnimations(tprops, map)
+    
 	data.tileCollisionInfo = tileCollisionInfo
 	tabutil.default(data, 'postLoad', Signal())
 	data.tileProxies = setupProxies(
 		data.tileMapping, tileCollisionInfo, map)
 	data.substituteObjects = substituteObjects(props, data)
 	data.mapObjects = setupObjects(props, data)
-	
+    
 	data.postLoad(data, props)
 	data.postLoad = nil
 	
