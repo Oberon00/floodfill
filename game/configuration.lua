@@ -8,7 +8,8 @@ return {
     },
     
     misc = {
-        title        = "Jade",
+        title        = "FloodFill",
+        iconFilename = "icon",
         debugKey     = jd.kb.LSHIFT,
 		layerCount   = 3, -- background, tilemap, ui
 		backgroundColor = jd.Color(255, 0, 255),
