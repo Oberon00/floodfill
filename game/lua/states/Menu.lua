@@ -6,16 +6,34 @@ local LevelList = require 'LevelList'
 
 local C = oo.cppclass('MenuState', jd.State)
 
+local function setSize(drawable, newsize)
+    local size = drawable.localBounds.size
+    local ratio = size.x / size.y
+    local function defsize(c)
+        if newsize[c] < 0 then
+            newsize[c] = size[c]
+        end
+    end
+    defsize 'x'
+    defsize 'y'
+    if newsize.x == 0 then
+        newsize.x = newsize.y * ratio
+    elseif newsize.y == 0 then
+        newsize.y = newsize.x / ratio
+    end
+    drawable.scale = jd.Vec2(newsize.x / size.x, newsize.y / size.y)
+end
+
 local function enterStateF(state)
 	return function()
 		return jd.stateManager:push(state)
 	end
 end
 
-local PADDING_TOP = 30 + text.defaultFont:lineSpacing(30)
+local PADDING_TOP = text.defaultFont:lineSpacing(30)
 
 local CHAR_H = 50
-local LINE_H = CHAR_H + text.defaultFont:lineSpacing(CHAR_H)
+local LINE_H = text.defaultFont:lineSpacing(CHAR_H)
 
 local COLOR_DEF = jd.Color(220, 180,   0)
 local COLOR_HL  = jd.Color(  0, 150, 255)
@@ -31,11 +49,15 @@ local function createEntry(self, s, y)
 end
 
 local function entrySpace(self)
-	return self.menulayer.view.rect.h - PADDING_TOP
+	local totalH = self.menulayer.view.size.y
+    local consumedH = PADDING_TOP
+    if self.header then
+         consumedH = consumedH + self.header.bounds.bottom
+    end
+    return totalH - consumedH
 end
 
-local function paginate(self, menu)
-	local entrySpace = entrySpace(self)
+local function paginate(menu, entrySpace)
 	local itemCount = #menu
 	local pageCount = math.ceil(itemCount * LINE_H / entrySpace)
 	local itemsPerPage = math.ceil(itemCount / pageCount)
@@ -67,8 +89,16 @@ local function clearMenuPage(self)
 	self.currentPageIndex = nil
 end
 
+local function clearHeader(self)
+    if self.header then
+        self.header:release()
+        self.header = nil
+    end
+end
+
 local function clearMenu(self)
 	clearMenuPage(self)
+    clearHeader(self)
 	if self.navText then
 		self.navText:release()
 		self.navText = nil
@@ -125,19 +155,32 @@ local function setPage(self, idx)
 	clearMenuPage(self)
 	self.currentPageIndex = idx
 	local entryH = entrySpace(self) / #self.pages[1]
-	self.texts = { }
+    
+    local firstentryY = self.menulayer.view.size.y - entryH * #self.pages[1]
+	
+    self.texts = { }
 	for i = 1, #page do
 		self.texts[i] = createEntry(
-			self, page[i].text, PADDING_TOP + (i - 1) * entryH)
+			self, page[i].text, firstentryY + (i - 1) * entryH)
 	end
 	updateNavText(self)
 	selectEntry(self, 1)
 end
 
 local function setMenu(self, menu)
-	self.pages = paginate(self, menu)
-	setPage(self, 1)
+    if menu.header then
+        clearHeader(self)
+        self.header = menu.header
+        self.header.group = self.menulayer.group
+        local maxW = self.menulayer.view.size.x
+        if self.header.texture.size.x > maxW then
+            setSize(self.header, jd.Vec2(maxW, 0))
+        end
+        text.centerX(self.header, self.menulayer)
+    end
+	self.pages = paginate(menu, entrySpace(self))
 	self.menu = menu
+    setPage(self, 1)
 end
 
 function C.MenuOption(s, f)
@@ -152,7 +195,6 @@ function C:enterSubmenu(menu)
 		pageIdx = self.currentPageIndex,
 		idx = self.currentIndex
 	})
-	clearMenu(self)
 	setMenu(self, menu)
 end
 
@@ -199,7 +241,8 @@ function C:prepare()
 	
 	local function doCurrentEntry()
         jd.soundManager:playSound "menu_do"
-		local act = self.menu[self.currentIndex].action
+        local firstPageIdx = #self.pages[1] * (self.currentPageIndex - 1)
+		local act = self.menu[firstPageIdx + self.currentIndex].action
 		if type(act) == 'table' then
 			self:enterSubmenu(act)
 		else
@@ -248,6 +291,11 @@ function C:pause()
 	clearMenu(self)
 end
 
+function C.makeSpriteHeader(texturename)
+    local result = jd.Sprite()
+    result.texture = jd.Texture.request(texturename)
+    return result
+end
 
 
 local function continueGame(menu)
@@ -270,6 +318,8 @@ end
 local O = C.MenuOption
 
 --[[local]] MAINMENU = {
+    header = C.makeSpriteHeader('mainmenu_header'),
+    
 	O('new_game', enterStateF 'Game'),
 	O('continue_game', continueGame),
 	O('show_credits', enterStateF 'Credits'),
