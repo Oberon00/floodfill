@@ -173,7 +173,7 @@ local function setMenu(self, menu)
         self.header = menu.header
         self.header.group = self.menulayer.group
         local maxW = self.menulayer.view.size.x
-        if self.header.texture.size.x > maxW then
+        if self.header.localBounds.w > maxW then
             setSize(self.header, jd.Vec2(maxW, 0))
         end
         text.centerX(self.header, self.menulayer)
