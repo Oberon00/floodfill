@@ -23,10 +23,13 @@ local evt = require 'evt'
 jd.drawService.backgroundColor =
 	jd.conf.misc.backgroundColor or jd.colors.BLACK
 
-evt.connectForever(jd.mainloop, 'quitting', function()
+evt.connectForever(jd.mainloop, 'quitting', function(exitcode)
 	-- avoid warnings
 	jd.Image.releaseAll()
 	jd.Texture.releaseAll()
+    if exitcode == 0 then -- Do not save configuration in case of errors
+        jd.configuration:save()
+    end
 end)
 
 if jd.DEBUG and jd.kb.isKeyPressed(jd.conf.misc.debugKey) then
