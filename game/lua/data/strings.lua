@@ -15,6 +15,7 @@ return {
 	new_game = "Neues Spiel",
 	continue_game = "Spiel fortsetzen",
 	show_credits = "Credits",
+    toggle_fullscreen = "Vollbild umschalten",
 	exit_program = "Beenden",
 	
 	-- Level selection

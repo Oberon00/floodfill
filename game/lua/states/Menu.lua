@@ -315,6 +315,11 @@ local function continueGame(menu)
 	menu:enterSubmenu(entries)
 end
 
+local function toggleFullscreen()
+    jd.conf.video.fullscreen = not jd.conf.video.fullscreen
+    jd.window:reinitialize()
+end
+
 local O = C.MenuOption
 
 --[[local]] MAINMENU = {
@@ -323,6 +328,7 @@ local O = C.MenuOption
 	O('new_game', enterStateF 'Game'),
 	O('continue_game', continueGame),
 	O('show_credits', enterStateF 'Credits'),
+    O('toggle_fullscreen', toggleFullscreen),
 	O('exit_program', function() return jd.mainloop:quit() end),
 }
 
