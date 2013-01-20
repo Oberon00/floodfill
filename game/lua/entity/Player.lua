@@ -103,7 +103,7 @@ function M.load(info, layerInfo, data)
 		local newc = cgg:colliding(r)
 		local newOnly = newc:differenceTo(oldc)
 		return colutil.allLeaveable(oldc, entity, d, from, to) or
-			   newOnly.count == 0 and oldc.count == newc.count
+			   newOnly.count == 0
 	end
 	
     local actTimer = jd.Clock()
