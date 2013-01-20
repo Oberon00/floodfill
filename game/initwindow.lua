@@ -10,6 +10,7 @@ local function reinitialize(window)
     if jd.conf.misc.iconFilename then
         window:setIcon(jd.Image.request(jd.conf.misc.iconFilename))
     end
+    window:setKeyRepeatEnabled(false)
 end
 
 
