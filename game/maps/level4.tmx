@@ -4,7 +4,7 @@
  <tileset firstgid="1" source="set.tsx"/>
  <layer name="water-ground" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJzTY2Bg0CMBqyPRxGBSzMZnF7FqqWkXPf1FqZn47EJ3M63sokW8EBMX1IoXUtxMjTRArJtx+RNbvFI7XEjJg7jUEesuUt1LyzRArXQyahd5cUjP/D4YMQAuM1Sn
+   eJzTY2Bg0COA1dEwNjFcmJDZhOzVI9IcWthFT39RaiYxcUdru2gRL8TEBbXihRQ3UyMNEOtmXP7EFq/UDhdS8iAudcS6i1T30jINUCudjNpFXhzSM78PRgwAkfRUkg==
   </data>
  </layer>
  <layer name="water" width="27" height="18">
@@ -19,12 +19,12 @@
  </layer>
  <layer name="player" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJy9VEEKwCAM62UvcHjc/585PBQktGl0skAQ1DakRJuZtQXatCpY6c20esFdLa+/YfWeA88Pvnyvf+wdaTkiLWQ2n12iL+av6sNwHfRlwX2sRV9KxjI/itZAlMO5nmHlLWQzU32xDCJUTTxjmWD1ag4zn9E7Vup3Mq9qKTOszhQtldWfoGZDgapzgn9qvdb9HwU=
+   eJy9VEEKwCAM62UvcHjc/585PBRGaJvoxEAQdG1IjWtm1ggR0V4G1pvp+toJV7W8/obVew48B3z5Xv/Zu7q7SAuZzWeV6Kvyx/pUuDb6suB7rEVfSsYyP4rWQJTDb32FmbeQzUz1VWUQoWriWZWJql7NYeYzesdK/UrmVS1lhuxM0VLJ/glqNhSoOjt4UusFLv4ezA==
   </data>
  </layer>
  <layer name="objects" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYCAN8JGonhygS0CejYp2SVLRrFFAORCF0rwUmmOCxKZmekEHhNIqCIjioKkBaJEfhWlgJjbAh2SXFZ3spDRdDVWgCsW0Asj5gBdqlwmU1oWyTbDoowSwQ82G2WWCxCYmX5IKYHboMiD8BKJpkXYBULkF5w==
+   eJxjYCAM+IhQQ02gS0CejYp2SVLRrFFAORCF0rwUmmOCxKZmekEHhNIqCIjioKkBaJE3hWlgJjbAh2SXFZ3spDRdDVWgCsW0Asj5gBdqlwmU1oWyTbDoowSwQ82G2WWCxCYmX5IKYHboMiD8BKJpkXYBUWEF5w==
   </data>
  </layer>
  <objectgroup name="objects" width="27" height="18">
