@@ -23,7 +23,11 @@ function C:advance()
 		return false
 	end
 	self.currentIndex = self.currentIndex + 1
-	return validIndex(self, self.currentIndex)
+	if not validIndex(self, self.currentIndex) then
+        self.currentIndex = self.currentIndex - 1
+        return false
+    end
+    return true
 end
 	
 lclass('Entry', C)
