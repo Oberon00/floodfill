@@ -48,20 +48,27 @@ function C:initComponent()
 			self.firstMove = true
 			return
 		end
-		
 		direction = direction / #direction
-		local movement = direction * SPEED * jd.timer.frameDuration:asSeconds()
-		local targetPos = self.pos.position + movement
-		local canEnter = true
-		if self.moveLimit then
-			local targetRect = jd.Rect(targetPos, self.pos.size)
-			targetPos = self.moveLimit(
-				targetRect, self.pos.rect,
-				direction, movement,
-				self)
-		end -- if self.moveLimit
-		self.pos.position = targetPos
-		self.firstMove = false
+        local factor = SPEED * jd.timer.frameDuration:asSeconds()
+        local function move(direction)
+            if isZero(direction) then
+                return
+            end
+            local movement = direction * factor
+            local targetPos = self.pos.position + movement
+            local canEnter = true
+            if self.moveLimit then
+                local targetRect = jd.Rect(targetPos, self.pos.size)
+                targetPos = self.moveLimit(
+                    targetRect, self.pos.rect,
+                    direction, movement,
+                    self)
+            end -- if self.moveLimit
+            self.pos.position = targetPos
+            self.firstMove = false
+        end
+        move(jd.Vec2(direction.x, 0))
+        move(jd.Vec2(0, direction.y))
 	end)
 end
 
