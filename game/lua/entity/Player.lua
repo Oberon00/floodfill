@@ -91,7 +91,14 @@ function M.load(info, layerInfo, data)
 	
 	cgg:add(tilestackcg)
 	
-	local function canMoveEnter(oldr, r, d, from, to)		
+	local function canMoveEnter(oldr, r, d, from, to)
+        local bounds = map.bounds
+        if r.x < bounds.x or r.x > bounds.right or
+           r.y < bounds.y or r.y > bounds.bottom
+        then
+            return false
+        end
+        
 		local oldc = cgg:colliding(oldr)
 		local newc = cgg:colliding(r)
 		local newOnly = newc:differenceTo(oldc)
