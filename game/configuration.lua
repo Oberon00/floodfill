@@ -1,12 +1,4 @@
-return {
-
-    video = {
-        mode       = jd.VideoMode(800, 600),
-        vsync      = false,
-        fullscreen = false,
-        framelimit = 240
-    },
-    
+return {    
     misc = {
         title        = "FloodFill",
         iconFilename = "icon",

@@ -3,6 +3,7 @@ local text = require 'text'
 local strings = require 'data.strings'
 local evt = require 'evt'
 local LevelList = require 'LevelList'
+local videoconf = (require 'data.userconf').video
 
 local C = oo.cppclass('MenuState', jd.State)
 
@@ -316,7 +317,7 @@ local function continueGame(menu)
 end
 
 local function toggleFullscreen()
-    jd.conf.video.fullscreen = not jd.conf.video.fullscreen
+    videoconf.fullscreen = not videoconf.fullscreen
     jd.window:reinitialize()
 end
 

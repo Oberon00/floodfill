@@ -9,7 +9,6 @@ e 'drawService'
 e 'eventDispatcher'
 e 'timer'
 e 'soundManager'
-e 'configuration'
 e = nil
 
 -- make pseudo keywords available
@@ -19,6 +18,7 @@ require 'compsys' -- component
 --------
 
 local evt = require 'evt'
+local pst = require 'persistence'
 
 jd.drawService.backgroundColor =
 	jd.conf.misc.backgroundColor or jd.colors.BLACK
@@ -28,7 +28,7 @@ evt.connectForever(jd.mainloop, 'quitting', function(exitcode)
 	jd.Image.releaseAll()
 	jd.Texture.releaseAll()
     if exitcode == 0 then -- Do not save configuration in case of errors
-        jd.configuration:save()
+        pst.store('userconf', require 'data.userconf')
     end
 end)
 
