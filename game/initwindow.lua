@@ -14,6 +14,9 @@ local function reinitialize(window)
         window:setIcon(jd.Image.request(miscconf.iconFilename))
     end
     window:setKeyRepeatEnabled(false)
+    if jd.drawService then
+        jd.drawService:resetLayerViews()
+    end
 end
 
 
