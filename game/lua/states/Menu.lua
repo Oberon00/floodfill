@@ -75,7 +75,7 @@ local function paginate(menu, entrySpace)
 			end
 		end
 	end
-	assert(false, "empty menu")
+	error("empty menu")
 end
 
 local function clearMenuPage(self)
@@ -184,10 +184,27 @@ local function setMenu(self, menu)
     setPage(self, 1)
 end
 
+local function menuClick()
+    jd.soundManager:playSound "menu_click"
+end
+
 function C.MenuOption(s, f)
 	local r = {text = strings[s] or s, action = f}
 	assert(type(r.text) == 'string', "invalid text")
 	return r
+end
+
+function C:toParentMenu()
+    menuClick()
+    local parent = self.parentMenus[#self.parentMenus]
+    if not parent then
+        return
+    end
+    self.parentMenus[#self.parentMenus] = nil
+    clearMenu(self)
+    setMenu(self, parent.menu)
+    setPage(self, parent.pageIdx)
+    selectEntry(self, parent.idx)
 end
 
 function C:enterSubmenu(menu)
@@ -197,6 +214,13 @@ function C:enterSubmenu(menu)
 		idx = self.currentIndex
 	})
 	setMenu(self, menu)
+end
+
+function C:updatePageTexts()
+    local page = self.pages[self.currentPageIndex]
+    for i = 1, #page do
+		self.texts[i].string = page[i].text
+	end
 end
 
 function C:__init()
@@ -214,55 +238,42 @@ function C:prepare()
 	self.background.texture = jd.Texture.request "menubg"
 	self.background.color = jd.Color(127, 127, 127)
 	bglayer.view.rect = self.background.bounds
-	
-    
-    local function click()
-        jd.soundManager:playSound "menu_click"
-    end
     
 	-- setup events --
 	local function selectNextEntry()
-        click()
+        menuClick()
 		selectEntry(self, self.currentIndex + 1)
 	end
 	local function selectPreviousEntry()
-		click()
+		menuClick()
         selectEntry(self, self.currentIndex - 1)
 	end
 	
 	local function nextPage()
-		click()
+		menuClick()
         setPage(self, self.currentPageIndex + 1)
 	end
 	
 	local function previousPage()
-		click()
+		menuClick()
         setPage(self, self.currentPageIndex - 1)
 	end
 	
 	local function doCurrentEntry()
         jd.soundManager:playSound "menu_do"
         local firstPageIdx = #self.pages[1] * (self.currentPageIndex - 1)
-		local act = self.menu[firstPageIdx + self.currentIndex].action
+		local option = self.menu[firstPageIdx + self.currentIndex]
+        local act = option.action
 		if type(act) == 'table' then
 			self:enterSubmenu(act)
 		else
-			act(self)
+			act(self, option)
 		end
 	end
-	
-	local function toParentMenu()
-        click()
-		local parent = self.parentMenus[#self.parentMenus]
-		if not parent then
-			return
-		end
-		self.parentMenus[#self.parentMenus] = nil
-		clearMenu(self)
-		setMenu(self, parent.menu)
-		setPage(self, parent.pageIdx)
-		selectEntry(self, parent.idx)
-	end
+
+    local function toParentMenu()
+        self:toParentMenu()
+    end
 	
 	local function e(k, f) evt.connectToKeyPress(jd.kb[k], f) end
 	e('UP',     selectPreviousEntry)
@@ -289,6 +300,8 @@ function C:pause()
 	d 'RETURN' d 'SPACE'
 	d 'ESCAPE'
 	self.background:release()
+    self.background = nil
+    jd.log.i "Disposed background."
 	clearMenu(self)
 end
 
@@ -315,13 +328,74 @@ local function continueGame(menu)
 	end
 	menu:enterSubmenu(entries)
 end
-
-local function toggleFullscreen()
-    videoconf.fullscreen = not videoconf.fullscreen
-    jd.window:reinitialize()
-end
+ 
 
 local O = C.MenuOption
+
+local function formatResolution(mode)
+    return ("%ix%i"):format(mode.width, mode.height)
+end
+
+local function showSettings(menu)
+
+    local function settingstat(name)
+        local s_on, s_off = strings.setting_enabled, strings.setting_disabled
+        return strings[name .. '_stat']:format(
+            videoconf[name] and s_on or s_off)
+    end
+
+    local function resolutionstat()
+        return strings.resolution_stat:format(
+            formatResolution(videoconf.mode))
+    end
+    
+    local function changeSettings(menu)
+        jd.window:reinitialize()
+        jd.stateManager:switchTo 'Menu'
+        showSettings(menu)
+    end
+    
+    local function toggleF(setting)
+        return function()
+            videoconf[setting] = not videoconf[setting]
+            changeSettings(menu)
+        end
+    end
+
+    local function selectResolutions(option)
+        local function setResolutionF(mode)
+            return function(menu)
+                videoconf.mode = mode
+                changeSettings(menu)
+            end
+        end
+        local entries = {header = text.create(strings.resolution_title)}
+        local bpp = videoconf.mode.bitsPerPixel
+        for mode in jd.VideoMode.all() do
+            if mode.bitsPerPixel == bpp then
+                caption = formatResolution(mode)
+                -- Reports always current resolution in fullscreen mode:
+                --if mode == jd.VideoMode.desktopMode() then
+                --    caption = caption .. strings.resolution_add_desktop
+                --end
+                if mode == videoconf.mode then
+                    caption = caption .. strings.resolution_add_current
+                end
+                local option = C.MenuOption(caption, setResolutionF(mode))
+                entries[#entries + 1] = option
+            end
+        end
+        --print(entries, #entries)
+        menu:enterSubmenu(entries)
+    end
+    
+    entries = {
+        O(settingstat 'fullscreen', toggleF 'fullscreen'),
+        O(settingstat 'vsync', toggleF 'vsync'),
+        O(resolutionstat(), selectResolutions)
+    }
+    menu:enterSubmenu(entries)
+end
 
 --[[local]] MAINMENU = {
     header = C.makeSpriteHeader('mainmenu_header'),
@@ -329,7 +403,7 @@ local O = C.MenuOption
 	O('new_game', enterStateF 'Game'),
 	O('continue_game', continueGame),
 	O('show_credits', enterStateF 'Credits'),
-    O('toggle_fullscreen', toggleFullscreen),
+    O('show_settings', showSettings),
 	O('exit_program', function() return jd.mainloop:quit() end),
 }
 

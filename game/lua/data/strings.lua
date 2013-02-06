@@ -15,9 +15,20 @@ return {
 	new_game = "Neues Spiel",
 	continue_game = "Spiel fortsetzen",
 	show_credits = "Credits",
-    toggle_fullscreen = "Vollbild umschalten",
+    show_settings = "Einstellungen",
 	exit_program = "Beenden",
 	
+    -- Settings
+    setting_enabled = "ein",
+    setting_disabled = "aus",
+    fullscreen_stat = "Vollbild: %s",
+    vsync_stat = "VSync: %s",
+    resolution_stat = "Auflösung: %s",
+    resolution_add_desktop = " (Desktop)",
+    resolution_add_current = " (aktuell)",
+    resolution_title = "Auflösung wählen",
+    
+    
 	-- Level selection
 	level_i_locked = "[Level %i]",
 	
