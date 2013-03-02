@@ -124,6 +124,7 @@ function M.entity(components, setupfn)
 	end -- return function ...
 end -- function M.entity(...)
 
+-- Entity which consists of a single compoenent.
 function M.singletonEntity(Component)
 	return function(...)
 		local entity = jd.Entity()
