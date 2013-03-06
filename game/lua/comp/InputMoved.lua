@@ -1,5 +1,7 @@
 local C = component 'InputMovedComponent'
 
+local evt = require 'evt'
+
 local ctrls = jd.conf.ctrls or { }
 local possibleDirections = {
     [ctrls.moveLeft  or jd.kb.A] = jd.Vec2(-1,  0),
@@ -26,6 +28,8 @@ local SPEED = 128 -- 4 tiles/s
 --]]
 function C:init(moveLimitCallback)
 	self.moveLimit = moveLimitCallback
+    self.onStart = evt.Signal()
+    self.onStop = evt.Signal()
 end
 
 function C:initComponent()
@@ -45,11 +49,14 @@ function C:initComponent()
 		end
 		
 		if isZero(direction) then
+            self.onStop(self)
 			self.firstMove = true
 			return
 		end
+
 		direction = direction / #direction
         local factor = SPEED * jd.timer.frameDuration:asSeconds()
+
         local function move(direction)
             if isZero(direction) then
                 return
@@ -65,10 +72,14 @@ function C:initComponent()
                     self)
             end -- if self.moveLimit
             self.pos.position = targetPos
-            self.firstMove = false
         end
+
         move(jd.Vec2(direction.x, 0))
         move(jd.Vec2(0, direction.y))
+        if self.firstMove then
+            self.onStart(self);
+            self.firstMove = false
+        end
 	end)
 end
 
