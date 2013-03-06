@@ -21,12 +21,13 @@ local evt = require 'evt'
 local pst = require 'persistence'
 
 jd.drawService.backgroundColor =
-	jd.conf.misc.backgroundColor or jd.colors.BLACK
+    jd.conf.misc.backgroundColor or jd.colors.BLACK
 
 evt.connectForever(jd.mainloop, 'quitting', function(exitcode)
-	-- avoid warnings
-	jd.Image.releaseAll()
-	jd.Texture.releaseAll()
+    -- avoid warnings
+    jd.Image.releaseAll()
+    jd.Texture.releaseAll()
+    jd.SoundBuffer.releaseAll()
     if exitcode == 0 then -- Do not save configuration in case of errors
         pst.store('userconf', require 'data.userconf')
     end
@@ -39,15 +40,15 @@ if jd.DEBUG and jd.kb.isKeyPressed(jd.conf.misc.debugKey) then
 end
 
 evt.connectForever(jd.eventDispatcher, 'closed', function()
-	jd.mainloop:quit()
+    jd.mainloop:quit()
 end)
 
 evt.connectToKeyPress(jd.kb.F11, function()
-	local before = collectgarbage 'count'
-	collectgarbage()
-	local after = collectgarbage 'count'
-	local freed = before - after
-	jd.log.d(("GC freed %f kB (%f --> %f)"):format(freed, before, after))
+    local before = collectgarbage 'count'
+    collectgarbage()
+    local after = collectgarbage 'count'
+    local freed = before - after
+    jd.log.d(("GC freed %f kB (%f --> %f)"):format(freed, before, after))
 end)
 
 jd.stateManager:push(jd.conf.misc.initialState)
