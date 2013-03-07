@@ -144,7 +144,11 @@ function C:__init(world)
 			self.onFlow(newWater)
 		end
 	end))
-	evts:add(world.onStop:connect(function() evts:disconnect() end))
+	evts:add(world.onStop:connect(function()
+		evts:disconnect()
+		self.onFlow:clear()
+		self.onDryOut:clear()
+	end))
 end
 
 function C:isFlooded(pos)

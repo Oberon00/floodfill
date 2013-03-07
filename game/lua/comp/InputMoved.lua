@@ -83,4 +83,10 @@ function C:initComponent()
 	end)
 end
 
+function C:cleanup()
+    self.onStart:clear()
+    self.onStop:clear()
+    self.moveLimit = nil
+end
+
 return C

@@ -56,7 +56,7 @@ setmetatable(tiles, {__index = function(t, name)
 end})
 
 local function negate(sides)
-	result = { }
+	local result = { }
 	local function ng(dir)
 		if not sides:find(dir, 1, true) then
 			result[#result + 1] = dir

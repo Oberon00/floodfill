@@ -301,7 +301,6 @@ function C:pause()
 	d 'ESCAPE'
 	self.background:release()
     self.background = nil
-    jd.log.i "Disposed background."
 	clearMenu(self)
 end
 

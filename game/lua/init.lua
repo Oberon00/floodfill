@@ -1,6 +1,11 @@
 -- Create names which every module can assume to be loaded
 -- (except configuration.lua)
 
+--setmetatable(_G, {__newindex = function(self, k, v)
+--    jd.log.w(("created global '%s'\n%s"):format(k, debug.traceback()))
+--    rawset(self, k, v)
+--end})
+
 -- jd.svc.foo() -> jd.foo
 local function e(n) jd[n] = jd.svc[n]() end
 e 'mainloop'

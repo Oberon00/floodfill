@@ -46,7 +46,6 @@
 --]]
 
 
-local util = require 'util'
 local tabutil = require 'tabutil'
 local Signal = (require 'evt').Signal
 

@@ -173,11 +173,12 @@ function M.load(info, layerInfo, data)
         end -- InputMovedComponent callback
     )
 
-    local walkSound = jd.Sound(jd.SoundBuffer.request('walk'))
-    walkSound.looped = true
+    local _dws = {walkSound = jd.Sound(jd.SoundBuffer.request('walk'))}
+    setmetatable(_dws, {__gc = function() jd.log.i "walkSound freed" end})
+    _dws.walkSound.looped = true
 
-    inputMoved.onStart:connect(function() walkSound:play() end)
-    inputMoved.onStop:connect(function() walkSound:stop() end)
+    inputMoved.onStart:connect(function() _dws.walkSound:play() end)
+    inputMoved.onStop:connect(function() _dws.walkSound:stop() end)
     
     entity:finish()
     return entity
