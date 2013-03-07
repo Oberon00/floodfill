@@ -167,6 +167,12 @@ lclass('Signal', M)
 		self[i] = f
 		return Connection(self, f, i)
 	end
+
+	function M.Signal:clear()
+		for i = 1, #self do
+			self[i] = nil
+		end
+	end
 	
 	--[[
 		Returns true if f was disconnected and false otherwise (if f is not
