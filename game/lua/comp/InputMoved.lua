@@ -49,8 +49,10 @@ function C:initComponent()
 		end
 		
 		if isZero(direction) then
-            self.onStop(self)
-			self.firstMove = true
+            if not self.firstMove then
+                self.onStop(self, false)
+			    self.firstMove = true
+            end
 			return
 		end
 
@@ -84,6 +86,9 @@ function C:initComponent()
 end
 
 function C:cleanup()
+    if not self.firstMove then
+        self.onStop(self, true)
+    end
     self.onStart:clear()
     self.onStop:clear()
     self.moveLimit = nil
