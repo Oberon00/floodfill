@@ -126,28 +126,6 @@ local function updateNavText(self)
 	self.navText.string = str:format(idx, pageCount)
 end
 
-local function selectEntry(self, idx)
-
-	local newTx = self.texts[idx]
-	if not newTx then
-		return
-	end
-    
-	if self.currentIndex then
-		local oldTx = self.texts[self.currentIndex]
-		oldTx.color = COLOR_DEF
-		oldTx.scale = jd.Vec2(1, 1)
-		oldTx.bold = false
-		text.centerX(oldTx)
-	end
-	self.currentIndex = idx
-	newTx.color = COLOR_HL
-	newTx.scale = SCALE_HL
-	newTx.bold = true
-	text.centerX(newTx)
-	return true
-end
-
 local function setPage(self, idx)
 	local page = self.pages[idx]
 	if not page then
@@ -165,7 +143,7 @@ local function setPage(self, idx)
 			self, page[i].text, firstentryY + (i - 1) * entryH)
 	end
 	updateNavText(self)
-	selectEntry(self, 1)
+	self:selectEntry(1)
 end
 
 local function setMenu(self, menu)
@@ -204,7 +182,7 @@ function C:toParentMenu()
     clearMenu(self)
     setMenu(self, parent.menu)
     setPage(self, parent.pageIdx)
-    selectEntry(self, parent.idx)
+    self:selectEntry(parent.idx)
 end
 
 function C:enterSubmenu(menu)
@@ -229,6 +207,30 @@ function C:__init()
 end
 
 local MAINMENU
+
+function C:selectEntry(idx)
+
+    local newTx = self.texts[idx]
+    if not newTx then
+        return
+    end
+    
+    if self.currentIndex then
+        local oldTx = self.texts[self.currentIndex]
+        oldTx.color = COLOR_DEF
+        oldTx.scale = jd.Vec2(1, 1)
+        oldTx.bold = false
+        text.centerX(oldTx)
+    end
+
+    self.currentIndex = idx
+    newTx.color = COLOR_HL
+    newTx.scale = SCALE_HL
+    newTx.bold = true
+    text.centerX(newTx)
+    return true
+end
+
 function C:prepare()
 	self.parentMenus = { }
 	
@@ -242,11 +244,11 @@ function C:prepare()
 	-- setup events --
 	local function selectNextEntry()
         menuClick()
-		selectEntry(self, self.currentIndex + 1)
+		self:selectEntry(self.currentIndex + 1)
 	end
 	local function selectPreviousEntry()
 		menuClick()
-        selectEntry(self, self.currentIndex - 1)
+        self:selectEntry(self.currentIndex - 1)
 	end
 	
 	local function nextPage()
@@ -347,21 +349,10 @@ local function showSettings(menu)
         return strings.resolution_stat:format(
             formatResolution(videoconf.mode))
     end
-    
-    local function changeSettings(menu)
-        jd.window:reinitialize()
-        jd.stateManager:switchTo 'Menu'
-        showSettings(menu)
-    end
-    
-    local function toggleF(setting)
-        return function()
-            videoconf[setting] = not videoconf[setting]
-            changeSettings(menu)
-        end
-    end
 
-    local function selectResolutions(option)
+    local changeSettings
+
+    local function selectResolutions()
         local function setResolutionF(mode)
             return function(menu)
                 videoconf.mode = mode
@@ -386,6 +377,28 @@ local function showSettings(menu)
         end
         --print(entries, #entries)
         menu:enterSubmenu(entries)
+    end
+    
+    --[[local]] function changeSettings(menu)
+        idx = menu.currentIndex
+        mnu = menu.menu
+        jd.window:reinitialize()
+        jd.stateManager:switchTo 'Menu'
+        showSettings(menu)
+
+        -- Hacky; if the number of pages changes, the following will select
+        -- the wrong index.
+        if mnu ~= menu then
+            selectResolutions()
+        end
+        menu:selectEntry(idx)
+    end
+    
+    local function toggleF(setting)
+        return function()
+            videoconf[setting] = not videoconf[setting]
+            changeSettings(menu)
+        end
     end
     
     entries = {
