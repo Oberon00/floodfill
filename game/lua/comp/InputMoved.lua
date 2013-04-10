@@ -14,49 +14,49 @@ local SPEED = 128 -- 4 tiles/s
 
 
 --[[
-	Constructor. If specified, [moveLimitCallback] must be a function, which is
-	then called with the following arguments:
-		targetRect:  The jd.Rect to which the component wants to move.
-		currentRect: The jd.Rect from which the movement starts.
-		direction:   A jd.Vec2 specifying the direction of the movement,
-		             normalized (i.e. #direction == 1)
-		movement:    A jd.Vec2, so that
-		             targetRect.position - currentRect.position == movement
-		self:        The calling InputMovedComponent.
-	It *must* return a jd.Vec2 which becomes the new position of the Entity. If
-	it returns e.g. nil an error() will occur.
+    Constructor. If specified, [moveLimitCallback] must be a function, which is
+    then called with the following arguments:
+        targetRect:  The jd.Rect to which the component wants to move.
+        currentRect: The jd.Rect from which the movement starts.
+        direction:   A jd.Vec2 specifying the direction of the movement,
+                     normalized (i.e. #direction == 1)
+        movement:    A jd.Vec2, so that
+                     targetRect.position - currentRect.position == movement
+        self:        The calling InputMovedComponent.
+    It *must* return a jd.Vec2 which becomes the new position of the Entity. If
+    it returns e.g. nil an error() will occur.
 --]]
 function C:init(moveLimitCallback)
-	self.moveLimit = moveLimitCallback
+    self.moveLimit = moveLimitCallback
     self.onStart = evt.Signal()
     self.onStop = evt.Signal()
 end
 
 function C:initComponent()
-	self.firstMove = true
-	self.pos = self.parent:require 'PositionComponent'
-	local keyPressed = jd.kb.isKeyPressed
-	local pairs = pairs
-	local Vec2 = jd.Vec2
-	local isZero = jd.Vec2.isZero
-	
-	self.evts:connect(jd.mainloop, "update", function()
-		local direction = Vec2()
-		for k, d in pairs(possibleDirections) do
-			if keyPressed(k) then
-				direction = direction + d
-			end
-		end
-		
-		if isZero(direction) then
+    self.firstMove = true
+    self.pos = self.parent:require 'PositionComponent'
+    local keyPressed = jd.kb.isKeyPressed
+    local pairs = pairs
+    local Vec2 = jd.Vec2
+    local isZero = jd.Vec2.isZero
+    
+    self.evts:connect(jd.mainloop, "update", function()
+        local direction = Vec2()
+        for k, d in pairs(possibleDirections) do
+            if keyPressed(k) then
+                direction = direction + d
+            end
+        end
+        
+        if isZero(direction) then
             if not self.firstMove then
                 self.onStop(self, false)
-			    self.firstMove = true
+                self.firstMove = true
             end
-			return
-		end
+            return
+        end
 
-		direction = direction / #direction
+        direction = direction / #direction
         local factor = SPEED * jd.timer.frameDuration:asSeconds()
 
         local function move(direction)
@@ -82,7 +82,7 @@ function C:initComponent()
             self.onStart(self);
             self.firstMove = false
         end
-	end)
+    end)
 end
 
 function C:cleanup()
