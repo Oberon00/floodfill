@@ -232,7 +232,7 @@ function C:selectEntry(idx)
 end
 
 function C:prepare()
-	self.parentMenus = { }
+    self.parentMenus = { }
 	
 	-- set background --
 	local bglayer = jd.drawService:layer(1)
@@ -380,18 +380,19 @@ local function showSettings(menu)
     end
     
     --[[local]] function changeSettings(menu)
-        idx = menu.currentIndex
-        mnu = menu.menu
+        local idx = menu.currentIndex
+        local mnu = menu.menu
         jd.window:reinitialize()
         jd.stateManager:switchTo 'Menu'
         showSettings(menu)
 
-        -- Hacky; if the number of pages changes, the following will select
-        -- the wrong index.
-        if mnu ~= menu then
+        if not mnu._is_settings_menu then
             selectResolutions()
+        else
+            -- Will select wrong entry, when resolution and thus page count
+            -- changes. Better stay at the first one.
+            menu:selectEntry(idx)
         end
-        menu:selectEntry(idx)
     end
     
     local function toggleF(setting)
@@ -402,6 +403,7 @@ local function showSettings(menu)
     end
     
     entries = {
+        _is_settings_menu = true,
         O(settingstat 'fullscreen', toggleF 'fullscreen'),
         O(settingstat 'vsync', toggleF 'vsync'),
         O(resolutionstat(), selectResolutions)
