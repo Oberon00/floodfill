@@ -8,6 +8,13 @@ local function reinitialize(window)
         videoconf.fullscreen and
             bit32.bor(jd.Window.STYLE_DEFAULT, jd.Window.STYLE_FULLSCREEN) or
             jd.Window.STYLE_DEFAULT)
+    if videoconf.fullscreen then
+        window.mouseCursorVisible = false
+        window:setMouseCursorVisible(false)
+    else
+        window.mouseCursorVisible = true
+        window:setMouseCursorVisible(true)
+    end
     window:setVSyncEnabled(videoconf.vsync)
     window:setFramerateLimit(videoconf.framelimit or 0)
     if miscconf.iconFilename then

@@ -56,6 +56,11 @@ evt.connectToKeyPress(jd.kb.F11, function()
     jd.log.d(("GC freed %f kB (%f --> %f)"):format(freed, before, after))
 end)
 
+evt.connectToKeyPress(jd.kb.P, function()
+    jd.window.mouseCursorVisible = not jd.window.mouseCursorVisible
+    jd.window:setMouseCursorVisible(jd.window.mouseCursorVisible)
+end)
+
 jd.stateManager:push(jd.conf.misc.initialState)
 collectgarbage()
 -- jd will start the Mainloop automatically
