@@ -1,36 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="27" height="18" tilewidth="32" tileheight="32">
- <tileset firstgid="1" source="set.tsx"/>
- <layer name="water-ground" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJzTY2Bg0BvFo3gUj+JRPIpH8aDAAFykV1U=
-  </data>
+<?xml version='1.0' encoding='utf-8'?>
+<map height="18" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="27">
+ <tileset firstgid="1" source="set.tsx" />
+ <layer height="18" name="water-ground" width="27">
+  <data compression="zlib" encoding="base64">eJyzZWBgsB3Fo3gUj+JRPIpH8aDAALskc88=</data>
  </layer>
- <layer name="water" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=
-  </data>
+ <layer height="18" name="water" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=</data>
  </layer>
- <layer name="locks" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=
-  </data>
+ <layer height="18" name="locks" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=</data>
  </layer>
- <layer name="player" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJwTY2BgEBvFo3gUj+JRPIpH8aDAAPiSKcU=
-  </data>
+ <layer height="18" name="player" width="27">
+  <data compression="zlib" encoding="base64">eJwTZ2BgEB/Fo3gUj+JRPIpH8aDAADIeK6s=</data>
  </layer>
- <layer name="objects" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=
-  </data>
+ <layer height="18" name="objects" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBgFo2AUjIJRMApGwWABAAeYAAE=</data>
  </layer>
- <objectgroup name="objects" width="27" height="18">
-  <object type="Player" gid="59" x="405" y="278"/>
+ <objectgroup height="18" name="objects" width="27">
+  <object gid="60" type="Player" x="405" y="278" />
  </objectgroup>
- <objectgroup name="connections" width="27" height="18">
-  <object x="-19436418" y="851930574"/>
-  <object x="-19436294" y="851930555"/>
+ <objectgroup height="18" name="connections" width="27">
+  <object x="-19436418" y="851930574" />
+  <object x="-19436294" y="851930555" />
  </objectgroup>
 </map>

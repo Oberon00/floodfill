@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="set.tsx"/>
  <layer name="water-ground" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJzTY2Bg0COA1dEwNjFcmJDZhOzVI9IcWthFT39RaiYxcUdru2gRL8TEBbXihRQ3UyMNEOtmXP7EFq/UDhdS8iAudcS6i1T30jINUCudjNpFXhzSM78PRgwAkfRUkg==
+   eJyzZWBgsCWA1dEwNjFcmJDZhOy1JdIcWthFT39RaiYxcUdru2gRL8TEBbXihRQ3UyMNEOtmXP7EFq/UDhdS8iAudcS6i1T30jINUCudjNpFXhzSM78PRgwAq+FrIQ==
   </data>
  </layer>
  <layer name="water" width="27" height="18">
@@ -13,21 +13,21 @@
  </layer>
  <layer name="locks" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo4B2wGigHUAjoDDQDgACcRxi6HgwgcHmnlEwuAF6ehkp6QcAFIABIg==
+   eJxjYBgFo4B2QHWgHUAjoDXQDgACBRxi6HgwAYWBdsAoGFJAgQB/uAIA9SwBcA==
   </data>
  </layer>
  <layer name="player" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJy9VEEKwCAM62UvcHjc/585PBRGaJvoxEAQdG1IjWtm1ggR0V4G1pvp+toJV7W8/obVew48B3z5Xv/Zu7q7SAuZzWeV6Kvyx/pUuDb6suB7rEVfSsYyP4rWQJTDb32FmbeQzUz1VWUQoWriWZWJql7NYeYzesdK/UrmVS1lhuxM0VLJ/glqNhSoOjt4UusFLv4ezA==
+   eJy9VEEKwCAM62X7ggP//8/hoTBC20QnBoKga0NqXDezToiI9jKw3kzX10a4quX1F6zec+A54Mv32s/e1d1FWshsPqtEX5U/1qfCvdGXBd9jLfpSMpb5UbQGohx+6yvMvIVsZqqvKoMIVRPPqkxU9WoOM5/RO1bqVzKvaikzZGeKlkr2T1CzoUDV2cGTWi+v8CdE
   </data>
  </layer>
  <layer name="objects" width="27" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYCAM+IhQQ02gS0CejYp2SVLRrFFAORCF0rwUmmOCxKZmekEHhNIqCIjioKkBaJE3hWlgJjbAh2SXFZ3spDRdDVWgCsW0Asj5gBdqlwmU1oWyTbDoowSwQ82G2WWCxCYmX5IKYHboMiD8BKJpkXYBUWEF5w==
+   eJxjYCAMOIhQQ02gR0CenYp2SVLRrFFAOeCD0qIUmmOKxKZmekEHhNIqCPDhoKkBaJE3pWlgJjbAgWSXGp3spDRdDVWgC8W0Asj5QBRqlymU1oOyTbHoowTIQs2G2WWKxCYmX5IKYHboMSD8BKJpkXYBLwkGFA==
   </data>
  </layer>
  <objectgroup name="objects" width="27" height="18">
-  <object type="Player" gid="59" x="99" y="228"/>
+  <object type="Player" gid="60" x="99" y="228"/>
  </objectgroup>
  <objectgroup name="connections" width="27" height="18">
   <object x="-19436418" y="851930574"/>

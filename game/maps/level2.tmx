@@ -1,62 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="27" height="19" tilewidth="32" tileheight="32">
- <tileset firstgid="1" source="set.tsx"/>
- <layer name="water-ground" width="27" height="19">
-  <data encoding="base64" compression="zlib">
-   eJy9VEEOwCAI4w88wpv/f95OSwwrbdnBAzEKsa0FMyLyYmwSWda/keUuxAGtDneVY/zdc1b35hYIl7/SjbC22K/jfOprh5VE50Rvl2N83Tq1P+9w+CG9TjC/3P5z9Jzvv+LrlzNPbv7EYvwc3uq/QFhqbro5UvoqlqtnqrNiTX2Y6u90TXxw3wH1oTMfzDfVh4r/BpiqvvPrRrxYDxU2QG8=
-  </data>
+<?xml version='1.0' encoding='utf-8'?>
+<map height="19" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="27">
+ <tileset firstgid="1" source="set.tsx" />
+ <layer height="19" name="water-ground" width="27">
+  <data compression="zlib" encoding="base64">eJy9VMENACEIYw8GcAr3X+telxiutOUePohRiG0tmBGRF2OTyLL+jSx3IQ5odbirHOPvnrO6N7dAuPyVboS1xX4d51NfO6wkOid6uxzj69ap/XmHww/pdYL55fafo+d8/xVfv5x5cvMnFuPn8Fb/BcJSc9PNkdJXsVw9U50Va+rDVH+na+KD+w6oD535YL6pPlT8N8BU9Z1fN+LFegCi71Pm</data>
  </layer>
- <layer name="water" width="27" height="19">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGAbUA40A7gAQAAAiwAAI=
-  </data>
+ <layer height="19" name="water" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBgFo2AUjIJRMApGAbUA40A7gAQAAAiwAAI=</data>
  </layer>
- <layer name="locks" width="27" height="19">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFQxkYD7QDRgBQGGgHQIExGj0KhjZQGGgHjIJRAAQA7jUA2g==
-  </data>
+ <layer height="19" name="locks" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBgFQxlYD7QDRgDQGmgHQIE1Gj0KhjYYLOlqFIxsAACvtAEG</data>
  </layer>
- <layer name="player" width="27" height="19">
-  <data encoding="base64" compression="zlib">
-   eJy9VEEKwDAI89IXdOyysf8/c4dNKFJNtGyFIOioyaLtItJ/xB4A1dnvxl4eh1lkuKNaxC+bR7oueU6Wv+0Z6Zzxs/ljQMU/j5+ivfFM+sL65fHTuIF6VRfKNxNPE2199IPhV9Ezcm2THLNP7MxZXWgOs/vk6UI+ofcDzaPqkqQ/zB5FujL7UdFv/crCuzuq276dyDP/ZkWXntU5/BrK8QYjyifu
-  </data>
+ <layer height="19" name="player" width="27">
+  <data compression="zlib" encoding="base64">eJy9VEEKwDAI87Leet6g+/87d9iEItVEx1YIgo6aLNohIuNH7AFQnf1u7uVxWEWGO6pF/LJ5pOuQ+2T5256RzhU/mz8nVPzz+CnaE3vSF9Yvj5/GDdSrulC+mdhNtPXZD4ZfRc/MtS1yzD6xM2d1oTnM7pOnC/mE3g80j6pLkv4wexTpyuxHRb/1Kwvv7qhu+w4iz/ybN7r0vJ3Dr6EcL/qXMOI=</data>
  </layer>
- <layer name="objects" width="27" height="19">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgF1ASiA+2AQQqkBtoBZAK2gXbACAEjPd+MdP+PAvoDdigNAMGXAGc=
-  </data>
+ <layer height="19" name="objects" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBgF1AR8A+2AQQqkBtoBZAL2gXbACAEjPd+MdP+PAvoDWSgNAG53AGk=</data>
  </layer>
- <objectgroup name="objects" width="27" height="19">
-  <object type="Player" gid="59" x="419" y="260"/>
+ <objectgroup height="19" name="objects" width="27">
+  <object gid="60" type="Player" x="419" y="260" />
  </objectgroup>
- <objectgroup name="connections" width="27" height="19">
+ <objectgroup height="19" name="connections" width="27">
   <object x="104" y="431">
-   <polyline points="0,0 -94,-10"/>
+   <polyline points="0,0 -94,-10" />
   </object>
   <object x="113" y="110">
-   <polyline points="0,0 18,38"/>
+   <polyline points="0,0 18,38" />
   </object>
   <object x="397" y="224">
-   <polyline points="0,0 -26,15"/>
+   <polyline points="0,0 -26,15" />
   </object>
   <object x="626" y="173">
-   <polyline points="0,0 -15,94"/>
+   <polyline points="0,0 -15,94" />
   </object>
   <object x="687" y="302">
-   <polyline points="-30,34 -12,-33"/>
+   <polyline points="-30,34 -12,-33" />
   </object>
   <object x="655" y="333">
-   <polyline points="0,0 -47,-57"/>
+   <polyline points="0,0 -47,-57" />
   </object>
   <object x="405" y="222">
    <properties>
-    <property name="negate" value=""/>
+    <property name="negate" value="" />
    </properties>
-   <polyline points="-39,22 267,40"/>
+   <polyline points="-39,22 267,40" />
   </object>
   <object x="625" y="174">
-   <polyline points="0,0 -221,53"/>
+   <polyline points="0,0 -221,53" />
   </object>
-  <object x="598" y="264" width="28" height="10"/>
+  <object height="10" width="28" x="598" y="264" />
  </objectgroup>
 </map>

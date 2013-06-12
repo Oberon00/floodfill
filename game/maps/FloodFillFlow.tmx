@@ -1,34 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="27" height="18" tilewidth="32" tileheight="32">
- <tileset firstgid="1" source="set.tsx"/>
- <layer name="water-ground" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJy9VMEOQDEE8zfv5v8/b9flRUtNHGRbTKsINzNftO8yv07mj94IG2FFcf8cGKfChfzsX8Y1iY3qwWqj9qfCVckjq/tUXDQrKlc1rquhg9HV8oKxrQ/liO6RT+lbtg8YV1VfpAtprFi3v9O6slh1r2zO2CuX0qsDElRTJg==
-  </data>
+<?xml version='1.0' encoding='utf-8'?>
+<map height="18" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="27">
+ <tileset firstgid="1" source="set.tsx" />
+ <layer height="18" name="water-ground" width="27">
+  <data compression="zlib" encoding="base64">eJy9VFEOQDEEc5t3Cve/1n6XFy018SHbYlpFuJn5on2X+XUyf/RG2AgrivvnwDgVLuRn/zKuSWxUD1YbtT8VrkoeWd2n4qJZUbmqcV0NHYyulheMbX0oR3SPfErfsn3AuKr6Il1IY8W6/Z3WlcWqe2Vzxl65lF4diGdmqQ==</data>
  </layer>
- <layer name="water" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBg+gIlIsVEwCkbBKBgF1AfsA+2AYQIAK5gADA==
-  </data>
+ <layer height="18" name="water" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBg+gIlIsVEwCkbBKBgF1AeyA+2AYQIAR8gAIg==</data>
  </layer>
- <layer name="locks" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAooBwoD7QA8gH2gHUACAAA1TAAo
-  </data>
+ <layer height="18" name="locks" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBgFo2AUjIJRMAooB1oD7QA8QHagHUACAABQ5ABI</data>
  </layer>
- <layer name="player" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJwTY2BgEKMjRgZiSDQ+eWx8Yu0ihk8sTam/qGkXPf1FTvyg8+mZxkbxyMPIAFkMGxsbn1S78IlR267h6i9CdiH7G51vRYHdQwEDAD0AIzU=
-  </data>
+ <layer height="18" name="player" width="27">
+  <data compression="zlib" encoding="base64">eJwTZ2BgEKcjRgbiSDQ+eWx8Yu0ihk8sTam/qGkXPf1FTvyg8+mZxkbxyMPIAFkMGxsbn1S78IlR267h6i9CdiH7G52vRoHdQwEDAP0HJLg=</data>
  </layer>
- <layer name="objects" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJzTZmBgUKADVgRiYwbaAgkoLT5q16hdA2gXDMDsMqQDHgh/gYAEPoWjdo3aNYzs0gFiIzpgSyAGAD+UE1U=
-  </data>
+ <layer height="18" name="objects" width="27">
+  <data compression="zlib" encoding="base64">eJwzZmBg0KIDVgZiawbaAiUorTBq16hdA2gXDMDsUqEDhtlFD4BslxIedaN2jdo1nOwyAWJVOmAdIAYAV3QTXA==</data>
  </layer>
- <objectgroup name="objects" width="27" height="18"/>
- <objectgroup name="connections" width="27" height="18">
-  <object x="-19436418" y="851930574"/>
-  <object x="-19436294" y="851930555"/>
+ <objectgroup height="18" name="objects" width="27" />
+ <objectgroup height="18" name="connections" width="27">
+  <object x="-19436418" y="851930574" />
+  <object x="-19436294" y="851930555" />
  </objectgroup>
 </map>

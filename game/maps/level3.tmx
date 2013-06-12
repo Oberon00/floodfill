@@ -1,70 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="27" height="18" tilewidth="32" tileheight="32">
- <tileset firstgid="1" source="set.tsx"/>
- <layer name="water-ground" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJzTY2Bg0BvFQwar0xEPtF9H8WjaGMWjaWMkYgBmhFUe
-  </data>
+<?xml version='1.0' encoding='utf-8'?>
+<map height="18" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="27">
+ <tileset firstgid="1" source="set.tsx" />
+ <layer height="18" name="water-ground" width="27">
+  <data compression="zlib" encoding="base64">eJyzZWBgsB3FQwar0xEPtF9H8WjaGMWjaWMkYgC1nWzZ</data>
  </layer>
- <layer name="water" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFQwkwDrQDRsGgBaNpYxTgAqNpY2gBABL8AAQ=
-  </data>
+ <layer height="18" name="water" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBgFQwkwDrQDRsGgBaNpYxTgAqNpY2gBABL8AAQ=</data>
  </layer>
- <layer name="locks" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFQxmIkylHDfWjYPABYuNwNG2MbEBKOhFH448C2gMAE/kA5w==
-  </data>
+ <layer height="18" name="locks" width="27">
+  <data compression="zlib" encoding="base64">eJxjYBgFQxkokClHDfWjYPABBSqrI1f9KBjcQIEEdQpo/FFAewAARVQBQQ==</data>
  </layer>
- <layer name="player" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJwTZmBgEKYTFsODqSlPjH30sova/jLEgWWQ2HJocnJEyqGbhe42cv1JjB+Hs13ocUgru4hJCzIMuNMQKWqpkeZxqSM2vIa6XfQMQ1i8seKIc3Rx9PhHTwvYyg1caWO45WV6YABVZS9l
-  </data>
+ <layer height="18" name="player" width="27">
+  <data compression="zlib" encoding="base64">eJyTZmBgkKYTFseDqSlPjH30sova/lLBgXmR2BJochJEyqGbhe42cv1JjB+Hs13ocUgru4hJC7wMuNMQKWqpkeZxqSM2vIa6XfQMQ1i8seGIc3Rx9PhHTwvYyg1caWO45WV6YADXTTBr</data>
  </layer>
- <layer name="objects" width="27" height="18">
-  <data encoding="base64" compression="zlib">
-   eJzTZaAfEKWRWlL1WQExL5nmjwSgSid7THCIExOH5KaPgQC0SmvExBMt4pKdBmbiA/SM66GUrmBAd5CYMZgBvnglFOcgeVxlFa0AAEAGAow=
-  </data>
+ <layer height="18" name="objects" width="27">
+  <data compression="zlib" encoding="base64">eJzTY6Af4KORWlL1qQGxKJnmjwSgSyd7THGIExOH5KaPgQC0SmvExBMt4lKWBmbiA/SM66GUrmBAb5CYMZgBvnglFOcgeVxlFa0AAMtTAnU=</data>
  </layer>
- <objectgroup name="objects" width="27" height="18">
-  <object type="Player" gid="59" x="60" y="532"/>
+ <objectgroup height="18" name="objects" width="27">
+  <object gid="60" type="Player" x="60" y="532" />
  </objectgroup>
- <objectgroup name="connections" width="27" height="18">
-  <object x="-19436418" y="851930574"/>
-  <object x="-19436294" y="851930555"/>
+ <objectgroup height="18" name="connections" width="27">
+  <object x="-19436418" y="851930574" />
+  <object x="-19436294" y="851930555" />
   <object x="819" y="50">
-   <polyline points="0,0 -52,248"/>
+   <polyline points="0,0 -52,248" />
   </object>
-  <object x="747" y="140" width="13" height="10"/>
+  <object height="10" width="13" x="747" y="140" />
   <object x="812" y="528">
-   <polyline points="0,0 -47,-384"/>
+   <polyline points="0,0 -47,-384" />
   </object>
   <object x="18" y="362">
-   <polyline points="0,0 44,-53"/>
+   <polyline points="0,0 44,-53" />
   </object>
   <object x="19" y="400">
-   <polyline points="0,0 136,63"/>
+   <polyline points="0,0 136,63" />
   </object>
   <object x="19" y="52">
-   <polyline points="0,0 585,413"/>
+   <polyline points="0,0 585,413" />
   </object>
   <object x="369" y="47">
-   <polyline points="0,0 12,88"/>
+   <polyline points="0,0 12,88" />
   </object>
   <object x="114" y="207">
-   <polyline points="0,0 43,-64"/>
+   <polyline points="0,0 43,-64" />
   </object>
   <object x="381" y="465">
-   <polyline points="129,-3 181,69"/>
+   <polyline points="129,-3 181,69" />
   </object>
   <object x="335" y="525">
-   <polyline points="0,0 143,-61"/>
+   <polyline points="0,0 143,-61" />
   </object>
   <object x="266" y="86">
-   <polyline points="0,0 -204,213"/>
+   <polyline points="0,0 -204,213" />
   </object>
   <object x="403" y="208">
-   <polyline points="0,0 -21,90"/>
+   <polyline points="0,0 -21,90" />
   </object>
  </objectgroup>
 </map>

@@ -91,7 +91,7 @@ function C:__init(world)
 	
 	local waterProxy
 	world.postLoad:connect(function(world)
-		waterProxy =  world.tileProxies.water
+		waterProxy =  world.tileProxies.water or world.tileProxies['water#1']
 		local cinfo = waterProxy:require 'CollisionInfoComponent'
 		local canEnter, canLeave = cinfo.canEnter, cinfo.canLeave
 		function cinfo.canEnter(self, entity, ...)
@@ -105,7 +105,8 @@ function C:__init(world)
 	local map = world.map
 	self.map = map
 	local evts = evt.Table()
-	self.TID_WATER = world.tileMapping.byName.water
+	local nameMapping = world.tileMapping.byName
+	self.TID_WATER = nameMapping.water or nameMapping['water#1']
 	local collider = jd.TileLayersCollideableGroup(
 		world.tileCollisionInfo, layers.WATER_GROUND, layers.LOCKS + 1)
     self.collider = collider
