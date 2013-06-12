@@ -1,4 +1,4 @@
-return {    
+return {
     misc = {
         title        = "FloodFill",
         iconFilename = "icon",
