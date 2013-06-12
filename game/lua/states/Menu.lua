@@ -416,6 +416,7 @@ end
     
 	O('new_game', enterStateF 'Game'),
 	O('continue_game', continueGame),
+    O('show_help', enterStateF 'Help'),
 	O('show_credits', enterStateF 'Credits'),
     O('show_settings', showSettings),
 	O('exit_program', function() return jd.mainloop:quit() end),
