@@ -1,4 +1,4 @@
-Alle Sound-Dateien stammen von freesound.org. Details sind unter den angegebenen
+Alle Sounds stammen von freesound.org. Details sind unter den angegebenen
 URLs abrufbar. Der Benutzername des Sounderstellers ist aus der URL direkt
 ablesbar: http://freesound.org/people/USER/sounds/12345/
 
@@ -10,3 +10,13 @@ splash.wav	        http://freesound.org/people/petenice/sounds/9508/
 level_complete.wav  http://freesound.org/people/jobro/sounds/60444/
 game_complete.wav   http://freesound.org/people/usinggarageband/sounds/152574/
 walk.wav            http://freesound.org/people/DasDeer/sounds/161815/
+
+
+Die Musik stammt vom Album "Im Garten der Schneekugel" (2009) von
+"Das Kraftfuttermischwerk". Das Album kann unter
+http://www.kraftfuttermischwerk.de/blogg/?p=4951 kostenlos heruntergeladen
+werden. Die verwendeten Tracks sind:
+
+dkfmw-richtung_hauptbahnhof.ogg Richtung Hauptbahnhof   #2
+dkfmw-das_alte_schulhaus.ogg    Das alte Schulhaus      #6
+dkfmw-uhlenhorst.ogg            Uhlenhorst              #11
