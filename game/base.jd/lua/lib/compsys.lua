@@ -39,8 +39,10 @@ function M.component(name, env)
 	end
 	
 	function classobj:cleanupComponent()
-		self.evts:disconnect()
-		util.callopt(self.cleanup, self)
+		if getmetatable(self) then
+			self.evts:disconnect()
+		end
+		util.callopt(self.cleanup, getmetatable(self) and self or nil)
 	end
 	
 	return classobj
