@@ -6,10 +6,10 @@
 return {
 
 -- State: Splash
-    press_any_key = "Drücken Sie eine beliebige Taste . . .",
+    press_any_key = "DrÃ¼cken Sie eine beliebige Taste . . .",
 
 -- State: Menu
-    menu_back = "ZURÜCK",
+    menu_back = "ZURÃœCK",
 
     -- Main menu
     new_game = "Neues Spiel",
@@ -24,10 +24,10 @@ return {
     setting_disabled = "aus",
     fullscreen_stat = "Vollbild: %s",
     vsync_stat = "VSync: %s",
-    resolution_stat = "Auflösung: %s",
+    resolution_stat = "AuflÃ¶sung: %s",
     resolution_add_desktop = " (Desktop)",
     resolution_add_current = " (aktuell)",
-    resolution_title = "Auflösung wählen",
+    resolution_title = "AuflÃ¶sung wÃ¤hlen",
 
 
     -- Level selection
@@ -42,14 +42,14 @@ return {
 
 -- State: Help
     help_text =
-[[FloodFill ist ein Logikspiel. Der Spieler steuert seine Figur und betätigt Hebel und Schalter, um Schleusen zu öffnen und zu schließen und somit Wasser, das ihn auch blockieren kann, von einer oder mehreren Quellen zu einem oder mehreren Zielen zu leiten.
+[[FloodFill ist ein Logikspiel. Der Spieler steuert seine Figur und betÃ¤tigt Hebel und Schalter, um Schleusen zu Ã¶ffnen und zu schlieÃŸen und somit Wasser, das ihn auch blockieren kann, von einer oder mehreren Quellen zu einem oder mehreren Zielen zu leiten.
 
 Die Schwierigkeit besteht darin, die Hebel in der richtigen Reihenfolge in die richtige Stellung zu bringen.
 
-Zum Bewegen des Spielers werden die W (auf), A (links), S (ab), D (rechts) Tasten verwendet. Wenn der Spieler an ein Objekt anstößt, das eine Aktion auslöst, geschieht dies automatisch. Mit F5 kann das Level neu gestartet werden.
-Im Menü kann auch mit den Pfeiltasten auf/ab eine Auswahl getroffen werden, und mit links/rechts zwischen mehreren Seiten (falls verfügbar) gewechselt werden. Mit Enter oder Leertaste wird die Auswahl bestätigt.
+Zum Bewegen des Spielers werden die W (auf), A (links), S (ab), D (rechts) Tasten verwendet. Wenn der Spieler an ein Objekt anstÃ¶ÃŸt, das eine Aktion auslÃ¶st, geschieht dies automatisch. Mit F5 kann das Level neu gestartet werden.
+Im MenÃ¼ kann auch mit den Pfeiltasten auf/ab eine Auswahl getroffen werden, und mit links/rechts zwischen mehreren Seiten (falls verfÃ¼gbar) gewechselt werden. Mit Enter oder Leertaste wird die Auswahl bestÃ¤tigt.
 
-Für mehr und ausführlichere Hilfe sehen Sie bitte im FloodFill-Handbuch (usermanual.pdf) nach.]]
+FÃ¼r mehr und ausfÃ¼hrlichere Hilfe sehen Sie bitte im FloodFill-Handbuch (usermanual.pdf) nach.]]
 ,
 
 -- Debugging
