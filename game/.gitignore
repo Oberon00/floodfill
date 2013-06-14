@@ -14,3 +14,6 @@ _vld_memleaks.log
 
 # Copys of Files
 * - Kopie*
+
+# Test ZIPs
+*.zip
