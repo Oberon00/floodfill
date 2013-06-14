@@ -7,7 +7,7 @@ local tabutil = require 'tabutil'
 function C:__init(name, drawgroup)
     self.onStart = evt.Signal()
     self.onStop  = evt.Signal()
-    
+
     local map = jd.Tilemap()
     self.drawgroup = drawgroup
     self._levelData = {
@@ -21,13 +21,13 @@ end
 
 function C:start()
     local world = tabutil.copy(self._levelData)
-    
+
     -- add self reference here and not in ctor, to speed up the GC
     world.level = self
-    
+
     local map = jd.Tilemap(world.map)
     map.group = self.drawgroup
-    
+
     world._animationCon = jd.connect(jd.mainloop, 'update', function()
         map:animate(jd.timer.frameDuration)
     end)
@@ -36,7 +36,7 @@ function C:start()
     world.procs = { }
 
     self.world = maploader.initializeMap(world)
-    
+
     self.onStart()
 end
 
@@ -44,7 +44,7 @@ function C:stop()
     if not self.world then
         return false
     end
-    
+
     self.onStop()
     for _, entity in pairs(self.world.tileProxies) do
         entity:kill()
@@ -60,7 +60,7 @@ function C:stop()
     self.world.map:release()
     self.world._animationCon:disconnect()
     tabutil.clear(self.world)
-    self.world = nil    
+    self.world = nil
     return true
 end
 
