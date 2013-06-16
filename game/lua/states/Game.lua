@@ -35,7 +35,7 @@ local function showMessage(self, msg, color, size, fadeoutDelay)
     tx.characterSize = size or tx.characterSize
     tx.bold = true
     text.center(tx)
-    
+
     local function fadeOut()
         local tm = jd.Clock()
         self.msgcon = jd.connect(jd.mainloop, 'update', function()
@@ -48,7 +48,7 @@ local function showMessage(self, msg, color, size, fadeoutDelay)
             tx.color = cl
         end)
     end
-    
+
     if fadeoutDelay then
         self.msgcon = jd.timer:callAfter(fadeoutDelay, fadeOut)
     else
@@ -84,7 +84,7 @@ local function startLevel(self)
     end)
     startLoadedLevel(self)
     maplayer.view.rect = self.level.world.map.bounds
-    
+
     -- Show "Level %i" message and fade out
     showMessage(
         self, strings.level_i:format(self.levels.currentIndex),
@@ -129,7 +129,7 @@ function C:pause()
         self.winningScreen:reset()
         self.winningScreen = nil
     end
-    
+
     evt.connectToKeyPress(jd.kb.F5, nil)
     evt.connectToKeyPress(jd.kb.ESCAPE, nil)
     clearMessage(self)

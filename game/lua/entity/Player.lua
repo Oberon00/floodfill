@@ -88,9 +88,9 @@ function M.load(info, layerInfo, data)
             end -- for each layer between PLAYER_GROUND - 1 downto 0
         end -- if not tileFound
     end) -- tilestackcg filter callback
-    
+
     cgg:add(tilestackcg)
-    
+
     local function canMoveEnter(oldr, r, d, from, to)
         local bounds = map.bounds
         if r.x < bounds.x or r.x > bounds.right or
@@ -98,13 +98,13 @@ function M.load(info, layerInfo, data)
         then
             return false
         end
-        
+
         local oldc = cgg:colliding(oldr)
         local newc = cgg:colliding(r)
         local newOnly = newc:differenceTo(oldc)
         return colutil.allEnterable(newOnly, entity, d, from, to)
     end
-    
+
     local function canMoveLeave(oldr, r, d, from, to)
         local oldc = cgg:colliding(oldr)
         local newc = cgg:colliding(r)
@@ -112,7 +112,7 @@ function M.load(info, layerInfo, data)
         return colutil.allLeaveable(oldc, entity, d, from, to) or
                newOnly.count == 0
     end
-    
+
     local actTimer = jd.Clock()
     local inputMoved = InputMovedComponent(entity,
         function (destr, oldr, d0, d, comp)
@@ -123,10 +123,10 @@ function M.load(info, layerInfo, data)
                 step = d
                 steplen = dlen
             end
-            
+
             local mlen = 0 -- oldr.xy -- r.xy
             local r = jd.Rect(oldr.xy, oldr.wh)
-            
+
             local function maybeActivate()
                 if comp.firstMove or
                    r ~= oldr and actTimer.elapsedTime:asSeconds() > 0.1 then
@@ -138,8 +138,8 @@ function M.load(info, layerInfo, data)
                 end -- if comp.firstMove
             end -- local function maybeActivate()
 
-            
-            while mlen ~= dlen do            
+
+            while mlen ~= dlen do
                 mlen = mlen + steplen
 
                 local newr
@@ -165,7 +165,7 @@ function M.load(info, layerInfo, data)
                     return cutMovementFrom(
                         r.xy, outp, map:tileRect(
                             map:tilePosFromGlobal(r.center))
-                    ) - outp + r.xy    
+                    ) - outp + r.xy
                 end
             end
             maybeActivate()
@@ -173,13 +173,12 @@ function M.load(info, layerInfo, data)
         end -- InputMovedComponent callback
     )
 
-    local _dws = {walkSound = jd.Sound(jd.SoundBuffer.request('walk'))}
-    setmetatable(_dws, {__gc = function() jd.log.i "walkSound freed" end})
-    _dws.walkSound.looped = true
+    local walkSound = jd.Sound(jd.SoundBuffer.request('walk'))
+    walkSound.looped = true
 
-    inputMoved.onStart:connect(function() _dws.walkSound:play() end)
-    inputMoved.onStop:connect(function() _dws.walkSound:stop() end)
-    
+    inputMoved.onStart:connect(function() walkSound:play() end)
+    inputMoved.onStop:connect(function() walkSound:stop() end)
+
     entity:finish()
     return entity
 end

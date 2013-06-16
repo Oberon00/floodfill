@@ -39,7 +39,7 @@ function C:initComponent()
     local pairs = pairs
     local Vec2 = jd.Vec2
     local isZero = jd.Vec2.isZero
-    
+
     self.evts:connect(jd.mainloop, "update", function()
         local direction = Vec2()
         for k, d in pairs(possibleDirections) do
@@ -47,7 +47,7 @@ function C:initComponent()
                 direction = direction + d
             end
         end
-        
+
         if isZero(direction) then
             if not self.firstMove then
                 self.onStop(self, false)

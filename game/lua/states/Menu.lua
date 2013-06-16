@@ -26,9 +26,9 @@ local function setSize(drawable, newsize)
 end
 
 local function enterStateF(state)
-	return function()
-		return jd.stateManager:push(state)
-	end
+    return function()
+        return jd.stateManager:push(state)
+    end
 end
 
 local PADDING_TOP = text.defaultFont:lineSpacing(30)
@@ -42,15 +42,15 @@ local COLOR_HL  = jd.Color(  0, 150, 255)
 local SCALE_HL = jd.Vec2(1.3, 1.3)
 
 local function createEntry(self, s, y)
-	local tx = text.create(s, jd.Vec2(0, y), self.menulayer.group)
-	tx.characterSize = CHAR_H
-	tx.color = COLOR_DEF
-	text.centerX(tx)
-	return tx
+    local tx = text.create(s, jd.Vec2(0, y), self.menulayer.group)
+    tx.characterSize = CHAR_H
+    tx.color = COLOR_DEF
+    text.centerX(tx)
+    return tx
 end
 
 local function entrySpace(self)
-	local totalH = self.menulayer.view.size.y
+    local totalH = self.menulayer.view.size.y
     local consumedH = PADDING_TOP
     if self.header then
          consumedH = consumedH + self.header.bounds.bottom
@@ -59,35 +59,35 @@ local function entrySpace(self)
 end
 
 local function paginate(menu, entrySpace)
-	local itemCount = #menu
-	local pageCount = math.ceil(itemCount * LINE_H / entrySpace)
-	local itemsPerPage = math.ceil(itemCount / pageCount)
-	
-	local pages = { }
-	for p = 1, pageCount do
-		local page = { }
-		pages[p] = page
-		for i = 1, itemsPerPage do
-			local idx = (p - 1) * itemsPerPage + i
-			page[i] = menu[idx]
-			if idx == itemCount then
-				return pages
-			end
-		end
-	end
-	error("empty menu")
+    local itemCount = #menu
+    local pageCount = math.ceil(itemCount * LINE_H / entrySpace)
+    local itemsPerPage = math.ceil(itemCount / pageCount)
+
+    local pages = { }
+    for p = 1, pageCount do
+        local page = { }
+        pages[p] = page
+        for i = 1, itemsPerPage do
+            local idx = (p - 1) * itemsPerPage + i
+            page[i] = menu[idx]
+            if idx == itemCount then
+                return pages
+            end
+        end
+    end
+    error("empty menu")
 end
 
 local function clearMenuPage(self)
-	if not self.texts then
-		return
-	end
-	for i = 1, #self.texts do
-		self.texts[i]:release()
-	end
-	self.texts = nil
-	self.currentIndex = nil
-	self.currentPageIndex = nil
+    if not self.texts then
+        return
+    end
+    for i = 1, #self.texts do
+        self.texts[i]:release()
+    end
+    self.texts = nil
+    self.currentIndex = nil
+    self.currentPageIndex = nil
 end
 
 local function clearHeader(self)
@@ -98,52 +98,52 @@ local function clearHeader(self)
 end
 
 local function clearMenu(self)
-	clearMenuPage(self)
+    clearMenuPage(self)
     clearHeader(self)
-	if self.navText then
-		self.navText:release()
-		self.navText = nil
-	end
-	self.menu = nil
-	self.pages = nil
+    if self.navText then
+        self.navText:release()
+        self.navText = nil
+    end
+    self.menu = nil
+    self.pages = nil
 end
 
 local function updateNavText(self)
-	if not self.navText then
-		self.navText = text.create("")
-	end
-	
-	local pageCount = #self.pages
-	local idx = self.currentPageIndex
-	local str = ""
-	if pageCount > 1 then
-		str = idx >= pageCount and "<%i/%i" or
-			  idx <= 1 and "%i/%i>" or "<%i/%i>"
-	end
-	if #self.parentMenus > 0 then
-		str = "^ " .. str
-	end
-	self.navText.string = str:format(idx, pageCount)
+    if not self.navText then
+        self.navText = text.create("")
+    end
+
+    local pageCount = #self.pages
+    local idx = self.currentPageIndex
+    local str = ""
+    if pageCount > 1 then
+        str = idx >= pageCount and "<%i/%i" or
+              idx <= 1 and "%i/%i>" or "<%i/%i>"
+    end
+    if #self.parentMenus > 0 then
+        str = "^ " .. str
+    end
+    self.navText.string = str:format(idx, pageCount)
 end
 
 local function setPage(self, idx)
-	local page = self.pages[idx]
-	if not page then
-		return
-	end
-	clearMenuPage(self)
-	self.currentPageIndex = idx
-	local entryH = entrySpace(self) / #self.pages[1]
-    
+    local page = self.pages[idx]
+    if not page then
+        return
+    end
+    clearMenuPage(self)
+    self.currentPageIndex = idx
+    local entryH = entrySpace(self) / #self.pages[1]
+
     local firstentryY = self.menulayer.view.size.y - entryH * #self.pages[1]
-	
+
     self.texts = { }
-	for i = 1, #page do
-		self.texts[i] = createEntry(
-			self, page[i].text, firstentryY + (i - 1) * entryH)
-	end
-	updateNavText(self)
-	self:selectEntry(1)
+    for i = 1, #page do
+        self.texts[i] = createEntry(
+            self, page[i].text, firstentryY + (i - 1) * entryH)
+    end
+    updateNavText(self)
+    self:selectEntry(1)
 end
 
 local function setMenu(self, menu)
@@ -157,8 +157,8 @@ local function setMenu(self, menu)
         end
         text.centerX(self.header, self.menulayer)
     end
-	self.pages = paginate(menu, entrySpace(self))
-	self.menu = menu
+    self.pages = paginate(menu, entrySpace(self))
+    self.menu = menu
     setPage(self, 1)
 end
 
@@ -167,9 +167,9 @@ local function menuClick()
 end
 
 function C.MenuOption(s, f)
-	local r = {text = strings[s] or s, action = f}
-	assert(type(r.text) == 'string', "invalid text")
-	return r
+    local r = {text = strings[s] or s, action = f}
+    assert(type(r.text) == 'string', "invalid text")
+    return r
 end
 
 function C:toParentMenu()
@@ -186,24 +186,24 @@ function C:toParentMenu()
 end
 
 function C:enterSubmenu(menu)
-	table.insert(self.parentMenus, {
-		menu = self.menu,
-		pageIdx = self.currentPageIndex,
-		idx = self.currentIndex
-	})
-	setMenu(self, menu)
+    table.insert(self.parentMenus, {
+        menu = self.menu,
+        pageIdx = self.currentPageIndex,
+        idx = self.currentIndex
+    })
+    setMenu(self, menu)
 end
 
 function C:updatePageTexts()
     local page = self.pages[self.currentPageIndex]
     for i = 1, #page do
-		self.texts[i].string = page[i].text
-	end
+        self.texts[i].string = page[i].text
+    end
 end
 
 function C:__init()
-	jd.State.__init(self)
-	self.menulayer = text.defaultLayer
+    jd.State.__init(self)
+    self.menulayer = text.defaultLayer
 end
 
 local MAINMENU
@@ -214,7 +214,7 @@ function C:selectEntry(idx)
     if not newTx then
         return
     end
-    
+
     if self.currentIndex then
         local oldTx = self.texts[self.currentIndex]
         oldTx.color = COLOR_DEF
@@ -233,77 +233,77 @@ end
 
 function C:prepare()
     self.parentMenus = { }
-	
-	-- set background --
-	local bglayer = jd.drawService:layer(1)
-	self.background = jd.Sprite(bglayer.group)
-	self.background.texture = jd.Texture.request "menubg"
-	self.background.color = jd.Color(127, 127, 127)
-	bglayer.view.rect = self.background.bounds
-    
-	-- setup events --
-	local function selectNextEntry()
+
+    -- set background --
+    local bglayer = jd.drawService:layer(1)
+    self.background = jd.Sprite(bglayer.group)
+    self.background.texture = jd.Texture.request "menubg"
+    self.background.color = jd.Color(127, 127, 127)
+    bglayer.view.rect = self.background.bounds
+
+    -- setup events --
+    local function selectNextEntry()
         menuClick()
-		self:selectEntry(self.currentIndex + 1)
-	end
-	local function selectPreviousEntry()
-		menuClick()
+        self:selectEntry(self.currentIndex + 1)
+    end
+    local function selectPreviousEntry()
+        menuClick()
         self:selectEntry(self.currentIndex - 1)
-	end
-	
-	local function nextPage()
-		menuClick()
+    end
+
+    local function nextPage()
+        menuClick()
         setPage(self, self.currentPageIndex + 1)
-	end
-	
-	local function previousPage()
-		menuClick()
+    end
+
+    local function previousPage()
+        menuClick()
         setPage(self, self.currentPageIndex - 1)
-	end
-	
-	local function doCurrentEntry()
+    end
+
+    local function doCurrentEntry()
         jd.soundManager:playSound "menu_do"
         local firstPageIdx = #self.pages[1] * (self.currentPageIndex - 1)
-		local option = self.menu[firstPageIdx + self.currentIndex]
+        local option = self.menu[firstPageIdx + self.currentIndex]
         local act = option.action
-		if type(act) == 'table' then
-			self:enterSubmenu(act)
-		else
-			act(self, option)
-		end
-	end
+        if type(act) == 'table' then
+            self:enterSubmenu(act)
+        else
+            act(self, option)
+        end
+    end
 
     local function toParentMenu()
         self:toParentMenu()
     end
-	
-	local function e(k, f) evt.connectToKeyPress(jd.kb[k], f) end
-	e('UP',     selectPreviousEntry)
-	e('W',      selectPreviousEntry)
-	e('DOWN',   selectNextEntry)
-	e('S',      selectNextEntry)
-	e('LEFT',   previousPage)
-	e('A',      previousPage)
-	e('RIGHT',  nextPage)
-	e('D',      nextPage)
-	e('RETURN', doCurrentEntry)
-	e('SPACE',  doCurrentEntry)
-	e('ESCAPE', toParentMenu)
-	
-	
-	-- initialize menu --
-	setMenu(self, MAINMENU)	
+
+    local function e(k, f) evt.connectToKeyPress(jd.kb[k], f) end
+    e('UP',     selectPreviousEntry)
+    e('W',      selectPreviousEntry)
+    e('DOWN',   selectNextEntry)
+    e('S',      selectNextEntry)
+    e('LEFT',   previousPage)
+    e('A',      previousPage)
+    e('RIGHT',  nextPage)
+    e('D',      nextPage)
+    e('RETURN', doCurrentEntry)
+    e('SPACE',  doCurrentEntry)
+    e('ESCAPE', toParentMenu)
+
+
+    -- initialize menu --
+    setMenu(self, MAINMENU)
 end
 
 function C:pause()
-	local function d(k) evt.connectToKeyPress(jd.kb[k], nil) end
-	d 'UP' d 'W' d 'DOWN' d 'S'
-	d 'LEFT' d 'A' d 'RIGHT' d 'D'
-	d 'RETURN' d 'SPACE'
-	d 'ESCAPE'
-	self.background:release()
+    local function d(k) evt.connectToKeyPress(jd.kb[k], nil) end
+    d 'UP' d 'W' d 'DOWN' d 'S'
+    d 'LEFT' d 'A' d 'RIGHT' d 'D'
+    d 'RETURN' d 'SPACE'
+    d 'ESCAPE'
+    self.background:release()
     self.background = nil
-	clearMenu(self)
+    clearMenu(self)
 end
 
 function C.makeSpriteHeader(texturename)
@@ -314,22 +314,22 @@ end
 
 
 local function continueGame(menu)
-	local entries = { }
-	local levels = LevelList.default.levels
-	for i = 1, #levels do
-		entries[i] = C.MenuOption(
-			(levels[i].unlocked and strings.level_i or strings.level_i_locked)
-				:format(i),
-			function()
-				if levels[i].unlocked then
-					LevelList.default.currentIndex = i
-					jd.stateManager:push('Game')
-				end
-			end)
-	end
-	menu:enterSubmenu(entries)
+    local entries = { }
+    local levels = LevelList.default.levels
+    for i = 1, #levels do
+        entries[i] = C.MenuOption(
+            (levels[i].unlocked and strings.level_i or strings.level_i_locked)
+                :format(i),
+            function()
+                if levels[i].unlocked then
+                    LevelList.default.currentIndex = i
+                    jd.stateManager:push('Game')
+                end
+            end)
+    end
+    menu:enterSubmenu(entries)
 end
- 
+
 
 local O = C.MenuOption
 
@@ -363,7 +363,7 @@ local function showSettings(menu)
         local bpp = videoconf.mode.bitsPerPixel
         for mode in jd.VideoMode.all() do
             if mode.bitsPerPixel == bpp then
-                caption = formatResolution(mode)
+                local caption = formatResolution(mode)
                 -- Reports always current resolution in fullscreen mode:
                 --if mode == jd.VideoMode.desktopMode() then
                 --    caption = caption .. strings.resolution_add_desktop
@@ -378,7 +378,7 @@ local function showSettings(menu)
         --print(entries, #entries)
         menu:enterSubmenu(entries)
     end
-    
+
     --[[local]] function changeSettings(menu)
         local idx = menu.currentIndex
         local mnu = menu.menu
@@ -394,15 +394,15 @@ local function showSettings(menu)
             menu:selectEntry(idx)
         end
     end
-    
+
     local function toggleF(setting)
         return function()
             videoconf[setting] = not videoconf[setting]
             changeSettings(menu)
         end
     end
-    
-    entries = {
+
+    local entries = {
         _is_settings_menu = true,
         O(settingstat 'fullscreen', toggleF 'fullscreen'),
         O(settingstat 'vsync', toggleF 'vsync'),
@@ -413,13 +413,13 @@ end
 
 --[[local]] MAINMENU = {
     header = C.makeSpriteHeader('mainmenu_header'),
-    
-	O('new_game', enterStateF 'Game'),
-	O('continue_game', continueGame),
+
+    O('new_game', enterStateF 'Game'),
+    O('continue_game', continueGame),
     O('show_help', enterStateF 'Help'),
-	O('show_credits', enterStateF 'Credits'),
+    O('show_credits', enterStateF 'Credits'),
     O('show_settings', showSettings),
-	O('exit_program', function() return jd.mainloop:quit() end),
+    O('exit_program', function() return jd.mainloop:quit() end),
 }
 
 
