@@ -2,7 +2,7 @@
 -- (except configuration.lua)
 
 --setmetatable(_G, {__newindex = function(self, k, v)
---    jd.log.w(("created global '%s'\n%s"):format(k, debug.traceback()))
+--    jd.log.w(debug.traceback(("created global '%s'"):format(k), 2))
 --    rawset(self, k, v)
 --end})
 
