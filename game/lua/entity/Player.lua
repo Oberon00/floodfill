@@ -28,9 +28,6 @@ local function activateAll(collisions, entity)
     return activated
 end
 
-local function nearestPoint(to, p1, p2)
-    return to:manhattanDistance(p1) < to:manhattanDistance(p2) and p1 or p2
-end
 
 local function mostDistantPoint(to, p1, p2)
     return to:manhattanDistance(p1) > to:manhattanDistance(p2) and p1 or p2
@@ -41,27 +38,32 @@ local function cutMovementFrom(from, to, at)
     return p1 and mostDistantPoint(from, p1, p2) or to
 end
 
-local function cutMovementTo(from, to, at)
-    local p1, p2 = at:clipLine(from, to)
-    return p1 and nearestPoint(from, p1, p2) or to
-end
 
 function M.load(info, layerInfo, data)
     assert(info.objectType == jd.mapInfo.Object.TILE)
+
     local tile = tiles[data.tileMapping.byId[info.tileId]]
+
     local entity = jd.Entity()
+
     local pos = jd.PositionComponent(entity)
+
     local map = data.map
     local tileset = map.tileset
+
     local sprite = jd.Sprite(map.group)
     sprite.texture = tileset.texture
     sprite.textureRect = jd.Rect(
         tileset:texturePosition(info.tileId - 1), tileset.size)
     sprite.origin = jd.Vec2(5, 5)
+
     pos.rect = jd.Rect(info.position + sprite.origin, PLAYER_SIZE)
+
     CollisionInfoComponent(entity, tile)
     GraphicComponent(entity, sprite)
+
     data.objectColliders.objects:add(pos)
+    
     local cgg = jd.CollideableGroupGroup()
     local tilestackcg = jd.TileStackCollideableGroup(data.tileCollisionInfo)
     local tilew = math.min(map.tileset.size.x, map.tileset.size.y)
