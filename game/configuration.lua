@@ -7,6 +7,8 @@ return {
         backgroundColor = jd.Color(255, 0, 255),
         initialState = 'Splash',
         defaultFont  = "Ubuntu-R",
-        splashLevel  = "FloodFillFlow"
+        splashLevel  = "FloodFillFlow",
+        
+        keepSplash = true
     }
 }

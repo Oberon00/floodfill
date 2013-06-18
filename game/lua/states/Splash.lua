@@ -26,7 +26,11 @@ function C:prepare()
     self.level = Level(jd.conf.misc.splashLevel, maplayer.group)
     self.level:start()
     maplayer.view.rect = self.level.world.map.bounds
-    self.level.world.winLevel = skipIntro
+    if not jd.conf.misc.keepSplash then
+        self.level.world.winLevel = skipIntro
+    else
+        self.level.world.winLevel = function() end -- do nothing
+    end
 end
 
 function C:pause()
