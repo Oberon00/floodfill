@@ -3,7 +3,7 @@ URLs abrufbar. Der Benutzername des Sounderstellers ist aus der URL direkt
 ablesbar: http://freesound.org/people/USER/sounds/12345/
 
 button.wav  	    http://freesound.org/people/junggle/sounds/29301/
-lever.wav           http://freesound.org/people/BMacZero/sounds/94131/
+lever.wav           http://freesound.org/people/BMacZero/sounds/94131/         
 menu_click.wav	    http://freesound.org/people/junggle/sounds/28826/
 menu_do.wav         http://freesound.org/people/junggle/sounds/28900/
 splash.wav	        http://freesound.org/people/petenice/sounds/9508/
@@ -11,12 +11,7 @@ level_complete.wav  http://freesound.org/people/jobro/sounds/60444/
 game_complete.wav   http://freesound.org/people/usinggarageband/sounds/152574/
 walk.wav            http://freesound.org/people/DasDeer/sounds/161815/
 
-
-Die Musik stammt vom Album "Im Garten der Schneekugel" (2009) von
-"Das Kraftfuttermischwerk". Das Album kann unter
-http://www.kraftfuttermischwerk.de/blogg/?p=4951 kostenlos heruntergeladen
-werden. Die verwendeten Tracks sind:
-
-dkfmw-richtung_hauptbahnhof.ogg Richtung Hauptbahnhof   #2
-dkfmw-das_alte_schulhaus.ogg    Das alte Schulhaus      #6
-dkfmw-uhlenhorst.ogg            Uhlenhorst              #11
+Alle Sounds stehen unter der Creative Commons Attribution 3.0 Unported
+(CC BY 3.0) Linzenz (http://creativecommons.org/licenses/by/3.0/), außer
+splash.wav: dieser Sound ist in Public Domain (CC0 1.0 Universal (CC0 1.0) 
+Public Domain Dedication, http://creativecommons.org/publicdomain/zero/1.0/).
