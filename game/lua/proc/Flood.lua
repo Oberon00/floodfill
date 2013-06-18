@@ -161,7 +161,7 @@ function C:registerFount(position)
 end
 
 function C:unregisterFount(position)
-    tabutil.erase(self.founts, position)
+    tabutil.listErase(self.founts, position)
 end
 
 function C:canFlow(from, to)

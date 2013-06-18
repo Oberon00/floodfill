@@ -169,6 +169,19 @@ function M.erase(t, ev, n)
     end -- for k, v in pairs(t)
 end -- function M.erase
 
+function M.listErase(t, ev, n)
+    n = n or 1
+    for i = 1, #t do
+        if t[i] == ev then
+            table.remove(t, i)
+            n = n - 1
+            if n == 0 then
+                break
+            end -- if n == 0
+        end -- if v == ev
+    end -- for k, v in pairs(t)
+end -- function M.erase
+
 -- Table which silently discards write access.
 M.EVER_EMPTY_TABLE = { }
 setmetatable(M.EVER_EMPTY_TABLE, {__newindex = function() end})
