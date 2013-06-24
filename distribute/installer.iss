@@ -3,18 +3,18 @@
                     "..\..\VC\redist\x86\Microsoft.VC110.CRT"
 
 #define SFMLDIR AddBackslash(GetEnv("SFML_ROOT")) + "bin"
-#define PROJDIR AddBackslash(GetEnv("JD_PROJ_ROOT"))
+#define JDDIR AddBackslash(GetEnv("JD_ROOT"))
 
-#define EXECUTABLE PROJDIR + "build11\src\Release\jd.exe"
+#define EXECUTABLE JDDIR + "bin\jd.exe"
 #define tmp AddBackslash(GetEnv("TMP"))
 #define GAMENAME "floodfill.jd"
 #define GAME tmp + GAMENAME
-#define BASEDATA tmp + "base.jd"
-#define DOCDIR PROJDIR + "doc"
-#define SOUNDSRCFILE PROJDIR + "dbg\res\snd\sources.txt"
+#define BASEDATA JDDIR + "share\base.jd"
+#define DOCDIR "..\doc"
+#define SOUNDSRCFILE "..\game\res\snd\sources.txt"
 
 #if !FileExists(GAME)
-#   error Run ..\buildInstaller.bat to create the installer.
+#   error Run buildInstaller.bat to create the installer.
 #endif
 
 #define VERSION GetFileVersion(EXECUTABLE)
