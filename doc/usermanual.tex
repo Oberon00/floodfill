@@ -1,0 +1,112 @@
+ % !TeX program = xelatex
+\documentclass[oneside,12pt]{scrartcl}
+
+\usepackage[naustrian]{babel}
+\usepackage{mdwlist} % für Listen mit geringeren Absatzabständen
+%\usepackage{scrpage2}
+\usepackage[german]{keystroke}
+\usepackage{graphicx}
+\usepackage{array} % > and < column definitions
+\usepackage{hyperref}
+\hypersetup{
+	pdftitle={FloodFill -- Ein Logikspiel in C++ und Lua},
+	pdfauthor={Christian Neumüller},
+	bookmarksopen=true,
+	pdfstartview=FitH,
+	hidelinks
+}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures={Required,Common,Contextual,TeX}}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Ubuntu}
+\setmonofont{Consolas}
+
+\newcommand{\fullref}[1]{\autoref{#1} (\nameref{#1}) auf \autopageref{#1}}
+\newcommand{\ui}[1]{\mbox{\textit{#1}}}
+
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\object}[2]{\item[\includegraphics{px/#1.png} #2]}
+\newcommand{\inlpx}[1]{\includegraphics[height=1.3\baselineskip]{px/#1.png}}
+
+\title{\includegraphics[width=\textwidth]{px/FloodFillLogo.png}}
+\subtitle{Benutzerhandbuch}
+\author{Christian Neumüller}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Spielidee}
+\enlargethispage{\baselineskip}
+FloodFill ist ein Logikspiel. Der Spieler steuert seine Figur und betätigt Hebel und Schalter, um Schleusen zu öffnen und zu schließen und somit Wasser, das ihn auch blockieren kann, von einer oder mehreren Quellen zu einem oder mehreren Zielen zu leiten.
+
+Die Schwierigkeit besteht darin, die Hebel in der richtigen Reihenfolge in die richtige Stellung zu bringen.
+
+\section{Systemvorraussetzungen}
+\begin{tabular}{>{\bfseries}rl}
+Betriebssystem	& Windows Vista oder neuer (XP nicht unterstützt!)\\
+Arbeitsspeicher	& 1 GB oder mehr empfohlen \\
+Prozessor		& 1,6 GHz oder schneller \\
+Festplattenspeicher & 15 MB oder mehr empfohlen \\
+Grafikkarte		& OpenGL kompatibel; Intel Grafikkarten nicht empfohlen \\
+\end{tabular}
+
+\section{Installation und Start}
+Stellen Sie sicher, das Ihr Computer mindestens die obigen Systemvorraussetzungen erfüllt. Starten Sie dann das Installationsprogramm (\texttt{FloodFill\_Setup.exe}) und folgen sie den Anweisungen im erscheinenden Fenster.
+
+Je nach den im Installationsprogramm gewählten Optionen könnnen Sie FloodFill entweder direkt über die Verknüpfung am Desktop starten, oder Sie finden das Spiel im Startmenü unter \ui{Alle Programme}.
+
+Anstatt das Installationsprogramm zu benutzen, können sie auch das \texttt{FloodFill.zip}-Archiv entpacken und die darin enthaltene EXE-Datei ausführen, um das Spiel ohne Installation direkt zu spielen.
+
+Die beim Start erscheinende Animation („Splash-Screen“) können Sie durch Drücken einer beliebigen Taste auf der Tastatur überspringen.
+
+\section{Menü}
+
+\subsection{Menüsteuerung}
+An der blauen, vergrößerten Schrift erkennen Sie, welcher Menüeintrag gerade ausgewählt ist. Mit den Auf/Ab-Pfeiltasten \UArrow/\DArrow{} können Sie einen anderen Eintrag auswählen. Drücken Sie Return \Return um ihre Auswahl zu bestätigen.\footnote{Alternative Steuerung: Auf/ab mit \keystroke{W}/\keystroke{S}, bestätigen mit der Leertaste \Spacebar.}
+
+Falls mehr Einträge verfügbar sind, als auf den Bildschirm passen, können sie mit den Links/Rechts-Pfeiltasten \LArrow/\RArrow{}\footnote{Alternativ \keystroke{A}/\keystroke{D}.} zur nächsten bzw. vorherigen Bildschirmseite wechseln. Ob dies möglich, also eine nächste bzw. vorherige Bildschirmseite vorhanden ist, zeigt Ihnen der weiße Text neben dem „\textasciicircum“ in der linken oberen Bildschirmecke an: beginnt er mit einem Pfeilchen nach links „<“, dann gibt es eine vorherige Seite, endet er mit einem Pfeilchen nach rechts „>“, dann gibt es (auch) eine nächste. Die Zahlen dazwischen zeigen die aktuelle Seite bzw. die Gesamtanzahl der Seiten an. „1/4>“ bedeutet z.\,B., dass Sie sich auf der Bildschirmseite Nummer 1 von 4 befinden. Sie können also zur nächsten Seite wechseln („>“), es gibt aber keine vorherige. Falls kein solcher Text erscheint, gibt es nur eine Bildschirmseite.
+
+Mit der Escape-Taste \Esc kehren sie von Untermenüs (\ui{Spiel fortsetzen} und \ui{Einstellugen}; erkennbar am Pfeilchen „\textasciicircum“ in der linken oberen Bildschirmecke) ins Hauptmenü zurück.
+
+\subsection{Hauptmenüeinträge}
+\paragraph{} Der 1. Eintrag \ui{Neues Spiel} startet direkt mit dem ersten Level ins Spiel.
+
+\paragraph{} Der 2. Eintrag \ui{Spiel fortsetzen} erlaubt Ihnen, ein bereits freigeschaltetes Level direkt zu starten, ohne alle davor noch einmal spielen zu müssen. Ein noch nicht freigeschaltetes Level erkennen Sie daran, dass es in eckigen Klammern steht. Wenn sie ein solches auswählen, passiert nichts. Das erste Level ist immer freigeschaltet (es kann auch durch Auswahl von \ui{Neues Spiel} im Hauptmenü erreicht werden). Jedes weitere Level wird freigeschaltet, sobald sie es durch Durchspielen des vorherigen Levels erreichen.
+
+\paragraph{} Der 3. Eintrag \ui{Credits} zeigt Informationen zu FloodFill an. Mit einer beliebigen Taste kehren Sie zum Hauptmenü zurück.
+
+\paragraph{} Der 4. Eintrag \ui{Einstellungen} öffnet ein Untermenü in dem Sie zwischen verschiedenen Bildauflösungen wählen können, sowie zwischen Vollbild- und Fenstermodus wechseln und vertikale Syncronisation (VSync) ein- oder ausschalten können. Die Optionen werden gespeichert und auch beim nächsten Spielstart angewandt.
+
+\paragraph{} Der 5. Eintrag \ui{Beenden} beendet das Spiel.
+
+
+\section{Spiel}
+\subsection{Spielziel}
+Machen Sie den Weg zum Ziel \inlpx{goal} für das Wasser frei! Das Flussbett ist durch Schleusen \inlpx{lock} blockiert. Betätigen Sie die entsprechenden Schalter und Hebel um sie zu öffnen \inlpx{lock_open}. Dies ist meist nicht ohne Umwege möglich. Oft werden Sie zuerst Schleusen schließen müssen, um das Wasser an beschädigten Brücken überqueren zu können und somit zu Hebeln für andere Schlueusen zu gelangen.
+
+Wenn das Wasser das Ziel erreicht hat, gelangen Sie ins nächste Level, das somit auch im „Spiel fortsetzen“ Menü freigeschaltet ist.
+
+\subsection{Spielsteuerung}
+Sie steuern den gelben Smiley \inlpx{player} mit \keystroke{W} für „nach oben“, \keystroke{S} für „nach unten“, \keystroke{A} für „nach links“ und \keystroke{D} für „nach rechts“. Indem Sie gegen ein geignetes Objekt laufen, lösen Sie Aktionen aus. Mit \keystroke{F5} können sie das Level neu starten, falls sie sich in eine aussichtslose Lage manövriert haben. Mit der Escape-Taste \Esc wird das Spiel sofort beendet, und sie kommen ins Hauptmenü.
+
+\subsection{Objekte}
+\begin{description}
+\object{fount}{Quellen} sind die Ausgangspunkte des Wassers. Manchmal gibt es mehrerere, oft aber nur eine einzige Quelle.
+\object{bridge_low}{Beschädigte Brücken} können nur überquert werden, wenn kein Wasser darunter fließt.
+\object{lava_passage}{Lava-Felder} sind das Gegenteil von beschädigten Brücken: Nur wenn Wasser darunter fließt, kühlen sie weit genug ab, um sie überqueren zu können.
+\object{oneway}{Einbahnen} können nicht gegen Pfeilrichtung durchquert werden: Die Pfeilspitzte bildet ein 
+	unüberwindbares Hindernis.
+\object{button_toggle}{Knöpfe} öffnen geschlossene Schleusen und schließen offene. Wie alle anderen Knöpfe und Hebel können sie mit nur einer, mehreren oder auch mit gar keiner Schleuse verbunden sein. Im letzen Fall haben sie keine Wirkung.
+\object{lever}{Hebel} öffnen Schleusen, wenn sie grün sind und schließen sie, wenn sie rot sind. Beim Betätigen ändert sich auch die Farbe, so dass sie sich bei wiederholter Betätigung wie Knöpfe verhalten. Wie An- und Aus-Knöpfe bewirken einige jedoch bei manchen verbundenen Schleusen das Gegenteil. Ausprobieren!
+\object{button_on}{An-Knöpfe} öffnen geschlossene Schleusen und lassen bereits geöffnete geöffnet.
+\object{button_off}{Aus-Knöpfe} sind, wie der Name schon sagt, das Gegenteil der An-Knöpfe. Sie schließen offene  Schleusen und lassen geschlossene geschlossen.
+\object{fount_and_closed}{Staubecken} müssen von mindestens zwei Seiten mit Wasser befüllt werden, damit das Wasser auf den anderen wieder weiterfließen kann. Ein so gefülltes Staubecken erkennt man an dem etwas dunkleren Wasser.
+\object{goal}{Ziele} müssen mit Wasser geflutet werden, um das Level zu gewinnen, und ins nächste zu gelangen. Gibt es mehrerere, reicht es eines zu „bewässern“.
+\object{goal_part}{Türkise Ziele} müssen alle gleichzeitig unter Wasser sein, um das Level zu gewinnen.
+\object{goal_lose}{Rote Ziele} dürfen nicht mit Wasser in Berührung kommen, sonst ist das Level verloren und muss neu gestartet werden.
+\object{goal_lose_part}{Violette Ziele} sollten ebenfalls nicht mit Wasser in Berührung kommen, allerdings ist das Spiel erst verloren, wenn alle violetten Ziele gleichzeitig im Wasser sind.
+\end{description}
+\end{document}

@@ -17,3 +17,11 @@ _vld_memleaks.log
 
 # Test ZIPs
 *.zip
+
+# TeX temporary and output files
+*.aux
+*.log
+*.out
+*.toc
+*.pdf
+*.synctex.gz
