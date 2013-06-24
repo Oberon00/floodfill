@@ -1,7 +1,7 @@
 @echo off
 echo jd is starting...
-cd %~dp0
-..\build11\src\Debug\jd.exe || goto :err
+cd %~dp0\game
+..\..\build11\src\RelWithDebInfo\jd.exe || goto :err
 
 goto :EOF
 
