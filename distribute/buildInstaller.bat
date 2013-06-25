@@ -36,7 +36,6 @@ copy /Y %SFML_ROOT%\bin\openal32.dll "%zipsrc%" || goto :E
 copy /Y %SFML_ROOT%\bin\libsndfile-1.dll "%zipsrc%" || goto :E
 xcopy /Y "%VS110COMNTOOLS%\..\..\VC\redist\x86\Microsoft.VC110.CRT\msvc*.dll" "%zipsrc%" || goto :E
 copy /Y ..\doc\usermanual.pdf "%zipsrc%" || goto :E
-copy /Y ..\game\res\snd\sources.txt "%zipsrc%\Sound-Quellen.txt" || goto :E
 copy /Y FloodFill.ico "%zipsrc%" || goto :E
 copy /Y zipdesktop.ini "%zipsrc%\desktop.ini" || goto :E
 attrib "%zipsrc%\desktop.ini" +S +H -I
@@ -49,6 +48,6 @@ echo Done.
 goto :eof
 
 :E
-	echo An error occured. Code: %ERRORLEVEL%
-	pause
+    echo An error occured. Code: %ERRORLEVEL%
+    pause
 goto :eof

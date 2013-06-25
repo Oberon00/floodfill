@@ -25,3 +25,9 @@ _vld_memleaks.log
 *.toc
 *.pdf
 *.synctex.gz
+
+*.exe
+*.bak
+~*
+*.tmp
+tileset-src/map.txt
