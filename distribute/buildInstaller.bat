@@ -25,8 +25,15 @@ texify --pdf -b -q --engine=xetex usermanual.tex || goto :E
 popd
 
 if exist "%ffdata%" del "%ffdata%" || goto :E
-7z a -tzip "%ffdata%" ..\game\* -x@..\.gitignore -x!.git\ -x!.gitignore -x!*.bat || goto :E
-
+7z a -tzip "%ffdata%" ..\game\* -x@..\.gitignore -x!.git\ -x!.gitignore -x!*.bat -x!strings*.lua || goto :E
+md %TMP%\lua\data\
+copy ..\game\lua\data\strings-de.lua %TMP%\lua\data\strings.lua || goto :E
+pushd %TMP%
+    7z a -tzip "%ffdata%" lua\data\strings.lua || goto :E
+    del lua\data\strings.lua || goto :E
+    rmdir lua\data
+    rmdir lua
+popd
 ISCC /q installer.iss /o%setupdir% /fFloodFill_Setup || goto :E
 echo Done.
 
