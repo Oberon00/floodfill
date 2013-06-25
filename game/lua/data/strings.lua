@@ -1,33 +1,32 @@
 --[[
     module data.strings
-    language: German
+    language: English
 --]]
 
 return {
 
 -- State: Splash
-    press_any_key = "Drücken Sie eine beliebige Taste . . .",
+    press_any_key = "Press any key . . .",
 
 -- State: Menu
-    menu_back = "ZURÜCK",
+    menu_back = "BACK",
 
     -- Main menu
-    new_game = "Neues Spiel",
-    continue_game = "Spiel fortsetzen",
-    show_help = "Hilfe",
+    new_game = "New Game",
+    continue_game = "Continue Game",
     show_credits = "Credits",
-    show_settings = "Einstellungen",
-    exit_program = "Beenden",
+    show_settings = "Settings",
+    exit_program = "Exit",
 
     -- Settings
-    setting_enabled = "ein",
-    setting_disabled = "aus",
-    fullscreen_stat = "Vollbild: %s",
+    setting_enabled = "on",
+    setting_disabled = "off",
+    fullscreen_stat = "Fullscreen: %s",
     vsync_stat = "VSync: %s",
-    resolution_stat = "Auflösung: %s",
+    resolution_stat = "Resolution: %s",
     resolution_add_desktop = " (Desktop)",
-    resolution_add_current = " (aktuell)",
-    resolution_title = "Auflösung wählen",
+    resolution_add_current = " (current)",
+    resolution_title = "Select Resolution",
 
 
     -- Level selection
@@ -37,19 +36,16 @@ return {
     level_i = "Level %i",
 
 -- State: Game
-    lose_level = "Verloren!",
-
+    lose_level = "You lost!",
 
 -- State: Help
     help_text =
-[[FloodFill ist ein Logikspiel. Der Spieler steuert seine Figur und betätigt Hebel und Schalter, um Schleusen zu öffnen und zu schließen und somit Wasser, das ihn auch blockieren kann, von einer oder mehreren Quellen zu einem oder mehreren Zielen zu leiten.
+[[Move with WASD, actions are automatic. Restart level with F5.
 
-Die Schwierigkeit besteht darin, die Hebel in der richtigen Reihenfolge in die richtige Stellung zu bringen.
+Make the water flow from the source(s) to the target(s), but avoid the red
+and violet targets.
 
-Zum Bewegen des Spielers werden die W (auf), A (links), S (ab), D (rechts) Tasten verwendet. Wenn der Spieler an ein Objekt anstößt, das eine Aktion auslöst, geschieht dies automatisch. Mit F5 kann das Level neu gestartet werden.
-Im Menü kann auch mit den Pfeiltasten auf/ab eine Auswahl getroffen werden, und mit links/rechts zwischen mehreren Seiten (falls verfügbar) gewechselt werden. Mit Enter oder Leertaste wird die Auswahl bestätigt.
-
-Für mehr und ausführlichere Hilfe sehen Sie bitte im FloodFill-Handbuch (usermanual.pdf) nach.]]
+Further help is currently only available in German in usermanual.pdf. Sorry. :-(]]
 ,
 
 -- Debugging
