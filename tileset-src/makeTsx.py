@@ -1,3 +1,7 @@
+# FloodFill -- Copyright (c) Christian Neumüller 2012--2013
+# This file is subject to the terms of the BSD 2-Clause License.
+# See LICENSE.txt or http://opensource.org/licenses/BSD-2-Clause
+
 import re
 import os.path
 
@@ -41,7 +45,7 @@ def import_animations(afn):
             animations[tokens[0]] = map(int, tokens[1:])
     return animations
 
-def map_to_tsx(tmap, anims, tw, th, imgn, tilesPerRow, ofn): 
+def map_to_tsx(tmap, anims, tw, th, imgn, tilesPerRow, ofn):
     def doformattile(tid, tname):
         if tname in anims:
             tanim = TSX_TILE_ANIMATION.format(
@@ -49,7 +53,7 @@ def map_to_tsx(tmap, anims, tw, th, imgn, tilesPerRow, ofn):
         else:
             tanim = ""
         return TSX_TILE.format(tid=tid, tname=tname, tanim=tanim)
-    
+
     def formattile(tile):
         tname, x, y, w, h = tile
         if h != th:
@@ -62,7 +66,7 @@ def map_to_tsx(tmap, anims, tw, th, imgn, tilesPerRow, ofn):
             return "".join((doformattile(tid + i, "{}#{}".format(tname, i + 1))
                     for i in xrange(colspan)))
         return doformattile(tid, tname)
-        
+
     name = os.path.splitext(os.path.basename(ofn))[0]
 
     with open(ofn, "w") as f:
@@ -70,8 +74,8 @@ def map_to_tsx(tmap, anims, tw, th, imgn, tilesPerRow, ofn):
         f.writelines((formattile(tile) for tile in tmap))
         f.write(TSX_END)
 
-    
-    
+
+
 if __name__ == "__main__":
     map_to_tsx(
         import_map("map.txt"),

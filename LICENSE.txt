@@ -1,0 +1,34 @@
+FloodFill -- Copyright (c) 2012--2013, Christian Neumüller
+All rights reserved.
+
+All source code, including game/pst/unlocked and any other files are subject to
+the terms of the BSD 2-Clause License
+(http://opensource.org/licenses/BSD-2-Clause), unless said otherwise below.
+
+All artwork (namely ico, png, pdn and xcf files) is licensed under the Creative
+Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) License 
+(http://creativecommons.org/licenses/by/3.0/).
+
+The file game/res/fnt/Ubuntu-R.ttf is licensed under the Ubuntu Font
+License Version 1.0 (http://font.ubuntu.com/licence/).
+
+All Sounds (game/res/snd/*) are available at freesound.org. For more details,
+see the URLs listed below. The sound's creator's name can be seen in USER part
+of the URL: http://freesound.org/people/USER/sounds/12345/
+
+button.wav  	    http://freesound.org/people/junggle/sounds/29301/
+lever.wav           http://freesound.org/people/BMacZero/sounds/94131/         
+menu_click.wav	    http://freesound.org/people/junggle/sounds/28826/
+menu_do.wav         http://freesound.org/people/junggle/sounds/28900/
+splash.wav	        http://freesound.org/people/petenice/sounds/9508/
+level_complete.wav  http://freesound.org/people/jobro/sounds/60444/
+game_complete.wav   http://freesound.org/people/usinggarageband/sounds/152574/
+walk.wav            http://freesound.org/people/DasDeer/sounds/161815/
+
+All sounds are licensed under the Creative Commons Attribution 3.0 Unported
+(CC BY 3.0) License (http://creativecommons.org/licenses/by/3.0/), except for
+splash.wav: this Sound is in Public Domain (CC0 1.0 Universal (CC0 1.0) 
+Public Domain Dedication, http://creativecommons.org/publicdomain/zero/1.0/).
+
+For completeness, the mentioned licenses are included in the correspondingly
+named files in the licenses subdirectory.

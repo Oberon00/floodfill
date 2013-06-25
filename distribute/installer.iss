@@ -11,7 +11,8 @@
 #define GAME tmp + GAMENAME
 #define BASEDATA JDDIR + "share\base.jd"
 #define DOCDIR "..\doc"
-#define SOUNDSRCFILE "..\game\res\snd\sources.txt"
+#define LICENSE "License.rtf"
+#define LICENSEDIR "..\licenses"
 
 #if !FileExists(GAME)
 #   error Run buildInstaller.bat to create the installer.
@@ -35,6 +36,7 @@ AppReadmeFile       = "{app}\usermanual.pdf"
 MinVersion          = 6.0
 UninstallDisplayIcon= "{app}\{#APPN}.ico"
 AppCopyright        = "{#COPYRIGHT}"
+LicenseFile         = "{#LICENSE}"
 
 VersionInfoVersion        = "{#VERSION}"
 VersionInfoCompany        = "{#AUTHOR}"
@@ -51,9 +53,12 @@ Name: desktopicon; Description: "Desktopverknüpfung erstellen"; \
 [Languages]
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 
+[Dirs]
+Name: "{app}\licenses"
 
 [Files]
 Source: "{#EXECUTABLE}"; DestDir: "{app}"
+Source: "{#LICENSE}"; DestDir: "{app}"
 Source: "{#SFMLDIR}\libsndfile-1.dll"; DestDir: "{app}"
 Source: "{#SFMLDIR}\openal32.dll"; DestDir: "{app}"
 Source: "{#VCREDISTDIR}\msvc*.dll"; DestDir: "{app}"
@@ -61,7 +66,7 @@ Source: "floodfill.ico"; DestDir: "{app}"
 Source: "{#GAME}"; DestDir: "{app}"
 Source: "{#BASEDATA}"; DestDir: "{app}"
 Source: "{#DOCDIR}\usermanual.pdf"; DestDir: "{app}"
-Source: "{#SOUNDSRCFILE}"; DestName: "Sound-Quellen.txt"; DestDir: "{app}"
+Source: "{#LICENSEDIR}\*"; DestDir: "{app}\licenses"; Excludes: "*-template.*"
 
 
 #define PARAMS 'Parameters: """{app}\' + GAMENAME + '"""'
@@ -81,5 +86,6 @@ Filename: "{app}\usermanual.pdf"; \
 Name: "{group}\{#APPN}"; {#ICONSETTINGS}
 Name: "{commondesktop}\{#APPN}"; {#ICONSETTINGS}; Tasks: desktopicon
 Name: "{group}\{#APPN} Benutzerhandbuch"; Filename: "{app}\usermanual.pdf"
-Name: "{group}\Quellen der {#APPN}-Sounds"; Filename: "{app}\Sound-Quellen.txt"
+Name: "{group}\{#APPN} Lizenzübersicht"; Filename: "{app}\License.rtf"
+Name: "{group}\{#APPN} Lizenztexte"; Filename: "{app}\licenses"
 Name: "{group}\{#APPN} entfernen"; Filename: "{uninstallexe}"

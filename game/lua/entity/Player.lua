@@ -1,3 +1,7 @@
+-- FloodFill -- Copyright (c) Christian Neumüller 2012--2013
+-- This file is subject to the terms of the BSD 2-Clause License.
+-- See LICENSE.txt or http://opensource.org/licenses/BSD-2-Clause
+
 require 'comp.Graphic'
 require 'comp.CollisionInfo'
 require 'comp.InputMoved'
@@ -63,7 +67,7 @@ function M.load(info, layerInfo, data)
     GraphicComponent(entity, sprite)
 
     data.objectColliders.objects:add(pos)
-    
+
     local cgg = jd.CollideableGroupGroup()
     local tilestackcg = jd.TileStackCollideableGroup(data.tileCollisionInfo)
     local tilew = math.min(map.tileset.size.x, map.tileset.size.y)

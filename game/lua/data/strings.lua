@@ -1,3 +1,7 @@
+-- FloodFill -- Copyright (c) Christian Neumüller 2012--2013
+-- This file is subject to the terms of the BSD 2-Clause License.
+-- See LICENSE.txt or http://opensource.org/licenses/BSD-2-Clause
+
 --[[
     module data.strings
     language: English
@@ -14,6 +18,7 @@ return {
     -- Main menu
     new_game = "New Game",
     continue_game = "Continue Game",
+    show_help = "Help",
     show_credits = "Credits",
     show_settings = "Settings",
     exit_program = "Exit",

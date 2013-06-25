@@ -1,4 +1,8 @@
-::@echo off
+@echo off
+REM FloodFill -- Copyright (c) Christian Neumüller 2012--2013
+REM This file is subject to the terms of the BSD 2-Clause License.
+REM See LICENSE.txt or http://opensource.org/licenses/BSD-2-Clause
+
 REM Requires InnoSetup 5 and 7-Zip installed in standard locations,
 REM MikTeX in PATH and Visual Studio 11 installed.
 REM JD_ROOT must be set to jd's install root (where the share and bin
@@ -38,6 +42,8 @@ xcopy /Y "%VS110COMNTOOLS%\..\..\VC\redist\x86\Microsoft.VC110.CRT\msvc*.dll" "%
 copy /Y ..\doc\usermanual.pdf "%zipsrc%" || goto :E
 copy /Y FloodFill.ico "%zipsrc%" || goto :E
 copy /Y zipdesktop.ini "%zipsrc%\desktop.ini" || goto :E
+xcopy /Y ..\licenses\* "%zipsrc%\lincenses\"
+copy /Y License.rtf "%zipsrc%"
 attrib "%zipsrc%\desktop.ini" +S +H -I
 attrib "%zipsrc%" +R -I
 
