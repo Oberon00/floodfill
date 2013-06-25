@@ -1,4 +1,4 @@
-#define APPN     "FloodFill"
+ï»¿#define APPN     "FloodFill"
 #define VCREDISTDIR AddBackslash(GetEnv("VS110COMNTOOLS")) + \
                     "..\..\VC\redist\x86\Microsoft.VC110.CRT"
 
@@ -47,8 +47,8 @@ VersionInfoProductVersion = "{#VERSION}"
 VersionInfoProductTextVersion = "{#VERSIONSTR}"
 
 [Tasks]
-Name: desktopicon; Description: "Desktopverknüpfung erstellen"; \
-  GroupDescription: "Zusätzliche Verknüpfungen:"
+Name: desktopicon; Description: "DesktopverknÃ¼pfung erstellen"; \
+  GroupDescription: "ZusÃ¤tzliche VerknÃ¼pfungen:"
 
 [Languages]
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"
@@ -86,6 +86,6 @@ Filename: "{app}\usermanual.pdf"; \
 Name: "{group}\{#APPN}"; {#ICONSETTINGS}
 Name: "{commondesktop}\{#APPN}"; {#ICONSETTINGS}; Tasks: desktopicon
 Name: "{group}\{#APPN} Benutzerhandbuch"; Filename: "{app}\usermanual.pdf"
-Name: "{group}\{#APPN} Lizenzübersicht"; Filename: "{app}\License.rtf"
+Name: "{group}\{#APPN} LizenzÃ¼bersicht"; Filename: "{app}\License.rtf"
 Name: "{group}\{#APPN} Lizenztexte"; Filename: "{app}\licenses"
 Name: "{group}\{#APPN} entfernen"; Filename: "{uninstallexe}"
