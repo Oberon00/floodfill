@@ -9,7 +9,7 @@
 #define tmp AddBackslash(GetEnv("TMP"))
 #define GAMENAME "floodfill.jd"
 #define GAME tmp + GAMENAME
-#define BASEDATA JDDIR + "share\base.jd"
+#define BASEDATA JDDIR + "share\jade-engine\base.jd"
 #define DOCDIR "..\doc"
 #define LICENSE "License.rtf"
 #define LICENSEDIR "..\licenses"

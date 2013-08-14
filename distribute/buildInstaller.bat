@@ -11,7 +11,7 @@ REM SFML_ROOT must be set to SFML 2's install root (where the include, bin, ...
 REM directories are located).
 setlocal
 set ffdata=%TMP%\floodfill.jd
-set basedata=%JD_ROOT%\share\base.jd
+set basedata=%JD_ROOT%\share\jade-engine\base.jd
 set zipdist=%cd%\FloodFill.zip
 set setupdir=%cd%
 cd %~dp0

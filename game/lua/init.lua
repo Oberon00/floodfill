@@ -10,8 +10,8 @@
 --    rawset(self, k, v)
 --end})
 
--- jd.svc.foo() -> jd.foo
-local function e(n) jd[n] = jd.svc[n]() end
+-- Compatibility --
+local function e(n) jd[n] = jd.svc[n] end
 e 'mainloop'
 e 'stateManager'
 e 'drawService'
@@ -19,6 +19,14 @@ e 'eventDispatcher'
 e 'timer'
 e 'soundManager'
 e = nil
+
+do local dsp = jd.svc.eventDispatcher
+    function jd.kb.isKeyPressed(...)
+        return dsp:isKeyPressed(...)
+    end
+end
+
+----
 
 -- make pseudo keywords available
 require 'oo' -- lclass
